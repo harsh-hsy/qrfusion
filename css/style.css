@@ -23,7 +23,7 @@
   --secondary-button-bg-hover: #e8eaed;
   --toggle-bg: #e8eaed;
   --error-color: #d93025;
-  --icon-color: hsla(240, 87%, 50%, 0.6);
+  --icon-color: rgba(32, 33, 36, 0.85);
   --qr-wrapper-bg: rgba(0, 0, 0, 0.02);
   --primary-button-text: #ffffff;
   --toggle-active-text: #ffffff;
@@ -50,7 +50,6 @@ body {
   line-height: 1.6;
   background: linear-gradient(135deg, #e6f0ff 0%, #fde2e6 100%);
   background-attachment: fixed;
-  transition: 0.3s;
 }
 
 .page-content {
@@ -112,7 +111,6 @@ body.dark-theme {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-header);
-  transition: background 0.3s, border-bottom 0.3s;
 }
 
 .logo h1 {
@@ -208,8 +206,6 @@ body.dark-theme {
   border: 1px solid var(--border-header);
   border-radius: var(--border-radius-md);
   box-shadow: 0 8px 32px 0 var(--shadow-color);
-  transition: 0.3s;
-  /* Ensure content doesn't overflow horizontally */
   overflow-x: hidden;
 }
 
@@ -264,7 +260,6 @@ body.dark-theme {
   border: 1px solid var(--border-inputs);
   border-radius: 20px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
 }
 
 body.dark-theme .tab {
@@ -296,7 +291,6 @@ body.dark-theme .tab:hover {
 .tab.tab-active:focus {
   outline: none;
 }
-
 /* --- Forms (Grid and Sub-Headings) --- */
 .form-container {
   display: block;
@@ -359,7 +353,6 @@ body.dark-theme .tab:hover {
   background-color: var(--secondary-button-bg);
   border: 1px solid var(--border-inputs);
   border-radius: var(--border-radius-sm);
-  transition: all 0.2s;
   resize: none; /* Disables resizing on all elements by default */
   /* Add word-wrap and overflow-wrap for text inputs to prevent overflow */
   word-wrap: break-word;
@@ -559,7 +552,6 @@ input[type="color"]::-moz-color-swatch {
   border-radius: var(--border-radius-sm);
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .download-button:hover:not(:disabled) {
@@ -592,7 +584,6 @@ input[type="color"]::-moz-color-swatch {
   border-radius: var(--border-radius-sm);
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease-in-out;
 }
 
 body.dark-theme .remove-logo-btn:hover {
@@ -682,7 +673,6 @@ body.dark-theme .remove-logo-btn:hover {
   border-radius: var(--border-radius-sm);
   text-align: center;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
 }
 
 .export-button:disabled {
@@ -1027,4 +1017,5 @@ input[type="datetime-local"]::-webkit-datetime-edit-ampm-field {
   transform: translateY(-2px);
   box-shadow: var(--export-button-shadow-hover);
   filter: brightness(1.1);
+  transition: all 0.5s;
 }

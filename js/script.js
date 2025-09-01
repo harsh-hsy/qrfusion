@@ -79,17 +79,25 @@ document.addEventListener("DOMContentLoaded", () => {
   bgColorInput.value = "#ffffff";
 
   // --- THEME ---
-  const applyTheme = (theme) =>
+  const applyTheme = (theme) => {
     document.body.classList.toggle("dark-theme", theme === "dark");
+  };
+
+  // Always start in light theme unless user toggles manually
+  let savedTheme = localStorage.getItem("theme");
+  if (!savedTheme) {
+    savedTheme = "light";
+    localStorage.setItem("theme", "light");
+  }
+
+  applyTheme(savedTheme);
+  themeToggle.checked = savedTheme === "dark";
+
   themeToggle.addEventListener("change", () => {
     const newTheme = themeToggle.checked ? "dark" : "light";
     localStorage.setItem("theme", newTheme);
     applyTheme(newTheme);
   });
-
-  const savedTheme = localStorage.getItem("theme") || "light";
-  applyTheme(savedTheme);
-  themeToggle.checked = savedTheme === "dark";
 
   // --- Helpers ---
   const getInputValue = (id) => document.getElementById(id)?.value.trim() || "";
