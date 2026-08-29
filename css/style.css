@@ -252,6 +252,7 @@ body.dark-theme {
 }
 
 .tab {
+  display: inline-block;
   padding: 0.5rem 1.25rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -260,6 +261,7 @@ body.dark-theme {
   border: 1px solid var(--border-inputs);
   border-radius: 20px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 body.dark-theme .tab {

@@ -52,6 +52,96 @@ document.addEventListener("DOMContentLoaded", () => {
     placeholderData: "https://qrfusion.netlify.app",
   };
 
+  const PAGE_CONFIG = {
+    text: {
+      path: "/text",
+      title: "Free Text & URL QR Code Generator | QR Fusion",
+      description: "Create a free custom QR code for any text or URL. Customize colors, shapes, size, and logo, then download it instantly.",
+    },
+    vcard: {
+      path: "/vcard",
+      title: "Free vCard QR Code Generator | QR Fusion",
+      description: "Create a customizable vCard QR code for contact details, phone numbers, email, address, and business information.",
+    },
+    wifi: {
+      path: "/wifi",
+      title: "Free Wi-Fi QR Code Generator | QR Fusion",
+      description: "Create a Wi-Fi QR code so guests can securely join your network by scanning instead of typing the password.",
+    },
+    event: {
+      path: "/event",
+      title: "Free Event QR Code Generator | QR Fusion",
+      description: "Create an event QR code with title, date, time, location, and description for quick calendar access.",
+    },
+    social: {
+      path: "/social",
+      title: "Free Social Media QR Code Generator | QR Fusion",
+      description: "Create a custom QR code for Instagram, Facebook, LinkedIn, YouTube, TikTok, X, or Pinterest profiles.",
+    },
+    appstore: {
+      path: "/app-store",
+      title: "Free App Store QR Code Generator | QR Fusion",
+      description: "Create a QR code for an Apple App Store or Google Play link and help users reach your app instantly.",
+    },
+    email: {
+      path: "/email",
+      title: "Free Email QR Code Generator | QR Fusion",
+      description: "Create an email QR code with a recipient, subject, and message body for quick email composition.",
+    },
+    sms: {
+      path: "/sms",
+      title: "Free SMS QR Code Generator | QR Fusion",
+      description: "Create a customizable SMS QR code with a phone number and pre-filled text message.",
+    },
+    location: {
+      path: "/location",
+      title: "Free Location QR Code Generator | QR Fusion",
+      description: "Create a location QR code from an address or Google Maps link for fast and convenient navigation.",
+    },
+    payment: {
+      path: "/payment",
+      title: "Free Payment QR Code Generator | QR Fusion",
+      description: "Create a QR code for UPI payment details or bank account information with custom styling.",
+    },
+  };
+
+  const HOME_PAGE = {
+    path: "/",
+    title: "QR Fusion - Free & Advanced QR Code Generator",
+    description:
+      "Create free custom QR codes for URLs, contacts, Wi-Fi, events, social profiles, email, SMS, locations, and payments.",
+  };
+
+  const normalizePath = (path) =>
+    path.length > 1 ? path.replace(/\/+$/, "").toLowerCase() : path;
+  const isLocalDevelopment = ["localhost", "127.0.0.1"].includes(
+    window.location.hostname
+  );
+  const getTabFromPath = () => {
+    const localTab = new URLSearchParams(window.location.search).get("type");
+    if (localTab && PAGE_CONFIG[localTab]) return localTab;
+
+    const path = normalizePath(window.location.pathname);
+    if (path === "/") return "text";
+    return (
+      Object.entries(PAGE_CONFIG).find(([, page]) => page.path === path)?.[0] ||
+      "text"
+    );
+  };
+  const updatePageMetadata = (tabName) => {
+    const isHomepage =
+      normalizePath(window.location.pathname) === "/" &&
+      !new URLSearchParams(window.location.search).has("type");
+    const page =
+      isHomepage ? HOME_PAGE : PAGE_CONFIG[tabName];
+    if (!page) return;
+    document.title = page.title;
+    document.getElementById("page-description")?.setAttribute("content", page.description);
+    document
+      .getElementById("canonical-url")
+      ?.setAttribute("href", `https://${CONFIG.websiteUrl}${page.path}`);
+  };
+
   if (wifiPasswordInput && toggleWifiPasswordBtn) {
     toggleWifiPasswordBtn.addEventListener("click", () => {
       const isPassword = wifiPasswordInput.type === "password";
@@ -60,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  let currentTab = "text";
+  let currentTab = getTabFromPath();
   let logoImage = null;
   let emailValidationTimeout;
   const PREVIEW_SIZE = 240;
@@ -591,13 +681,32 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   });
 
   tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
+    tab.addEventListener("click", (event) => {
+      event.preventDefault();
       tabs.forEach((t) => t.classList.remove("tab-active"));
       tab.classList.add("tab-active");
       currentTab = tab.dataset.tab;
+      const page = PAGE_CONFIG[currentTab];
+      const destination = isLocalDevelopment
+        ? `/?type=${currentTab}`
+        : page?.path;
+      if (destination && `${window.location.pathname}${window.location.search}` !== destination) {
+        window.history.pushState({ tab: currentTab }, "", destination);
+      }
+      updatePageMetadata(currentTab);
       showForm(currentTab);
       scheduleUpdate();
     });
+  });
+
+  window.addEventListener("popstate", () => {
+    currentTab = getTabFromPath();
+    tabs.forEach((tab) =>
+      tab.classList.toggle("tab-active", tab.dataset.tab === currentTab)
+    );
+    updatePageMetadata(currentTab);
+    showForm(currentTab);
+    scheduleUpdate();
   });
 
   formWrapper.addEventListener("input", (e) => {
@@ -690,6 +799,10 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
 
   // --- Init ---
 
+  tabs.forEach((tab) =>
+    tab.classList.toggle("tab-active", tab.dataset.tab === currentTab)
+  );
+  updatePageMetadata(currentTab);
   showForm(currentTab);
   updateQRCode();
   updateRemoveButtonState();
