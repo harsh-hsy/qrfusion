@@ -105,6 +105,30 @@
 .faq-item p {
   color: var(--text-secondary);
 }
+
+.slug-seo-section p {
+  max-width: 760px;
+  margin: 0 auto 1.25rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.slug-seo-section ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.slug-seo-section li {
+  padding: 1rem;
+  color: var(--text-secondary);
+  background: var(--secondary-button-bg);
+  border: 1px solid var(--border-inputs);
+  border-radius: var(--border-radius-sm);
+  text-align: center;
+}
 /* --- FOOTER --- */
 .app-footer {
   text-align: center;
@@ -146,5 +170,8 @@ body.dark-theme .app-footer {
   }
   .info-section h2 {
     font-size: 1.75rem;
+  }
+  .slug-seo-section ul {
+    grid-template-columns: 1fr;
   }
 }

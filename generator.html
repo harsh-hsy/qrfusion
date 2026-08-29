@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      id="page-description"
+      name="description"
+      content="A free, advanced online tool to create custom QR codes for URLs, contact info, Wi-Fi, events, and more. Customize colors, shapes, and add your own logo."
+    />
+    <title>QR Fusion - Free & Advanced QR Code Generator</title>
+    <link id="canonical-url" rel="canonical" href="https://qrfusion.netlify.app/create" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+<link rel="shortcut icon" href="/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="QR Fusion" />
+<link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/about.css" />
+  </head>
+  <body class="generator-page">
+    <header class="app-header">
+      <a class="logo" href="/" aria-label="QR Fusion home">
+        <h1>QR Fusion</h1>
+      </a>
+      <nav class="generator-header-links" aria-label="Generator navigation">
+        <a href="/">Home</a>
+        <a class="change-type-link" href="/#qr-types">Change QR Type</a>
+      </nav>
+      <label
+        for="theme-toggle"
+        class="themeToggle generator-theme-toggle"
+        title="Toggle Theme"
+      >
+        <input type="checkbox" id="theme-toggle" class="themeToggleInput" />
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          stroke="none"
+        >
+          <mask id="moon-mask">
+            <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+            <circle cx="11" cy="3" r="8" fill="black"></circle>
+          </mask>
+          <circle
+            class="sunMoon"
+            cx="10"
+            cy="10"
+            r="8"
+            mask="url(#moon-mask)"
+          ></circle>
+          <g class="sunRays" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.64 3.64l1.42 1.42M14.94 14.94l1.42 1.42M16.36 3.64l-1.42 1.42M5.06 14.94l-1.42 1.42"></path>
+          </g>
+        </svg>
+      </label>
+    </header>
+
+     <main class="page-content">
+    <div class="main-container">
+      <div class="main-content">
+        <div class="flow-progress" aria-label="QR creation steps">
+          <span class="active"><b>1</b> Input</span><i></i><span><b>2</b> Customize</span><i></i><span><b>3</b> Export</span>
+        </div>
+        <div class="left-column">
+          <div class="selected-type-card">
+            <span class="selected-type-icon"><i id="selected-type-icon" class="fa-solid fa-link"></i></span>
+            <div><small>Creating</small><strong id="selected-type-name">Text & URL QR Code</strong></div>
+            <a href="/#qr-types">Change type</a>
+          </div>
+
+          <div class="flow-heading"><span>01</span><div><h2>Enter your content</h2><p>Choose a QR type and provide the information to encode.</p></div></div>
+          <div id="form-container-wrapper"></div>
+          <div class="wizard-actions input-actions">
+            <a class="wizard-button secondary" href="/#qr-types"><i class="fa-solid fa-arrow-left"></i> Change type</a>
+            <button id="to-customize-btn" class="wizard-button primary" disabled>Continue to Customize <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+
+          <section class="customization-section wizard-panel-hidden">
+            <div class="section-header section-divider">
+              <div class="flow-heading compact"><span>02</span><div><h2>Customize your QR</h2><p>Make it match your style while watching the live preview.</p></div></div>
+              <button id="reset-customization-btn" class="text-button">
+                Reset
+              </button>
+            </div>
+            <div id="customization-controls" class="grid-form">
+              <div>
+                <label for="size-input">Size (px)</label>
+                <input
+                  type="number"
+                  id="size-input"
+                  value="300"
+                  min="100"
+                  max="1000"
+                  step="10"
+                />
+              </div>
+              <div>
+                <label>Colors</label>
+                <div class="color-picker-wrapper">
+                  <div class="color-input-group">
+                    <label for="color-fg">Foreground</label>
+                    <input type="color" id="color-fg" value="#000000" />
+                  </div>
+                  <div class="color-input-group">
+                    <label for="color-bg">Background</label>
+                    <input type="color" id="color-bg" value="#ffffff" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label for="shape-style">Shape Style</label>
+                <select id="shape-style">
+                  <option value="square">Square</option>
+                  <option value="dots">Dots</option>
+                  <option value="extra-rounded">Rounded</option>
+                </select>
+              </div>
+              <div>
+                <label for="border-style">Frame Style</label>
+                <select id="border-style">
+                  <option value="square">Square</option>
+                  <option value="dot">Round</option>
+                  <option value="extra-rounded">Rounded</option>
+                </select>
+              </div>
+              <div>
+                <label for="center-style">Eye Ball Style</label>
+                <select id="center-style">
+                  <option value="square">Square</option>
+                  <option value="dot">Round</option>
+                </select>
+              </div>
+              <div>
+                <label for="preset-select">Design Preset</label>
+                <select id="preset-select">
+                  <option value="custom">Custom</option>
+                  <option value="classic">Classic</option>
+                  <option value="ocean">Ocean</option>
+                  <option value="sunset">Sunset</option>
+                  <option value="forest">Forest</option>
+                  <option value="midnight">Midnight</option>
+                </select>
+              </div>
+              <div class="grid-col-span-2 option-row">
+                <label class="checkbox-label"><input type="checkbox" id="transparent-bg" /> Transparent background</label>
+                <label class="checkbox-label"><input type="checkbox" id="gradient-enabled" /> Gradient foreground</label>
+              </div>
+              <div id="gradient-controls" style="display: none">
+                <label for="gradient-color">Gradient Color</label>
+                <input type="color" id="gradient-color" value="#db2777" />
+              </div>
+              <div id="gradient-rotation-control" style="display: none">
+                <label for="gradient-rotation">Gradient Angle: <span id="gradient-rotation-value">45°</span></label>
+                <input type="range" id="gradient-rotation" min="0" max="360" value="45" />
+              </div>
+              <div>
+                <label for="logo-size">Logo Size: <span id="logo-size-value">35%</span></label>
+                <input type="range" id="logo-size" min="15" max="50" value="35" />
+              </div>
+              <div>
+                <label for="logo-margin">Logo Margin: <span id="logo-margin-value">10px</span></label>
+                <input type="range" id="logo-margin" min="0" max="30" value="10" />
+              </div>
+              <div class="grid-col-span-2">
+                <label for="logo-upload">Add Logo</label>
+                <div class="logo-upload-wrapper">
+                  <input type="file" id="logo-upload" />
+                  <button
+                    class="remove-logo-btn lift-on-hover"
+                    id="remove-logo-btn"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="settings-actions">
+              <button id="export-settings-btn" class="secondary-action">Export settings</button>
+              <label class="secondary-action file-action" for="import-settings-input">Import settings</label>
+              <input type="file" id="import-settings-input" accept="application/json,.json" hidden />
+            </div>
+            <div class="wizard-actions">
+              <button id="back-to-input-btn" class="wizard-button secondary"><i class="fa-solid fa-arrow-left"></i> Back to Input</button>
+              <button id="to-export-btn" class="wizard-button primary">Continue to Export <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </section>
+        </div>
+
+        <div class="right-column wizard-panel-hidden">
+          <div class="flow-heading compact export-step"><span>03</span><div><h2>Preview & export</h2><p>Check quality, then copy, share or download.</p></div></div>
+          <div class="export-workspace">
+          <div class="preview-panel">
+          <p class="export-card-title"><i class="fa-solid fa-qrcode"></i> Final preview</p>
+          <div class="qr-code-wrapper">
+            <div id="qr-code-placeholder">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 14.625a1.125 1.125 0 011.125-1.125h4.5a1.125 1.125 0 011.125 1.125v4.5a1.125 1.125 0 01-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5z"
+                />
+              </svg>
+              <p>Your QR Code will appear here</p>
+            </div>
+            <div id="qr-code-container"></div>
+          </div>
+          <div id="scan-quality" class="quality-indicator" role="status" aria-live="polite">
+            <span class="quality-dot"></span><span id="scan-quality-text">Add content to check scan quality</span>
+          </div>
+          </div>
+          <div class="export-controls">
+            <div class="export-controls-heading">
+              <div><span>Ready to use</span><h3>Choose what you want to do</h3></div>
+              <i class="fa-solid fa-download" aria-hidden="true"></i>
+            </div>
+            <div class="share-buttons-group">
+              <button id="copy-qr-btn" class="export-button lift-on-hover" disabled><i class="fa-regular fa-copy"></i> Copy QR</button>
+              <button id="share-qr-btn" class="export-button lift-on-hover" disabled><i class="fa-solid fa-share-nodes"></i> Share</button>
+            </div>
+            <div class="control-group">
+              <p class="export-label">Select a file format</p>
+              <div class="download-buttons-group">
+                <button
+                  id="download-png-btn"
+                  class="export-button lift-on-hover"
+                  disabled
+                >
+                  <i class="fa-regular fa-file-image"></i> PNG
+                </button>
+                <button
+                  id="download-jpeg-btn"
+                  class="export-button lift-on-hover"
+                  disabled
+                >
+                  <i class="fa-regular fa-file-image"></i> JPEG
+                </button>
+                <button
+                  id="download-pdf-btn"
+                  class="export-button lift-on-hover"
+                  disabled
+                >
+                  <i class="fa-regular fa-file-pdf"></i> PDF
+                </button>
+                <button id="download-svg-btn" class="export-button lift-on-hover" disabled><i class="fa-solid fa-bezier-curve"></i> SVG</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <button
+                id="download-all-btn"
+                class="export-button lift-on-hover"
+                disabled
+              >
+                <i class="fa-solid fa-download"></i>
+                Download All (.zip)
+              </button>
+            </div>
+            <div class="wizard-actions export-back-action">
+              <button id="back-to-customize-btn" class="wizard-button secondary"><i class="fa-solid fa-arrow-left"></i> Back to Customize</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="about-section">
+      <!-- HOW IT WORKS SECTION -->
+      <section class="info-section how-it-works-section">
+        <div class="info-content">
+          <h2>How It Works</h2>
+          <ul>
+            <li>
+              <strong>Choose & Enter:</strong> Select your desired QR code type
+              and fill in the required information.
+            </li>
+            <li>
+              <strong>Customize:</strong> Personalize your QR code to match your
+              brand by changing colors, shapes, and adding a logo.
+            </li>
+            <li>
+              <strong>Download:</strong> Instantly get your high-resolution QR
+              code as a PNG, JPEG, or PDF, ready for use.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- WHY CHOOSE US SECTION -->
+      <section class="info-section why-use-section">
+        <div class="info-content">
+          <h2>Why Choose QR Fusion?</h2>
+          <div class="reason-list">
+    <div class="reason-item">
+        <h3>Instant Generation</h3>
+        <p>Create and preview your custom QR codes in real-time with no waiting.</p>
+    </div>
+    <div class="reason-item">
+        <h3>Completely Private</h3>
+        <p>Your data is processed in your browser and is never stored on our servers.</p>
+    </div>
+    <div class="reason-item">
+        <h3>High-Quality Downloads</h3>
+        <p>Export crisp, vector-ready QR codes perfect for both print and digital use.</p>
+    </div>
+    <div class="reason-item">
+        <h3>Multi-Type Support</h3>
+        <p>Create codes for URLs, vCards, Wi-Fi, social media, events, and more.</p>
+    </div>
+</div>
+        </div>
+      </section>
+
+      <!-- FAQ SECTION -->
+      <section class="info-section faq-section">
+        <div class="info-content">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            <div class="faq-item">
+              <h3>Q: What is a QR code?</h3>
+              <p>
+                A: A QR (Quick Response) code is a barcode that can be scanned
+                by a smartphone camera to quickly access information like a
+                website, contact details, or Wi-Fi credentials.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Q: Is it safe to use QR Fusion?</h3>
+              <p>
+                A: Yes, it's completely safe. Your data is processed entirely
+                within your browser and is never sent to our servers. We do not
+                store any of the information you enter.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Q: Do the QR codes I create expire?</h3>
+              <p>
+                A: No. The QR codes you generate are static and do not expire.
+                They will work forever, as long as the data they point to (like
+                a website link) remains active.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Q: My QR code isn't scanning correctly. What should I do?</h3>
+              <p>
+                A: First, double-check the entered data. If you've heavily
+                customized the design, try increasing the color contrast between
+                the QR code and its background. Ensure your logo doesn't cover
+                too much of the code's pattern.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="app-footer">
+        <p>&copy; 2025 Developed by 
+    <a href="https://harsh-hsy.netlify.app/" target="_blank" rel="noopener noreferrer">Harsh Singh</a>.
+  </p>
+      </footer>
+    </div>
+
+    <template id="forms-template">
+      <div id="text-form" class="form-container">
+        <h3 class="section-subtitle grid-col-span-2">Enter Text or URL</h3>
+        <textarea
+          id="text-input"
+          placeholder="Enter Text or URL (e.g., https://qrfusion.netlify.app)"
+        ></textarea>
+      </div>
+
+      <div id="vcard-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Contact Information</h3>
+        <input
+          type="text"
+          id="vcard-name"
+          placeholder="Full Name"
+          class="grid-col-span-2"
+        />
+        <input type="text" id="vcard-org" placeholder="Organization" />
+        <input type="text" id="vcard-title" placeholder="Title" />
+        <input
+          type="tel"
+          id="vcard-tel"
+          placeholder="Phone Number (e.g., +91...)"
+        />
+        <input type="email" id="vcard-email" placeholder="Email Address" />
+        <div
+          id="vcard-email-status"
+          class="error-message grid-col-span-2"
+        ></div>
+        <h3 class="section-subtitle grid-col-span-2">Address Details</h3>
+        <input type="text" id="vcard-house" placeholder="House / Flat No." />
+        <input type="text" id="vcard-building" placeholder="Building Name" />
+        <input type="text" id="vcard-street" placeholder="Street / Road" />
+        <input type="text" id="vcard-area" placeholder="Area / Locality" />
+        <input type="text" id="vcard-city" placeholder="City / Town" />
+        <input type="text" id="vcard-state" placeholder="State / Province" />
+        <input type="text" id="vcard-country" placeholder="Country" />
+        <input type="text" id="vcard-postal" placeholder="Postal / ZIP Code" />
+        <div
+          id="vcard-address-status"
+          class="status-text grid-col-span-2"
+        ></div>
+        <h3 class="section-subtitle grid-col-span-2">Additional Information</h3>
+        <input type="text" id="vcard-url" placeholder="Website URL" />
+        <input type="text" id="vcard-map" placeholder="Google Maps Link" />
+        <textarea
+          id="vcard-note"
+          placeholder="Note (e.g., Landmark)"
+          class="grid-col-span-2"
+        ></textarea>
+      </div>
+
+      <div id="wifi-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Wi-Fi Network Details</h3>
+
+        <input
+          type="text"
+          id="wifi-ssid"
+          placeholder="Network Name (SSID)"
+          class="grid-col-span-2"
+        />
+
+        <div class="password-wrapper grid-col-span-2">
+          <input type="password" id="wifi-password" placeholder="Password" />
+          <button
+            type="button"
+            id="toggle-wifi-password"
+            class="toggle-password-btn"
+          >
+            Show
+          </button>
+        </div>
+
+        <select id="wifi-encryption" class="grid-col-span-2">
+          <option value="WPA">WPA/WPA2</option>
+          <option value="WEP">WEP</option>
+          <option value="nopass">No Password</option>
+        </select>
+      </div>
+
+      <div id="event-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Event Details</h3>
+        <input
+          type="text"
+          id="event-title"
+          placeholder="Event Title"
+          class="grid-col-span-2"
+        />
+
+        <div class="date-picker-wrapper">
+          <label for="event-start">Start Date & Time</label>
+          <input id="event-start" type="datetime-local" required step="60" />
+          <small class="input-hint">Format: MM/DD/YYYY HH:MM</small>
+        </div>
+
+        <div class="date-picker-wrapper">
+          <label for="event-end">End Date & Time</label>
+          <input id="event-end" type="datetime-local" required step="60" />
+          <small class="input-hint">Format: MM/DD/YYYY HH:MM</small>
+        </div>
+
+        <input
+          type="text"
+          id="event-location"
+          placeholder="Location (e.g., Conference Hall)"
+          class="grid-col-span-2"
+        />
+        <textarea
+          id="event-description"
+          placeholder="Description"
+          class="grid-col-span-2"
+        ></textarea>
+      </div>
+
+      <div id="social-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Social Media Details</h3>
+        <select id="social-platform" class="grid-col-span-2">
+          <option value="twitter">Twitter / X</option>
+          <option value="instagram">Instagram</option>
+          <option value="facebook">Facebook</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="tiktok">TikTok</option>
+          <option value="youtube">YouTube</option>
+          <option value="pinterest">Pinterest</option>
+        </select>
+        <input
+          type="text"
+          id="social-handle"
+          placeholder="Enter Username or Handle"
+          class="grid-col-span-2"
+        />
+        <p class="form-note grid-col-span-2">
+          Enter just your username (e.g., "google"), not the full URL.
+        </p>
+      </div>
+
+      <div id="appstore-form" class="form-container">
+        <h3 class="section-subtitle grid-col-span-2">App Store Link</h3>
+        <textarea
+          id="appstore-url"
+          placeholder="Enter full App Store or Google Play URL"
+        ></textarea>
+      </div>
+
+      <div id="email-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Email Details</h3>
+        <input
+          type="email"
+          id="email-to"
+          placeholder="Recipient Email"
+          class="grid-col-span-2"
+        />
+        <div
+          id="email-error-message"
+          class="error-message grid-col-span-2"
+        ></div>
+
+        <input
+          type="text"
+          id="email-subject"
+          placeholder="Subject"
+          class="grid-col-span-2"
+        />
+        <textarea
+          id="email-body"
+          placeholder="Email Body"
+          class="grid-col-span-2"
+        ></textarea>
+      </div>
+
+      <div id="sms-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">SMS Details</h3>
+        <input
+          type="tel"
+          id="sms-to"
+          placeholder="Phone Number (e.g., +91...)"
+          class="grid-col-span-2"
+        />
+        <textarea
+          id="sms-body"
+          placeholder="Message"
+          class="grid-col-span-2"
+        ></textarea>
+      </div>
+
+      <div id="phone-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Phone Call Details</h3>
+        <input type="tel" id="phone-number" placeholder="Phone Number (e.g., +919876543210)" class="grid-col-span-2" />
+        <div id="phone-status" class="error-message grid-col-span-2"></div>
+      </div>
+
+      <div id="whatsapp-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">WhatsApp Details</h3>
+        <input type="tel" id="whatsapp-number" placeholder="Number with country code (e.g., 919876543210)" class="grid-col-span-2" />
+        <textarea id="whatsapp-message" placeholder="Pre-filled WhatsApp message" class="grid-col-span-2"></textarea>
+        <div id="whatsapp-status" class="error-message grid-col-span-2"></div>
+      </div>
+
+      <div id="review-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Google Review Link</h3>
+        <input type="url" id="review-url" placeholder="https://g.page/r/.../review" class="grid-col-span-2" />
+        <p class="form-note grid-col-span-2">Paste your business's direct Google review link.</p>
+        <div id="review-status" class="error-message grid-col-span-2"></div>
+      </div>
+
+      <div id="location-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Address Details</h3>
+
+        <input type="text" id="loc-house" placeholder="House / Flat No." />
+        <input type="text" id="loc-building" placeholder="Building Name" />
+        <input type="text" id="loc-street" placeholder="Street / Road" />
+        <input type="text" id="loc-area" placeholder="Area / Locality" />
+        <input type="text" id="loc-city" placeholder="City / Town" />
+        <input type="text" id="loc-state" placeholder="State / Province" />
+        <input type="text" id="loc-country" placeholder="Country" />
+        <input type="text" id="loc-postal" placeholder="Postal / ZIP Code" />
+
+        <div id="loc-address-status" class="status-text grid-col-span-2"></div>
+
+        <input
+          type="text"
+          id="loc-additional-info"
+          placeholder="Additional Info (e.g., Landmark)"
+          class="grid-col-span-2"
+        />
+
+        <h3 class="section-subtitle grid-col-span-2">
+          Or provide a direct map link
+        </h3>
+        <input
+          type="text"
+          id="loc-map"
+          placeholder="Google Maps Link"
+          class="grid-col-span-2"
+        />
+      </div>
+
+      <div id="payment-form" class="form-container">
+        <h3 class="section-subtitle grid-col-span-2">Select Payment Method</h3>
+
+        <div class="payment-toggle">
+          <label>
+            <input type="radio" name="payment-type" value="upi" checked />
+            <span>UPI Details</span>
+          </label>
+          <label>
+            <input type="radio" name="payment-type" value="bank" />
+            <span>Bank Account</span>
+          </label>
+        </div>
+        <div id="upi-fields" class="grid-form">
+          <p class="form-note grid-col-span-2">
+            Generates a UPI payment QR code (primarily for India).
+          </p>
+          <input
+            type="text"
+            id="payment-pa"
+            placeholder="UPI ID (e.g., user@bank)"
+            class="grid-col-span-2"
+          />
+          <input
+            type="text"
+            id="payment-pn"
+            placeholder="Payee Name"
+            class="grid-col-span-2"
+          />
+          <input
+            type="number"
+            id="payment-am"
+            placeholder="Amount (optional)"
+            class="grid-col-span-2"
+          />
+          <input
+            type="text"
+            id="payment-tn"
+            placeholder="Transaction Note (optional)"
+            class="grid-col-span-2"
+          />
+        </div>
+        <div id="bank-fields" class="grid-form" style="display: none">
+          <p class="form-note grid-col-span-2">
+            Generates a QR with plain text bank details for manual transfer.
+          </p>
+          <input
+            type="text"
+            id="bank-holder-name"
+            placeholder="Account Holder Name"
+            class="grid-col-span-2"
+          />
+          <input
+            type="text"
+            id="bank-ac-number"
+            placeholder="Account Number / IBAN"
+            class="grid-col-span-2"
+          />
+          <input
+            type="text"
+            id="bank-ac-confirm"
+            placeholder="Confirm Account Number"
+            class="grid-col-span-2"
+          />
+          <div id="bank-ac-status" class="status-text grid-col-span-2"></div>
+          <input
+            type="text"
+            id="bank-name"
+            placeholder="Bank Name"
+            class="grid-col-span-2"
+          />
+          <input
+            type="text"
+            id="bank-branch"
+            placeholder="Branch Name (Optional)"
+            class="grid-col-span-2"
+          />
+          <input
+            type="text"
+            id="bank-ifsc"
+            placeholder="IFSC / SWIFT Code"
+            class="grid-col-span-2"
+          />
+        </div>
+      </div>
+    </template>
+
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script src="/js/data/dark-bg-data.js"></script>
+    <script src="/js/data/light-bg-data.js"></script>
+    <script src="/js/data/logo-data.js"></script>
+    <!-- Then load your split scripts -->
+    <script src="/js/core/app.js"></script>
+    <script src="/js/features/ui-features.js"></script>
+  </body>
+</html>

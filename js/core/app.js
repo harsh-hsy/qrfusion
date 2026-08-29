@@ -103,6 +103,21 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Free Payment QR Code Generator | QR Fusion",
       description: "Create a QR code for UPI payment details or bank account information with custom styling.",
     },
+    phone: {
+      path: "/phone",
+      title: "Free Phone Call QR Code Generator | QR Fusion",
+      description: "Create a phone call QR code that opens the dialer with your number ready to call.",
+    },
+    whatsapp: {
+      path: "/whatsapp",
+      title: "Free WhatsApp QR Code Generator | QR Fusion",
+      description: "Create a WhatsApp QR code with a phone number and optional pre-filled message.",
+    },
+    review: {
+      path: "/google-review",
+      title: "Free Google Review QR Code Generator | QR Fusion",
+      description: "Create a Google Review QR code that takes customers directly to your business review page.",
+    },
   };
 
   const HOME_PAGE = {
@@ -110,6 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
     title: "QR Fusion - Free & Advanced QR Code Generator",
     description:
       "Create free custom QR codes for URLs, contacts, Wi-Fi, events, social profiles, email, SMS, locations, and payments.",
+  };
+  const GENERATOR_PAGE = {
+    path: "/create",
+    title: "Create a Custom QR Code | QR Fusion",
+    description:
+      "Choose a QR type, enter your content, customize the design, then copy, share or download your QR code.",
   };
 
   const normalizePath = (path) =>
@@ -132,8 +153,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const isHomepage =
       normalizePath(window.location.pathname) === "/" &&
       !new URLSearchParams(window.location.search).has("type");
+    const normalizedPath = normalizePath(window.location.pathname);
+    const isGeneratorHome =
+      !new URLSearchParams(window.location.search).has("type") &&
+      ["/create", "/generator.html"].includes(normalizedPath);
     const page =
-      isHomepage ? HOME_PAGE : PAGE_CONFIG[tabName];
+      isHomepage ? HOME_PAGE : isGeneratorHome ? GENERATOR_PAGE : PAGE_CONFIG[tabName];
     if (!page) return;
     document.title = page.title;
     document.getElementById("page-description")?.setAttribute("content", page.description);
@@ -202,6 +227,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return emailRegex.test(email);
   }
 
+  const escapeVCard = (value) =>
+    value.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/([,;])/g, "\\$1");
+  const escapeWifi = (value) => value.replace(/([\\;,:"])/g, "\\$1");
+  const escapeICS = (value) =>
+    value.replace(/\\/g, "\\\\").replace(/\r?\n/g, "\\n").replace(/([,;])/g, "\\$1");
+  const isValidHttpUrl = (value) => {
+    try {
+      return ["http:", "https:"].includes(new URL(value).protocol);
+    } catch {
+      return false;
+    }
+  };
+
   const fetchAddressFromPincode = async (pincode, prefix) => {
     const statusEl = document.getElementById(`${prefix}-address-status`);
     statusEl.textContent = "";
@@ -252,6 +290,10 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadJpegBtn.disabled = !isGenerated;
     downloadPdfBtn.disabled = !isGenerated;
     downloadAllBtn.disabled = !isGenerated;
+    ["download-svg-btn", "copy-qr-btn", "share-qr-btn"].forEach((id) => {
+      const button = document.getElementById(id);
+      if (button) button.disabled = !isGenerated;
+    });
   };
   const hideAllForms = () =>
     document
@@ -282,26 +324,26 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!name) return "";
         return `BEGIN:VCARD
 VERSION:3.0
-FN:${name}
-ORG:${getInputValue("vcard-org")}
-TITLE:${getInputValue("vcard-title")}
-TEL:${getInputValue("vcard-tel")}
-EMAIL:${getInputValue("vcard-email")}
-ADR:;;${getInputValue("vcard-street")};${getInputValue(
+FN:${escapeVCard(name)}
+ORG:${escapeVCard(getInputValue("vcard-org"))}
+TITLE:${escapeVCard(getInputValue("vcard-title"))}
+TEL:${escapeVCard(getInputValue("vcard-tel"))}
+EMAIL:${escapeVCard(getInputValue("vcard-email"))}
+ADR:;;${escapeVCard([getInputValue("vcard-house"), getInputValue("vcard-building"), getInputValue("vcard-street"), getInputValue("vcard-area")].filter(Boolean).join(", "))};${escapeVCard(getInputValue(
           "vcard-city"
-        )};${getInputValue("vcard-state")};${getInputValue(
+        ))};${escapeVCard(getInputValue("vcard-state"))};${escapeVCard(getInputValue(
           "vcard-postal"
-        )};${getInputValue("vcard-country")}
-URL:${getInputValue("vcard-url")}
-NOTE:${getInputValue("vcard-note")}
+        ))};${escapeVCard(getInputValue("vcard-country"))}
+URL:${escapeVCard(getInputValue("vcard-url"))}
+NOTE:${escapeVCard([getInputValue("vcard-note"), getInputValue("vcard-map")].filter(Boolean).join(" | "))}
 END:VCARD`;
       }
       case "wifi": {
         const ssid = getInputValue("wifi-ssid");
         if (!ssid) return "";
-        return `WIFI:T:${getInputValue(
+        return `WIFI:T:${escapeWifi(getInputValue(
           "wifi-encryption"
-        )};S:${ssid};P:${getInputValue("wifi-password")};;`;
+        ))};S:${escapeWifi(ssid)};P:${escapeWifi(getInputValue("wifi-password"))};;`;
       }
       case "event": {
         const title = getInputValue("event-title");
@@ -309,6 +351,7 @@ END:VCARD`;
         if (!title || !start) return "";
 
         const end = getInputValue("event-end");
+        if (end && new Date(end) <= new Date(start)) return "";
         const location = getInputValue("event-location");
         const description = getInputValue("event-description");
 
@@ -331,11 +374,11 @@ END:VCARD`;
         return `BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
-SUMMARY:${title}
+SUMMARY:${escapeICS(title)}
 DTSTART:${toICSLocal(start)}
 ${end ? `DTEND:${toICSLocal(end)}` : ""}
-${location ? `LOCATION:${location}` : ""}
-${description ? `DESCRIPTION:${description}` : ""}
+${location ? `LOCATION:${escapeICS(location)}` : ""}
+${description ? `DESCRIPTION:${escapeICS(description)}` : ""}
 END:VEVENT
 END:VCALENDAR`;
       }
@@ -351,19 +394,19 @@ END:VCALENDAR`;
         }
 
         const urls = {
-          twitter: `https://twitter.com/${handle}`,
-          instagram: `https://instagram.com/${handle}`,
-          facebook: `https://facebook.com/${handle}`,
-          linkedin: `https://linkedin.com/in/${handle}`,
-          tiktok: `https://tiktok.com/@${handle}`,
-          youtube: `https://youtube.com/@${handle}`,
-          pinterest: `https://pinterest.com/${handle}`,
+          twitter: `https://twitter.com/${encodeURIComponent(handle)}`,
+          instagram: `https://instagram.com/${encodeURIComponent(handle)}`,
+          facebook: `https://facebook.com/${encodeURIComponent(handle)}`,
+          linkedin: `https://linkedin.com/in/${encodeURIComponent(handle)}`,
+          tiktok: `https://tiktok.com/@${encodeURIComponent(handle)}`,
+          youtube: `https://youtube.com/@${encodeURIComponent(handle)}`,
+          pinterest: `https://pinterest.com/${encodeURIComponent(handle)}`,
         };
         return urls[platform] || "";
       }
       case "appstore": {
         const url = getInputValue("appstore-url");
-        return url ? url : "";
+        return isValidHttpUrl(url) ? url : "";
       }
       case "email": {
         const to = getInputValue("email-to");
@@ -379,11 +422,30 @@ END:VCALENDAR`;
       case "sms": {
         const to = getInputValue("sms-to");
         if (!to) return "";
-        return `SMSTO:${to}:${getInputValue("sms-body")}`;
+        return `SMSTO:${to.replace(/:/g, "")}:${getInputValue("sms-body").replace(/:/g, "\\:")}`;
+      }
+      case "phone": {
+        const phone = getInputValue("phone-number").replace(/[\s()-]/g, "");
+        return /^\+?\d{7,15}$/.test(phone) ? `tel:${phone}` : "";
+      }
+      case "whatsapp": {
+        const phone = getInputValue("whatsapp-number").replace(/\D/g, "");
+        if (phone.length < 7 || phone.length > 15) return "";
+        const message = getInputValue("whatsapp-message");
+        return `https://wa.me/${phone}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
+      }
+      case "review": {
+        const url = getInputValue("review-url");
+        try {
+          const parsed = new URL(url);
+          return parsed.protocol === "https:" ? parsed.href : "";
+        } catch {
+          return "";
+        }
       }
       case "location": {
         const mapLink = getInputValue("loc-map");
-        if (mapLink) return mapLink;
+        if (mapLink) return isValidHttpUrl(mapLink) ? mapLink : "";
 
         // Combine all the new address fields into a single search query
         const addressParts = [
@@ -412,11 +474,15 @@ END:VCALENDAR`;
         if (paymentType === "upi") {
           const upi = getInputValue("payment-pa");
           if (!upi) return "";
-          return `upi://pay?pa=${upi}&pn=${getInputValue(
-            "payment-pn"
-          )}&am=${getInputValue("payment-am")}&tn=${getInputValue(
-            "payment-tn"
-          )}`;
+          if (!/^[\w.-]+@[\w.-]+$/.test(upi)) return "";
+          const params = new URLSearchParams({ pa: upi });
+          const payee = getInputValue("payment-pn");
+          const amount = getInputValue("payment-am");
+          const note = getInputValue("payment-tn");
+          if (payee) params.set("pn", payee);
+          if (amount) params.set("am", amount);
+          if (note) params.set("tn", note);
+          return `upi://pay?${params.toString()}`;
         } else {
           const account = getInputValue("bank-ac-number");
           const confirmAcc = getInputValue("bank-ac-confirm");
@@ -509,13 +575,35 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
       type: shapeStyleSelect.value,
       color: fgColorInput.value,
     };
+    if (document.getElementById("gradient-enabled")?.checked) {
+      dotsOptions.gradient = {
+        type: "linear",
+        rotation:
+          (Number(document.getElementById("gradient-rotation")?.value || 45) *
+            Math.PI) /
+          180,
+        colorStops: [
+          { offset: 0, color: fgColorInput.value },
+          { offset: 1, color: document.getElementById("gradient-color")?.value || "#db2777" },
+        ],
+      };
+      delete dotsOptions.color;
+    }
+    const transparentBackground = document.getElementById("transparent-bg")?.checked;
     qrCodeInstance.update({
       data: hasData ? qrData : CONFIG.placeholderData,
       image: logoImage,
       dotsOptions,
-      backgroundOptions: { color: bgColorInput.value },
+      backgroundOptions: {
+        color: transparentBackground ? "rgba(0,0,0,0)" : bgColorInput.value,
+      },
       cornersSquareOptions: { type: borderStyleSelect.value },
       cornersDotOptions: { type: centerStyleSelect.value },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: Number(document.getElementById("logo-margin")?.value || 10),
+        imageSize: Number(document.getElementById("logo-size")?.value || 35) / 100,
+      },
     });
   };
 
@@ -534,11 +622,36 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
       reader.readAsDataURL(blob);
     });
 
+  const getExportSize = () =>
+    Math.min(1000, Math.max(100, Number(sizeInput.value) || 300));
+
+  const getRawDataAtExportSize = async (extension) => {
+    const exportSize = getExportSize();
+    qrCodeInstance.update({ width: exportSize, height: exportSize });
+    try {
+      return await qrCodeInstance.getRawData(extension);
+    } finally {
+      qrCodeInstance.update({ width: PREVIEW_SIZE, height: PREVIEW_SIZE });
+    }
+  };
+
+  const downloadBlob = (blob, filename) => {
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
   // This NEW function contains all of your PDF styling.
   // It's the same as your old download function, but returns data instead of saving.
   const generatePDFBlob = async () => {
     try {
-      const blob = await qrCodeInstance.getRawData("png");
+      const blob = await getRawDataAtExportSize("png");
       if (!blob) return null;
       const dataUrl = await blobToDataURL(blob);
       const doc = new jsPDF();
@@ -640,15 +753,15 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
 
   const downloadAllFormatsAsZip = async () => {
     try {
-      const [pngBlob, jpegBlob, pdfBlob] = await Promise.all([
-        qrCodeInstance.getRawData("png"),
-        qrCodeInstance.getRawData("jpeg"),
-        generatePDFBlob(),
-      ]);
+      const pngBlob = await getRawDataAtExportSize("png");
+      const jpegBlob = await getRawDataAtExportSize("jpeg");
+      const svgBlob = await getRawDataAtExportSize("svg");
+      const pdfBlob = await generatePDFBlob();
 
       const zip = new JSZip();
       if (pngBlob) zip.file("qr-fusion.png", pngBlob);
       if (jpegBlob) zip.file("qr-fusion.jpeg", jpegBlob);
+      if (svgBlob) zip.file("qr-fusion.svg", svgBlob);
       if (pdfBlob) zip.file("qr-fusion.pdf", pdfBlob);
 
       const zipBlob = await zip.generateAsync({ type: "blob" });
@@ -688,7 +801,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
       currentTab = tab.dataset.tab;
       const page = PAGE_CONFIG[currentTab];
       const destination = isLocalDevelopment
-        ? `/?type=${currentTab}`
+        ? `/generator.html?type=${currentTab}`
         : page?.path;
       if (destination && `${window.location.pathname}${window.location.search}` !== destination) {
         window.history.pushState({ tab: currentTab }, "", destination);
@@ -717,6 +830,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
 
   if (logoInput) {
     logoInput.addEventListener("change", () => {
+      if (logoImage?.startsWith("blob:")) URL.revokeObjectURL(logoImage);
       logoImage = logoInput.files[0]
         ? URL.createObjectURL(logoInput.files[0])
         : null;
@@ -726,6 +840,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   }
   if (removeLogoBtn) {
     removeLogoBtn.addEventListener("click", () => {
+      if (logoImage?.startsWith("blob:")) URL.revokeObjectURL(logoImage);
       logoInput.value = "";
       logoImage = null;
       scheduleUpdate();
@@ -740,6 +855,23 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
       shapeStyleSelect.value = "square";
       borderStyleSelect.value = "square";
       centerStyleSelect.value = "square";
+      const optionalDefaults = {
+        "transparent-bg": false,
+        "gradient-enabled": false,
+        "gradient-color": "#db2777",
+        "gradient-rotation": "45",
+        "logo-size": "35",
+        "logo-margin": "10",
+        "preset-select": "custom",
+      };
+      Object.entries(optionalDefaults).forEach(([id, value]) => {
+        const control = document.getElementById(id);
+        if (!control) return;
+        if (control.type === "checkbox") control.checked = value;
+        else control.value = value;
+        control.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+      if (logoImage?.startsWith("blob:")) URL.revokeObjectURL(logoImage);
       logoInput.value = "";
       logoImage = null;
       scheduleUpdate();
@@ -747,14 +879,44 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
     });
   }
 
-  downloadPngBtn.addEventListener("click", () =>
-    qrCodeInstance.download({ name: "qr-fusion-code", extension: "png" })
+  downloadPngBtn.addEventListener("click", async () =>
+    downloadBlob(await getRawDataAtExportSize("png"), "qr-fusion-code.png")
   );
-  downloadJpegBtn.addEventListener("click", () =>
-    qrCodeInstance.download({ name: "qr-fusion-code", extension: "jpeg" })
+  downloadJpegBtn.addEventListener("click", async () =>
+    downloadBlob(await getRawDataAtExportSize("jpeg"), "qr-fusion-code.jpeg")
   );
   downloadPdfBtn.addEventListener("click", downloadAsPDF);
   downloadAllBtn.addEventListener("click", downloadAllFormatsAsZip);
+
+  const downloadSvgBtn = document.getElementById("download-svg-btn");
+  const copyQrBtn = document.getElementById("copy-qr-btn");
+  const shareQrBtn = document.getElementById("share-qr-btn");
+  downloadSvgBtn?.addEventListener("click", async () =>
+    downloadBlob(await getRawDataAtExportSize("svg"), "qr-fusion-code.svg")
+  );
+  copyQrBtn?.addEventListener("click", async () => {
+    try {
+      const originalMarkup = copyQrBtn.innerHTML;
+      const blob = await getRawDataAtExportSize("png");
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      copyQrBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+      setTimeout(() => (copyQrBtn.innerHTML = originalMarkup), 1800);
+    } catch {
+      alert("Image copy is not supported in this browser or context.");
+    }
+  });
+  shareQrBtn?.addEventListener("click", async () => {
+    try {
+      const blob = await getRawDataAtExportSize("png");
+      const file = new File([blob], "qr-fusion-code.png", { type: "image/png" });
+      if (!navigator.canShare?.({ files: [file] })) throw new Error("unsupported");
+      await navigator.share({ title: "QR Fusion Code", files: [file] });
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        alert("Native sharing is not supported in this browser.");
+      }
+    }
+  });
 
   // --- Payment type switch ---
   paymentTypeRadios.forEach((radio) => {
@@ -806,4 +968,11 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   showForm(currentTab);
   updateQRCode();
   updateRemoveButtonState();
+
+  window.QRFusionApp = {
+    refresh: updateQRCode,
+    getData: generateQRData,
+    getCurrentTab: () => currentTab,
+    getRawDataAtExportSize,
+  };
 });
