@@ -179,16 +179,26 @@ document.addEventListener("DOMContentLoaded", () => {
   let logoImage = null;
   let emailValidationTimeout;
   const PREVIEW_SIZE = 240;
+  const getQuietZone = (size) => Math.max(8, Math.round(size / 12));
+  const PREVIEW_MARGIN = getQuietZone(PREVIEW_SIZE);
 
   const qrCodeInstance = new QRCodeStyling({
     width: PREVIEW_SIZE,
     height: PREVIEW_SIZE,
+    margin: PREVIEW_MARGIN,
     type: "svg",
     data: CONFIG.placeholderData,
     imageOptions: { crossOrigin: "anonymous", margin: 10 },
   });
 
   if (qrCodeContainer) qrCodeInstance.append(qrCodeContainer);
+  const setPreviewSvgViewport = (size = PREVIEW_SIZE) => {
+    const svg = qrCodeContainer?.querySelector("svg");
+    if (!svg) return;
+    svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  };
+  requestAnimationFrame(() => setPreviewSvgViewport());
 
   fgColorInput.value = "#000000";
   bgColorInput.value = "#ffffff";
@@ -206,13 +216,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   applyTheme(savedTheme);
-  themeToggle.checked = savedTheme === "dark";
-
-  themeToggle.addEventListener("change", () => {
-    const newTheme = themeToggle.checked ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    applyTheme(newTheme);
-  });
+  if (themeToggle) {
+    themeToggle.checked = savedTheme === "dark";
+    themeToggle.addEventListener("change", () => {
+      const newTheme = themeToggle.checked ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      applyTheme(newTheme);
+    });
+  }
 
   // --- Helpers ---
   const getInputValue = (id) => document.getElementById(id)?.value.trim() || "";
@@ -574,6 +585,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
     const dotsOptions = {
       type: shapeStyleSelect.value,
       color: fgColorInput.value,
+      gradient: null,
     };
     if (document.getElementById("gradient-enabled")?.checked) {
       dotsOptions.gradient = {
@@ -591,6 +603,9 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
     }
     const transparentBackground = document.getElementById("transparent-bg")?.checked;
     qrCodeInstance.update({
+      width: PREVIEW_SIZE,
+      height: PREVIEW_SIZE,
+      margin: PREVIEW_MARGIN,
       data: hasData ? qrData : CONFIG.placeholderData,
       image: logoImage,
       dotsOptions,
@@ -605,6 +620,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
         imageSize: Number(document.getElementById("logo-size")?.value || 35) / 100,
       },
     });
+    requestAnimationFrame(() => setPreviewSvgViewport());
   };
 
   let updateTimeout;
@@ -627,11 +643,21 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
 
   const getRawDataAtExportSize = async (extension) => {
     const exportSize = getExportSize();
-    qrCodeInstance.update({ width: exportSize, height: exportSize });
+    qrCodeInstance.update({
+      width: exportSize,
+      height: exportSize,
+      margin: getQuietZone(exportSize),
+    });
+    setPreviewSvgViewport(exportSize);
     try {
       return await qrCodeInstance.getRawData(extension);
     } finally {
-      qrCodeInstance.update({ width: PREVIEW_SIZE, height: PREVIEW_SIZE });
+      qrCodeInstance.update({
+        width: PREVIEW_SIZE,
+        height: PREVIEW_SIZE,
+        margin: PREVIEW_MARGIN,
+      });
+      setPreviewSvgViewport(PREVIEW_SIZE);
     }
   };
 

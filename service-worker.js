@@ -1,4 +1,4 @@
-const CACHE_NAME = "qr-fusion-v10";
+const CACHE_NAME = "qr-fusion-v46";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -8,12 +8,12 @@ const APP_SHELL = [
   "/css/about.css",
   "/js/core/app.js",
   "/js/features/ui-features.js",
-  "/js/landing.js",
+  "/js/pages/landing.js",
   "/js/data/dark-bg-data.js",
   "/js/data/light-bg-data.js",
   "/js/data/logo-data.js",
-  "/favicon/site.webmanifest",
-  "/favicon/favicon-96x96.png",
+  "/assets/favicon/site.webmanifest",
+  "/assets/favicon/favicon-96x96.png",
 ];
 const EXTERNAL_LIBRARIES = [
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",

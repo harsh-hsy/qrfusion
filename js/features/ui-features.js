@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const generatorYear = document.getElementById("generator-current-year");
+  if (generatorYear) generatorYear.textContent = new Date().getFullYear();
+  const generatorMenuToggle = document.getElementById("generator-menu-toggle");
+  const generatorSiteNav = document.getElementById("generator-site-nav");
+  generatorMenuToggle?.addEventListener("click", () => {
+    const isOpen = generatorSiteNav.classList.toggle("open");
+    generatorMenuToggle.setAttribute("aria-expanded", String(isOpen));
+    generatorMenuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+  });
+  generatorSiteNav?.querySelectorAll("a").forEach((link) =>
+    link.addEventListener("click", () => {
+      generatorSiteNav.classList.remove("open");
+      generatorMenuToggle?.setAttribute("aria-expanded", "false");
+    })
+  );
+
   const setViewportHeight = () =>
     document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
   window.addEventListener("resize", setViewportHeight);
@@ -24,13 +40,126 @@ document.addEventListener("DOMContentLoaded", () => {
     preset: byId("preset-select"),
   };
 
+  const formatDateEntry = (value) => {
+    const digits = value.replace(/\D/g, "").slice(0, 8);
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+    return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+  };
+  const formatTimeEntry = (value) => {
+    const digits = value.replace(/\D/g, "").slice(0, 4);
+    return digits.length <= 2 ? digits : `${digits.slice(0, 2)}:${digits.slice(2)}`;
+  };
+  const parseDisplayDate = (value) => {
+    const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value);
+    if (!match) return null;
+    const [, day, month, year] = match;
+    const date = new Date(Number(year), Number(month) - 1, Number(day));
+    if (date.getFullYear() !== Number(year) || date.getMonth() !== Number(month) - 1 || date.getDate() !== Number(day)) return null;
+    return { day, month, year };
+  };
+  const parseDisplayTime = (value) => {
+    const match = /^(\d{2}):(\d{2})$/.exec(value);
+    if (!match || Number(match[1]) > 23 || Number(match[2]) > 59) return null;
+    return { hour: match[1], minute: match[2] };
+  };
+  document.querySelectorAll(".date-picker-wrapper").forEach((wrapper) => {
+    const dateInput = wrapper.querySelector(".event-date-display");
+    const timeInput = wrapper.querySelector(".event-time-display");
+    const nativeDateInput = wrapper.querySelector(".event-native-date");
+    const hiddenInput = wrapper.querySelector('input[type="hidden"]');
+    const error = wrapper.querySelector(".event-datetime-error");
+    if (!dateInput || !timeInput || !nativeDateInput || !hiddenInput) return;
+    const syncDateTime = () => {
+      const date = parseDisplayDate(dateInput.value);
+      const time = parseDisplayTime(timeInput.value);
+      const hasPartialValue = Boolean(dateInput.value || timeInput.value);
+      const valid = Boolean(date && time);
+      hiddenInput.value = valid ? `${date.year}-${date.month}-${date.day}T${time.hour}:${time.minute}` : "";
+      wrapper.querySelector(".event-datetime-control").classList.toggle("is-invalid", hasPartialValue && !valid);
+      error.hidden = !hasPartialValue || valid;
+      hiddenInput.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+    dateInput.addEventListener("input", () => {
+      dateInput.value = formatDateEntry(dateInput.value);
+      syncDateTime();
+    });
+    timeInput.addEventListener("input", () => {
+      timeInput.value = formatTimeEntry(timeInput.value);
+      syncDateTime();
+    });
+    nativeDateInput.addEventListener("change", () => {
+      if (!nativeDateInput.value) return;
+      const [year, month, day] = nativeDateInput.value.split("-");
+      dateInput.value = `${day}/${month}/${year}`;
+      syncDateTime();
+      timeInput.focus();
+    });
+  });
+
   const presets = {
     classic: { foreground: "#000000", background: "#ffffff", gradient: false, shape: "square", frame: "square", eye: "square" },
-    ocean: { foreground: "#075985", background: "#ecfeff", gradient: true, gradientColor: "#0369a1", rotation: 45, shape: "dots", frame: "extra-rounded", eye: "dot" },
-    sunset: { foreground: "#7c2d12", background: "#fff7ed", gradient: true, gradientColor: "#be123c", rotation: 90, shape: "extra-rounded", frame: "extra-rounded", eye: "dot" },
-    forest: { foreground: "#14532d", background: "#f0fdf4", gradient: true, gradientColor: "#15803d", rotation: 135, shape: "dots", frame: "extra-rounded", eye: "dot" },
-    midnight: { foreground: "#e0e7ff", background: "#111827", gradient: true, gradientColor: "#a855f7", rotation: 45, shape: "extra-rounded", frame: "extra-rounded", eye: "dot" },
+    ocean: { foreground: "#075985", background: "#ecfeff", gradient: true, gradientColor: "#0369a1", rotation: 45, shape: "square", frame: "square", eye: "square" },
+    sunset: { foreground: "#7c2d12", background: "#fff7ed", gradient: true, gradientColor: "#be123c", rotation: 90, shape: "square", frame: "square", eye: "square" },
+    forest: { foreground: "#14532d", background: "#f0fdf4", gradient: true, gradientColor: "#15803d", rotation: 135, shape: "square", frame: "square", eye: "square" },
+    midnight: { foreground: "#e0e7ff", background: "#111827", gradient: true, gradientColor: "#a855f7", rotation: 45, shape: "square", frame: "square", eye: "square" },
+    fusion: { foreground: "#4f2de4", background: "#faf7ff", gradient: true, gradientColor: "#e94b9a", rotation: 110, shape: "square", frame: "square", eye: "square" },
+    berry: { foreground: "#701a75", background: "#fdf4ff", gradient: true, gradientColor: "#db2777", rotation: 45, shape: "square", frame: "square", eye: "square" },
   };
+
+  const pickerSwatches = {
+    custom: ["#5637df", "#e94b9a"], classic: ["#000000", "#ffffff"],
+    ocean: ["#075985", "#67e8f9"], sunset: ["#7c2d12", "#fb7185"],
+    forest: ["#14532d", "#4ade80"], midnight: ["#111827", "#a855f7"],
+    fusion: ["#4f2de4", "#e94b9a"], berry: ["#701a75", "#db2777"],
+  };
+
+  const visualPickers = [...document.querySelectorAll(".visual-option-picker")];
+  const popularPresets = new Set(["classic", "ocean", "sunset", "forest", "fusion"]);
+  const syncVisualPickers = () => {
+    visualPickers.forEach((picker) => {
+      const select = byId(picker.dataset.select);
+      picker.querySelectorAll(".visual-option").forEach((button) => {
+        const selected = button.dataset.value === select.value;
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+    });
+  };
+  visualPickers.forEach((picker) => {
+    const select = byId(picker.dataset.select);
+    [...select.options].forEach((option) => {
+      if (select === controls.preset && option.value === "custom") return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `visual-option ${select === controls.preset ? "preset-option" : ""}`;
+      if (select === controls.preset && !popularPresets.has(option.value)) {
+        button.classList.add("extra-preset");
+      }
+      button.dataset.value = option.value;
+      if (select === controls.preset) {
+        const colors = pickerSwatches[option.value];
+        button.innerHTML = `<span class="preset-swatch" style="--swatch-a:${colors[0]};--swatch-b:${colors[1]}"></span><span>${option.text}</span>`;
+      } else {
+        button.innerHTML = `<span class="style-glyph ${option.value}" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>${option.text}</span>`;
+      }
+      button.addEventListener("click", () => {
+        select.value = option.value;
+        select.dispatchEvent(new Event("input", { bubbles: true }));
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        syncVisualPickers();
+      });
+      picker.appendChild(button);
+    });
+  });
+
+  const presetPicker = document.querySelector('.preset-picker[data-select="preset-select"]');
+  const morePresetsButton = byId("more-presets-btn");
+  morePresetsButton.addEventListener("click", () => {
+    const expanded = presetPicker.classList.toggle("show-more");
+    morePresetsButton.setAttribute("aria-expanded", String(expanded));
+    morePresetsButton.querySelector("span").textContent = expanded ? "Less" : "More";
+  });
 
   const setValue = (element, value) => {
     if (!element || value === undefined) return;
@@ -40,16 +169,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const refreshControlUI = () => {
     const showGradient = controls.gradient.checked;
-    byId("gradient-controls").style.display = showGradient ? "flex" : "none";
-    byId("gradient-rotation-control").style.display = showGradient ? "flex" : "none";
+    byId("gradient-options").hidden = !showGradient;
     controls.background.disabled = controls.transparent.checked;
+    controls.background.closest(".color-control-card").classList.toggle("control-disabled", controls.transparent.checked);
     byId("qr-code-container").classList.toggle(
       "transparent-preview",
       controls.transparent.checked
     );
+    byId("color-fg-value").textContent = controls.foreground.value.toUpperCase();
+    byId("color-bg-value").textContent = controls.background.value.toUpperCase();
+    byId("gradient-color-value").textContent = controls.gradientColor.value.toUpperCase();
     byId("gradient-rotation-value").textContent = `${controls.gradientRotation.value}°`;
     byId("logo-size-value").textContent = `${controls.logoSize.value}%`;
     byId("logo-margin-value").textContent = `${controls.logoMargin.value}px`;
+    [controls.gradientRotation, controls.logoSize, controls.logoMargin].forEach((control) => {
+      const min = Number(control.min || 0);
+      const max = Number(control.max || 100);
+      const progress = ((Number(control.value) - min) / (max - min)) * 100;
+      control.style.setProperty("--range-progress", `${progress}%`);
+    });
+    byId("custom-design-status").hidden = controls.preset.value !== "custom";
+    syncVisualPickers();
   };
 
   const applyPreset = (name) => {
@@ -70,6 +210,12 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   controls.preset.addEventListener("change", () => applyPreset(controls.preset.value));
+  [controls.foreground, controls.background, controls.shape, controls.frame, controls.eye].forEach((control) => {
+    control.addEventListener("input", () => {
+      controls.preset.value = "custom";
+      refreshControlUI();
+    });
+  });
   [controls.transparent, controls.gradient, controls.gradientColor, controls.gradientRotation, controls.logoSize, controls.logoMargin].forEach((control) => {
     control?.addEventListener("input", () => {
       if (control !== controls.preset) controls.preset.value = "custom";
@@ -217,46 +363,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const seoContent = {
-    text: ["Text & URL QR Code Generator", "Turn any website link or plain text into a customizable QR code.", "Use a complete HTTPS URL", "Keep important text concise", "Test the final design before publishing"],
-    vcard: ["vCard QR Code Generator", "Share contact and business details with one quick scan.", "Add a recognizable full name", "Verify phone and email details", "Keep the logo small for reliable scanning"],
-    wifi: ["Wi-Fi QR Code Generator", "Let guests join your Wi-Fi network without typing credentials.", "Choose the correct encryption type", "Network credentials stay in your browser", "Test on both Android and iPhone"],
-    event: ["Event QR Code Generator", "Create a calendar-ready QR code with date, time, location, and notes.", "Check start and end times", "Use a clear location", "Scan-test with your preferred calendar app"],
-    social: ["Social Media QR Code Generator", "Link directly to your social profile from print or digital media.", "Enter the correct username", "Choose the matching platform", "Use high contrast for posters"],
-    appstore: ["App Store QR Code Generator", "Help users reach your app listing with a single scan.", "Use the full store URL", "Verify the destination", "Add your app logo carefully"],
-    email: ["Email QR Code Generator", "Pre-fill a recipient, subject, and email message.", "Validate the recipient email", "Keep the subject concise", "Avoid putting sensitive data in QR codes"],
-    sms: ["SMS QR Code Generator", "Open a ready-to-send text message after scanning.", "Include the country code", "Keep the message concise", "Test across mobile platforms"],
-    location: ["Location QR Code Generator", "Share an address or direct map destination through a QR code.", "Prefer a verified map link", "Check address spelling", "Test navigation before printing"],
-    payment: ["Payment QR Code Generator", "Create UPI or readable bank-detail QR codes locally in your browser.", "Verify every payment detail", "Test using the intended payment app", "Never publish private banking data accidentally"],
-    phone: ["Phone Call QR Code Generator", "Let people open their dialer with your number pre-filled.", "Include the country code", "Use digits and an optional leading plus", "Test on a mobile device"],
-    whatsapp: ["WhatsApp QR Code Generator", "Start a WhatsApp conversation with an optional pre-filled message.", "Enter the country code without plus", "Keep the greeting short", "Test the link before sharing"],
-    review: ["Google Review QR Code Generator", "Send customers directly to your Google Business review screen.", "Use the direct HTTPS review link", "Test while signed out", "Place the QR where customers can scan easily"],
-  };
-  const seoSection = document.createElement("section");
-  seoSection.className = "info-section slug-seo-section";
-  seoSection.innerHTML = '<div class="info-content"><h2 id="slug-seo-title"></h2><p id="slug-seo-description"></p><ul id="slug-seo-tips"></ul></div>';
-  byId("about-section").prepend(seoSection);
-  const updateSeoContent = () => {
-    const content = seoContent[app.getCurrentTab()] || seoContent.text;
-    byId("slug-seo-title").textContent = content[0];
-    byId("slug-seo-description").textContent = content[1];
-    byId("slug-seo-tips").replaceChildren(...content.slice(2).map((tip) => {
-      const item = document.createElement("li");
-      item.textContent = tip;
-      return item;
-    }));
-  };
-
-  document.querySelector(".tabs-container")?.addEventListener("click", () => setTimeout(() => {
-    updateSeoContent();
-    scheduleQualityUpdate();
-  }));
-  window.addEventListener("popstate", () => setTimeout(updateSeoContent));
   byId("form-container-wrapper").addEventListener("input", () => {
     saveDraft();
     scheduleQualityUpdate();
   });
   byId("customization-controls").addEventListener("input", saveDraft);
+
+  const logoInput = byId("logo-upload");
+  const logoUploadTitle = byId("logo-upload-title");
+  const logoFileName = byId("logo-file-name");
+  const logoUploadIcon = document.querySelector(".logo-upload-icon i");
+  const logoControls = byId("logo-controls");
+  const removeLogoButton = byId("remove-logo-btn");
+  const updateLogoUploadUI = () => {
+    const file = logoInput.files[0];
+    logoUploadTitle.textContent = file ? "Logo selected" : "Choose a logo";
+    logoFileName.textContent = file ? file.name : "PNG, JPG, WebP or SVG";
+    document.querySelector(".logo-upload-card").classList.toggle("has-file", Boolean(file));
+    logoUploadIcon.className = file ? "fa-solid fa-circle-check" : "fa-solid fa-cloud-arrow-up";
+    removeLogoButton.hidden = !file;
+    logoControls.hidden = !file;
+  };
+  logoInput.addEventListener("change", updateLogoUploadUI);
+  removeLogoButton.addEventListener("click", () => requestAnimationFrame(updateLogoUploadUI));
+  byId("reset-customization-btn").addEventListener("click", () => requestAnimationFrame(updateLogoUploadUI));
+  updateLogoUploadUI();
 
   const validateNewForms = () => {
     const phone = byId("phone-number").value.replace(/[\s()-]/g, "");
@@ -297,27 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mobilePreview.setAttribute("aria-label", `${expanded ? "Minimize" : "Expand"} live QR preview`);
   });
 
-  const typeMeta = {
-    text: ["Text & URL QR Code", "fa-solid fa-link"],
-    vcard: ["vCard QR Code", "fa-solid fa-address-card"],
-    wifi: ["Wi-Fi QR Code", "fa-solid fa-wifi"],
-    event: ["Event QR Code", "fa-solid fa-calendar-days"],
-    social: ["Social Media QR Code", "fa-solid fa-share-nodes"],
-    appstore: ["App Store QR Code", "fa-brands fa-app-store-ios"],
-    email: ["Email QR Code", "fa-solid fa-envelope"],
-    sms: ["SMS QR Code", "fa-solid fa-comment-sms"],
-    location: ["Location QR Code", "fa-solid fa-location-dot"],
-    payment: ["Payment QR Code", "fa-solid fa-indian-rupee-sign"],
-    phone: ["Phone Call QR Code", "fa-solid fa-phone"],
-    whatsapp: ["WhatsApp QR Code", "fa-brands fa-whatsapp"],
-    review: ["Google Review QR Code", "fa-solid fa-star"],
-  };
-  const activeType = typeMeta[app.getCurrentTab()] || typeMeta.text;
-  byId("selected-type-name").textContent = activeType[0];
-  byId("selected-type-icon").className = activeType[1];
-
   const flowSteps = [...document.querySelectorAll(".flow-progress span")];
-  const inputHeading = document.querySelector(".left-column > .flow-heading");
   const inputActions = document.querySelector(".input-actions");
   const customization = document.querySelector(".customization-section");
   const rightColumn = document.querySelector(".right-column");
@@ -333,8 +444,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.dataset.wizardStep = String(step);
     flowSteps.forEach((item, index) => item.classList.toggle("active", index === step - 1));
 
-    document.querySelector(".selected-type-card").classList.toggle("wizard-panel-hidden", step !== 1);
-    inputHeading.classList.toggle("wizard-panel-hidden", step !== 1);
     byId("form-container-wrapper").classList.toggle("wizard-panel-hidden", step !== 1);
     inputActions.classList.toggle("wizard-panel-hidden", step !== 1);
     customization.classList.toggle("wizard-panel-hidden", step !== 2);
@@ -354,15 +463,82 @@ document.addEventListener("DOMContentLoaded", () => {
   byId("back-to-input-btn").addEventListener("click", () => showWizardStep(1));
   byId("to-export-btn").addEventListener("click", () => showWizardStep(3));
   byId("back-to-customize-btn").addEventListener("click", () => showWizardStep(2));
-  byId("form-container-wrapper").addEventListener("input", () => setTimeout(updateContinueState, 180));
+  const textInput = byId("text-input");
+  const textCharacterCount = byId("text-character-count");
+  const textInputError = byId("text-input-error");
+  const clearTextButton = byId("clear-text-btn");
+  const pasteTextButton = byId("paste-text-btn");
+
+  const getTextContentSummary = (value) => {
+    const trimmedValue = value.trim();
+    if (!trimmedValue) return "";
+
+    let contentType = "Plain text";
+    try {
+      const parsedUrl = new URL(trimmedValue);
+      if (["http:", "https:"].includes(parsedUrl.protocol)) contentType = "Website URL";
+    } catch {
+      if (trimmedValue.includes("\n") || trimmedValue.length > 80) contentType = "Message";
+    }
+
+    const density = trimmedValue.length <= 120
+      ? "Short content"
+      : trimmedValue.length <= 500
+        ? "Medium density"
+        : "Dense QR";
+    return `${contentType} · ${density}`;
+  };
+
+  const resizeTextInput = () => {
+    const maximumHeight = 280;
+    textInput.style.height = "auto";
+    textInput.style.height = `${Math.min(Math.max(textInput.scrollHeight, 160), maximumHeight)}px`;
+    textInput.style.overflowY = textInput.scrollHeight > maximumHeight ? "auto" : "hidden";
+  };
+
+  const updateTextInputUX = (showEmptyError = false) => {
+    const value = textInput.value;
+    const isEmpty = !value.trim();
+    const contentSummary = getTextContentSummary(value);
+    textCharacterCount.textContent = `${value.length} ${value.length === 1 ? "character" : "characters"}${contentSummary ? ` · ${contentSummary}` : ""}`;
+    clearTextButton.disabled = value.length === 0;
+    if (showEmptyError && isEmpty) {
+      textInputError.textContent = "Please enter something to generate your QR code.";
+    }
+    textInputError.hidden = !(showEmptyError && isEmpty);
+    textInput.setAttribute("aria-invalid", String(showEmptyError && isEmpty));
+    resizeTextInput();
+    updateContinueState();
+  };
+
+  textInput.addEventListener("input", () => updateTextInputUX(false));
+  textInput.addEventListener("blur", () => updateTextInputUX(true));
+  clearTextButton.addEventListener("click", () => {
+    textInput.value = "";
+    textInput.dispatchEvent(new Event("input", { bubbles: true }));
+    textInput.focus();
+  });
+  pasteTextButton.addEventListener("click", async () => {
+    try {
+      textInput.value = await navigator.clipboard.readText();
+      textInput.dispatchEvent(new Event("input", { bubbles: true }));
+      textInput.focus();
+    } catch {
+      textInputError.textContent = "Clipboard access is unavailable. Please paste manually.";
+      textInputError.hidden = false;
+      textInput.focus();
+    }
+  });
+  byId("form-container-wrapper").addEventListener("input", updateContinueState);
 
   restoreDraft();
+  if (app.getCurrentTab() === "text") textInput.value = "";
   refreshControlUI();
   app.refresh();
-  updateSeoContent();
   updateQuality();
   syncMobilePreview();
   updateContinueState();
+  updateTextInputUX(false);
   showWizardStep(1);
 
   if ("serviceWorker" in navigator && location.protocol !== "file:") {

@@ -8,6 +8,8 @@ QR Fusion is a frontend-only QR code generator. User-entered QR content is proce
 qr-fushion/
 ├── index.html                    # Marketing landing page
 ├── generator.html                # QR generator markup and forms
+├── assets/
+│   └── favicon/                  # Icons and web-app manifest
 ├── css/
 │   ├── style.css                 # App, controls, exports, responsive layout
 │   ├── about.css                 # Informational and SEO content sections
@@ -15,9 +17,9 @@ qr-fushion/
 ├── js/
 │   ├── core/app.js               # QR payloads, routing, preview, downloads
 │   ├── features/ui-features.js   # Presets, drafts, quality, SEO, PWA setup
-│   ├── landing.js                # Landing navigation and theme behavior
+│   ├── pages/landing.js          # Landing navigation and theme behavior
 │   └── data/                     # Embedded PDF background/logo assets
-├── favicon/                      # Icons and web-app manifest
+├── text-files/                   # Source text for embedded visual data
 ├── service-worker.js             # Offline application shell and runtime cache
 ├── _redirects                    # Netlify clean-URL rewrites
 ├── sitemap.xml                   # Search-engine URL discovery
