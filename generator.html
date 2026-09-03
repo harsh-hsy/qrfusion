@@ -25,11 +25,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/css/style.css?v=53" />
+    <link rel="stylesheet" href="/css/style.css?v=66" />
     <link rel="stylesheet" href="/css/about.css" />
   </head>
   <body class="generator-page">
@@ -500,7 +500,19 @@
               <span class="event-picker-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i><input id="event-start-native-date" class="event-native-date" type="date" aria-label="Open start date picker" /></span>
             </div>
             <span class="event-control-divider" aria-hidden="true"></span>
-            <div class="event-time-entry"><i class="fa-regular fa-clock" aria-hidden="true"></i><input id="event-start-time" class="event-time-display" type="text" inputmode="numeric" autocomplete="off" maxlength="5" placeholder="HH:MM" aria-label="Start time in 24-hour format" /></div>
+            <div class="event-time-entry">
+              <button type="button" class="event-time-picker-button" aria-label="Open start time picker" aria-expanded="false" aria-controls="event-start-time-picker"><i class="fa-regular fa-clock" aria-hidden="true"></i></button>
+              <input id="event-start-time" class="event-time-display" type="text" autocomplete="off" placeholder="HH:MM" aria-label="Start time in 24-hour format" aria-haspopup="dialog" readonly />
+              <div id="event-start-time-picker" class="event-time-popover" hidden>
+                <p>24-hour time</p>
+                <div class="event-time-columns">
+                  <label><span>Hour</span><select class="event-hour-select" size="6" aria-label="Start hour from 00 to 23"></select></label>
+                  <strong aria-hidden="true">:</strong>
+                  <label><span>Minute</span><select class="event-minute-select" size="6" aria-label="Start minute from 00 to 59"></select></label>
+                </div>
+                <button type="button" class="event-time-done">Done</button>
+              </div>
+            </div>
           </div>
           <input id="event-start" type="hidden" />
           <small class="input-hint">DD/MM/YYYY · 24-hour time</small>
@@ -515,7 +527,19 @@
               <span class="event-picker-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i><input id="event-end-native-date" class="event-native-date" type="date" aria-label="Open end date picker" /></span>
             </div>
             <span class="event-control-divider" aria-hidden="true"></span>
-            <div class="event-time-entry"><i class="fa-regular fa-clock" aria-hidden="true"></i><input id="event-end-time" class="event-time-display" type="text" inputmode="numeric" autocomplete="off" maxlength="5" placeholder="HH:MM" aria-label="End time in 24-hour format" /></div>
+            <div class="event-time-entry">
+              <button type="button" class="event-time-picker-button" aria-label="Open end time picker" aria-expanded="false" aria-controls="event-end-time-picker"><i class="fa-regular fa-clock" aria-hidden="true"></i></button>
+              <input id="event-end-time" class="event-time-display" type="text" autocomplete="off" placeholder="HH:MM" aria-label="End time in 24-hour format" aria-haspopup="dialog" readonly />
+              <div id="event-end-time-picker" class="event-time-popover" hidden>
+                <p>24-hour time</p>
+                <div class="event-time-columns">
+                  <label><span>Hour</span><select class="event-hour-select" size="6" aria-label="End hour from 00 to 23"></select></label>
+                  <strong aria-hidden="true">:</strong>
+                  <label><span>Minute</span><select class="event-minute-select" size="6" aria-label="End minute from 00 to 59"></select></label>
+                </div>
+                <button type="button" class="event-time-done">Done</button>
+              </div>
+            </div>
           </div>
           <input id="event-end" type="hidden" />
           <small class="input-hint">DD/MM/YYYY · 24-hour time</small>
@@ -558,11 +582,34 @@
       </div>
 
       <div id="appstore-form" class="form-container">
-        <h3 class="section-subtitle grid-col-span-2">App Store Link</h3>
-        <textarea
-          id="appstore-url"
-          placeholder="Enter full App Store or Google Play URL"
-        ></textarea>
+        <h3 class="section-subtitle">App Store Links</h3>
+        <div class="app-link-grid" role="radiogroup" aria-label="Choose an app store">
+          <div class="app-link-card selected" data-app-platform="google">
+            <label class="app-link-choice" for="appstore-platform-google">
+              <input id="appstore-platform-google" type="radio" name="appstore-platform" value="google" checked />
+              <span class="app-link-icon google-play"><i class="fa-brands fa-google-play" aria-hidden="true"></i></span>
+              <span class="app-link-copy"><strong>Google Play</strong><small>Android app link</small></span>
+              <i class="fa-solid fa-circle-check app-link-check" aria-hidden="true"></i>
+            </label>
+            <input id="appstore-google-url" type="url" inputmode="url" autocomplete="url" placeholder="https://play.google.com/store/apps/details?id=..." aria-label="Google Play app URL" />
+          </div>
+          <div class="app-link-card" data-app-platform="apple">
+            <label class="app-link-choice" for="appstore-platform-apple">
+              <input id="appstore-platform-apple" type="radio" name="appstore-platform" value="apple" />
+              <span class="app-link-icon apple-store"><i class="fa-brands fa-apple" aria-hidden="true"></i></span>
+              <span class="app-link-copy"><strong>Apple App Store</strong><small>iPhone and iPad app link</small></span>
+              <i class="fa-solid fa-circle-check app-link-check" aria-hidden="true"></i>
+            </label>
+            <input id="appstore-apple-url" type="url" inputmode="url" autocomplete="url" placeholder="https://apps.apple.com/app/..." aria-label="Apple App Store URL" />
+          </div>
+        </div>
+        <p class="form-note app-link-note">Select a platform, then paste its store link. The selected card will be encoded in the QR code.</p>
+      </div>
+
+      <div id="youtube-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">YouTube Link</h3>
+        <input type="url" id="youtube-url" inputmode="url" autocomplete="url" placeholder="https://www.youtube.com/watch?v=..." class="grid-col-span-2" aria-label="YouTube video or channel URL" />
+        <p class="form-note grid-col-span-2">Paste a full YouTube video, Short, playlist, or channel link.</p>
       </div>
 
       <div id="email-form" class="form-container grid-form">
@@ -610,6 +657,12 @@
         <h3 class="section-subtitle grid-col-span-2">Phone Call Details</h3>
         <input type="tel" id="phone-number" placeholder="Phone Number (e.g., +919876543210)" class="grid-col-span-2" />
         <div id="phone-status" class="error-message grid-col-span-2"></div>
+      </div>
+
+      <div id="login-form" class="form-container grid-form">
+        <h3 class="section-subtitle grid-col-span-2">Login QR / Passkey</h3>
+        <input type="url" id="login-url" inputmode="url" autocomplete="url" placeholder="https://example.com/sign-in" class="grid-col-span-2" aria-label="Secure sign-in or passkey URL" />
+        <p class="form-note grid-col-span-2">Paste the secure HTTPS sign-in or passkey URL provided by your authentication service.</p>
       </div>
 
       <div id="whatsapp-form" class="form-container grid-form">
@@ -753,7 +806,7 @@
     <script src="/js/data/light-bg-data.js"></script>
     <script src="/js/data/logo-data.js"></script>
     <!-- Then load your split scripts -->
-    <script src="/js/core/app.js?v=32"></script>
-    <script src="/js/features/ui-features.js?v=41"></script>
+    <script src="/js/core/app.js?v=35"></script>
+    <script src="/js/features/ui-features.js?v=48"></script>
   </body>
 </html>

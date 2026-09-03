@@ -42,19 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
   if (localDevelopment) {
     const routeToType = {
       "/text": "text", "/vcard": "vcard", "/wifi": "wifi", "/event": "event",
-      "/social": "social", "/app-store": "appstore", "/email": "email", "/sms": "sms",
-      "/location": "location", "/payment": "payment", "/phone": "phone",
+      "/social": "social", "/youtube": "youtube", "/app-store": "appstore", "/email": "email", "/sms": "sms",
+      "/location": "location", "/payment": "payment", "/phone": "phone", "/login-qr": "login",
       "/whatsapp": "whatsapp", "/google-review": "review",
     };
     document.addEventListener("click", (event) => {
       const link = event.target.closest("a[href]");
       if (!link) return;
-      const path = new URL(link.href, location.href).pathname;
+      const linkUrl = new URL(link.href, location.href);
+      const path = linkUrl.pathname;
       if (path === "/create" || routeToType[path]) {
         event.preventDefault();
-        location.href = routeToType[path]
-          ? `/generator.html?type=${routeToType[path]}`
-          : "/generator.html";
+        if (routeToType[path]) {
+          const params = new URLSearchParams(linkUrl.search);
+          params.set("type", routeToType[path]);
+          location.href = `/generator.html?${params.toString()}`;
+        } else {
+          location.href = "/generator.html";
+        }
       }
     });
   }

@@ -72,9 +72,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const dateInput = wrapper.querySelector(".event-date-display");
     const timeInput = wrapper.querySelector(".event-time-display");
     const nativeDateInput = wrapper.querySelector(".event-native-date");
+    const timeEntry = wrapper.querySelector(".event-time-entry");
+    const pickerButton = wrapper.querySelector(".event-time-picker-button");
+    const timePopover = wrapper.querySelector(".event-time-popover");
+    const hourSelect = wrapper.querySelector(".event-hour-select");
+    const minuteSelect = wrapper.querySelector(".event-minute-select");
+    const doneButton = wrapper.querySelector(".event-time-done");
     const hiddenInput = wrapper.querySelector('input[type="hidden"]');
     const error = wrapper.querySelector(".event-datetime-error");
-    if (!dateInput || !timeInput || !nativeDateInput || !hiddenInput) return;
+    if (!dateInput || !timeInput || !nativeDateInput || !timeEntry || !pickerButton || !timePopover || !hourSelect || !minuteSelect || !doneButton || !hiddenInput) return;
+    hourSelect.innerHTML = Array.from({ length: 24 }, (_, hour) => `<option value="${String(hour).padStart(2, "0")}">${String(hour).padStart(2, "0")}</option>`).join("");
+    minuteSelect.innerHTML = Array.from({ length: 60 }, (_, minute) => `<option value="${String(minute).padStart(2, "0")}">${String(minute).padStart(2, "0")}</option>`).join("");
     const syncDateTime = () => {
       const date = parseDisplayDate(dateInput.value);
       const time = parseDisplayTime(timeInput.value);
@@ -91,6 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     timeInput.addEventListener("input", () => {
       timeInput.value = formatTimeEntry(timeInput.value);
+      const time = parseDisplayTime(timeInput.value);
+      if (time) {
+        hourSelect.value = time.hour;
+        minuteSelect.value = time.minute;
+      }
       syncDateTime();
     });
     nativeDateInput.addEventListener("change", () => {
@@ -98,9 +111,72 @@ document.addEventListener("DOMContentLoaded", () => {
       const [year, month, day] = nativeDateInput.value.split("-");
       dateInput.value = `${day}/${month}/${year}`;
       syncDateTime();
-      timeInput.focus();
+      pickerButton.focus();
+      pickerButton.click();
+    });
+    const closeTimePicker = () => {
+      timePopover.hidden = true;
+      pickerButton.setAttribute("aria-expanded", "false");
+    };
+    const applySelectedTime = () => {
+      timeInput.value = `${hourSelect.value}:${minuteSelect.value}`;
+      syncDateTime();
+    };
+    pickerButton.addEventListener("click", () => {
+      const willOpen = timePopover.hidden;
+      document.querySelectorAll(".event-time-popover").forEach((popover) => { popover.hidden = true; });
+      document.querySelectorAll(".event-time-picker-button").forEach((button) => button.setAttribute("aria-expanded", "false"));
+      if (!willOpen) return;
+      const time = parseDisplayTime(timeInput.value) || { hour: "00", minute: "00" };
+      hourSelect.value = time.hour;
+      minuteSelect.value = time.minute;
+      timePopover.hidden = false;
+      pickerButton.setAttribute("aria-expanded", "true");
+      hourSelect.focus();
+    });
+    timeInput.addEventListener("click", () => {
+      if (timePopover.hidden) pickerButton.click();
+    });
+    [hourSelect, minuteSelect].forEach((select) => select.addEventListener("change", applySelectedTime));
+    doneButton.addEventListener("click", () => {
+      applySelectedTime();
+      closeTimePicker();
+      pickerButton.focus();
+    });
+    timePopover.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      closeTimePicker();
+      pickerButton.focus();
+    });
+    document.addEventListener("click", (event) => {
+      if (!timeEntry.contains(event.target)) closeTimePicker();
     });
   });
+
+  const appStoreCards = [...document.querySelectorAll(".app-link-card")];
+  const requestedAppPlatform = new URLSearchParams(window.location.search).get("platform");
+  if (["google", "apple"].includes(requestedAppPlatform)) {
+    const requestedRadio = document.querySelector(`input[name="appstore-platform"][value="${requestedAppPlatform}"]`);
+    if (requestedRadio) requestedRadio.checked = true;
+  }
+  const syncAppStoreCards = () => {
+    appStoreCards.forEach((card) => {
+      const radio = card.querySelector('input[type="radio"]');
+      card.classList.toggle("selected", Boolean(radio?.checked));
+    });
+  };
+  appStoreCards.forEach((card) => {
+    const radio = card.querySelector('input[type="radio"]');
+    const urlInput = card.querySelector('input[type="url"]');
+    radio?.addEventListener("change", syncAppStoreCards);
+    urlInput?.addEventListener("focus", () => {
+      if (!radio || radio.checked) return;
+      radio.checked = true;
+      radio.dispatchEvent(new Event("change", { bubbles: true }));
+      radio.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
+  syncAppStoreCards();
 
   const presets = {
     classic: { foreground: "#000000", background: "#ffffff", gradient: false, shape: "square", frame: "square", eye: "square" },

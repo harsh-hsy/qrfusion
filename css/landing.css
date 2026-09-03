@@ -93,7 +93,6 @@ button { font: inherit; }
 .section-heading > p:last-child, .showcase-copy > p, .faq-layout > div > p { margin-top: 0.85rem; color: var(--muted); }
 .type-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .type-grid a { min-height: 210px; padding: 1.4rem; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 8px 24px rgba(36,27,72,.04); transition: .25s ease; }
-.type-grid a:last-child { grid-column: 2 / span 2; }
 .type-grid a:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--primary) 45%, var(--border)); box-shadow: var(--shadow); }
 .type-grid b, .benefit-grid b { width: 42px; height: 42px; display: grid; place-items: center; color: var(--primary); background: var(--surface-soft); border-radius: 12px; font-size: 1.2rem; }
 .type-grid h3 { margin-top: 1rem; font-size: 1.05rem; }
@@ -131,7 +130,7 @@ button { font: inherit; }
 .faq-list details p { padding-top: .7rem; color: var(--muted); font-size: .9rem; }
 .final-cta { margin-block: 90px; padding: 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; color: white; background: linear-gradient(115deg, var(--primary), #7c3aed 55%, var(--pink)); border-radius: 28px; }
 .final-cta .eyebrow, .final-cta p { color: #ede9fe; }.primary-button.light { color: var(--primary); background: white; box-shadow: none; white-space: nowrap; }
-.site-footer { padding: 1.4rem 0; background: var(--surface); border-top: 1px solid var(--border); }
+.site-footer { padding: 1.4rem 0; background: var(--bg); border-top: 1px solid var(--border); }
 .footer-inner { width: min(1180px, calc(100% - 40px)); margin: auto; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 2rem; color: var(--muted); font-size: .82rem; }
 .footer-brand { display: inline-block; margin-bottom: .25rem; }.footer-links { display: flex; gap: 1.4rem; }.site-footer a:hover { color: var(--primary); }
 
@@ -140,7 +139,7 @@ button { font: inherit; }
   .menu-toggle { display: flex; cursor: pointer; }
   .site-nav { position: absolute; top: calc(100% + 1px); left: 0; right: 0; padding: 1.25rem 24px; display: none; flex-direction: column; align-items: center; gap: .5rem; text-align: center; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
   .site-nav.open { display: flex; }.site-nav a { width: 100%; padding: .7rem; text-align: center; }
-  .hero { grid-template-columns: 1fr 0.8fr; gap: 2rem; }.type-grid { grid-template-columns: repeat(2, 1fr); }.type-grid a:last-child { grid-column: 1 / -1; }.showcase { gap: 3rem; }
+  .hero { grid-template-columns: 1fr 0.8fr; gap: 2rem; }.type-grid { grid-template-columns: repeat(2, 1fr); }.showcase { gap: 3rem; }
   .privacy-card { grid-template-columns: auto 1fr; }.privacy-points { grid-column: 2; }.faq-layout { gap: 3rem; }
   .footer-inner { grid-template-columns: 1fr auto; }.footer-inner > p { grid-column: 1 / -1; }
 }
@@ -151,7 +150,7 @@ button { font: inherit; }
   .hero-copy { display: flex; flex-direction: column; align-items: center; }.hero h1 { font-size: clamp(2.7rem, 13vw, 4.3rem); }.hero-actions, .trust-row { justify-content: center; }
   .hero-visual { min-height: 390px; }.qr-demo-card { width: min(340px, 92%); }.visual-glow { width: 300px; }
   .trust-strip { overflow-x: auto; justify-content: flex-start; white-space: nowrap; padding-inline: 20px; }
-  .content-section { padding-block: 72px; }.type-grid, .steps-grid, .benefit-grid { grid-template-columns: 1fr; }.type-grid a { min-height: 175px; }.type-grid a:last-child { grid-column: auto; }
+  .content-section { padding-block: 72px; }.type-grid, .steps-grid, .benefit-grid { grid-template-columns: 1fr; }.type-grid a { min-height: 175px; }
   .showcase { grid-template-columns: 1fr; gap: 2.5rem; }.showcase-copy ul { grid-template-columns: 1fr; }.feature-preview { min-height: 340px; padding: 2rem; }.mini-code { width: 180px; }
   .privacy-card { padding: 2rem; grid-template-columns: 1fr; text-align: center; }.privacy-icon { margin: auto; }.privacy-points { grid-column: 1; align-items: center; }
   .faq-layout { grid-template-columns: 1fr; gap: 2.5rem; }.final-cta { margin-block: 60px; padding: 2.25rem 1.5rem; flex-direction: column; text-align: center; }

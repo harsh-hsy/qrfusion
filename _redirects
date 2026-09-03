@@ -4,11 +4,13 @@
 /wifi       /generator.html 200
 /event      /generator.html 200
 /social     /generator.html 200
+/youtube    /generator.html 200
 /app-store  /generator.html 200
 /email      /generator.html 200
 /sms        /generator.html 200
 /location   /generator.html 200
 /payment    /generator.html 200
 /phone      /generator.html 200
+/login-qr   /generator.html 200
 /whatsapp   /generator.html 200
 /google-review /generator.html 200

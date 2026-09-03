@@ -78,6 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Free Social Media QR Code Generator | QR Fusion",
       description: "Create a custom QR code for Instagram, Facebook, LinkedIn, YouTube, TikTok, X, or Pinterest profiles.",
     },
+    youtube: {
+      path: "/youtube",
+      title: "Free YouTube QR Code Generator | QR Fusion",
+      description: "Create a custom QR code that opens a YouTube video, Short, playlist, or channel instantly.",
+    },
     appstore: {
       path: "/app-store",
       title: "Free App Store QR Code Generator | QR Fusion",
@@ -107,6 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
       path: "/phone",
       title: "Free Phone Call QR Code Generator | QR Fusion",
       description: "Create a phone call QR code that opens the dialer with your number ready to call.",
+    },
+    login: {
+      path: "/login-qr",
+      title: "Login QR and Passkey Link Generator | QR Fusion",
+      description: "Create a QR code for a secure passwordless sign-in or passkey URL.",
     },
     whatsapp: {
       path: "/whatsapp",
@@ -415,9 +425,30 @@ END:VCALENDAR`;
         };
         return urls[platform] || "";
       }
+      case "youtube": {
+        const url = getInputValue("youtube-url");
+        if (!isValidHttpUrl(url)) return "";
+        try {
+          const hostname = new URL(url).hostname.toLowerCase();
+          const isYouTubeUrl = hostname === "youtu.be" || hostname === "youtube.com" || hostname.endsWith(".youtube.com");
+          return isYouTubeUrl ? url : "";
+        } catch {
+          return "";
+        }
+      }
       case "appstore": {
-        const url = getInputValue("appstore-url");
-        return isValidHttpUrl(url) ? url : "";
+        const platform = document.querySelector('input[name="appstore-platform"]:checked')?.value || "google";
+        const url = getInputValue(platform === "apple" ? "appstore-apple-url" : "appstore-google-url");
+        if (!isValidHttpUrl(url)) return "";
+        try {
+          const hostname = new URL(url).hostname.toLowerCase();
+          const isMatchingStore = platform === "apple"
+            ? hostname === "apps.apple.com" || hostname.endsWith(".apps.apple.com")
+            : hostname === "play.google.com" || hostname.endsWith(".play.google.com");
+          return isMatchingStore ? url : "";
+        } catch {
+          return "";
+        }
       }
       case "email": {
         const to = getInputValue("email-to");
@@ -438,6 +469,15 @@ END:VCALENDAR`;
       case "phone": {
         const phone = getInputValue("phone-number").replace(/[\s()-]/g, "");
         return /^\+?\d{7,15}$/.test(phone) ? `tel:${phone}` : "";
+      }
+      case "login": {
+        const url = getInputValue("login-url");
+        try {
+          const parsed = new URL(url);
+          return parsed.protocol === "https:" ? parsed.href : "";
+        } catch {
+          return "";
+        }
       }
       case "whatsapp": {
         const phone = getInputValue("whatsapp-number").replace(/\D/g, "");
