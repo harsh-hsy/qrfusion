@@ -29,16 +29,17 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/css/style.css?v=46" />
+    <link rel="stylesheet" href="/css/style.css?v=53" />
     <link rel="stylesheet" href="/css/about.css" />
   </head>
   <body class="generator-page">
     <header class="site-header generator-site-header">
       <a class="brand" href="/" aria-label="QR Fusion home">QR <span>Fusion</span></a>
-      <button class="menu-toggle" id="generator-menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-      <nav class="site-nav generator-header-links" id="generator-site-nav" aria-label="Generator navigation">
-        <a href="/">Home</a>
-        <a href="/#qr-types">QR Types</a>
+      <div class="header-actions">
+        <nav class="site-nav generator-header-links" id="generator-site-nav" aria-label="Generator navigation">
+          <a href="/">Home</a>
+          <a href="/#qr-types">QR Types</a>
+        </nav>
         <label for="theme-toggle" class="themeToggle generator-theme-toggle" title="Toggle theme">
           <input type="checkbox" id="theme-toggle" aria-label="Toggle dark theme" />
           <svg width="21" height="21" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -47,7 +48,8 @@
             <g class="sunRays" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.64 3.64l1.42 1.42M14.94 14.94l1.42 1.42M16.36 3.64l-1.42 1.42M5.06 14.94l-1.42 1.42"></path></g>
           </svg>
         </label>
-      </nav>
+        <button class="menu-toggle" id="generator-menu-toggle" aria-label="Open navigation" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      </div>
     </header>
 
      <main class="page-content">
@@ -281,6 +283,7 @@
             </div>
             <div class="wizard-actions export-back-action">
               <button id="back-to-customize-btn" class="wizard-button secondary"><i class="fa-solid fa-arrow-left"></i> Back to Customize</button>
+              <a class="wizard-button primary" href="/"><i class="fa-solid fa-house" aria-hidden="true"></i> Back to Home</a>
             </div>
           </div>
           </div>
@@ -751,6 +754,6 @@
     <script src="/js/data/logo-data.js"></script>
     <!-- Then load your split scripts -->
     <script src="/js/core/app.js?v=32"></script>
-    <script src="/js/features/ui-features.js?v=36"></script>
+    <script src="/js/features/ui-features.js?v=41"></script>
   </body>
 </html>

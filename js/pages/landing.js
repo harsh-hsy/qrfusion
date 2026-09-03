@@ -21,12 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
   menuButton.addEventListener("click", () => {
     const open = navigation.classList.toggle("open");
     menuButton.setAttribute("aria-expanded", String(open));
+    menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    menuButton.querySelector("i")?.classList.toggle("fa-bars", !open);
+    menuButton.querySelector("i")?.classList.toggle("fa-xmark", open);
   });
 
   navigation.addEventListener("click", (event) => {
     if (event.target.closest("a")) {
       navigation.classList.remove("open");
       menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation");
+      menuButton.querySelector("i")?.classList.add("fa-bars");
+      menuButton.querySelector("i")?.classList.remove("fa-xmark");
     }
   });
 

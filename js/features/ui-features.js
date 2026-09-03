@@ -7,11 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const isOpen = generatorSiteNav.classList.toggle("open");
     generatorMenuToggle.setAttribute("aria-expanded", String(isOpen));
     generatorMenuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    generatorMenuToggle.querySelector("i")?.classList.toggle("fa-bars", !isOpen);
+    generatorMenuToggle.querySelector("i")?.classList.toggle("fa-xmark", isOpen);
   });
   generatorSiteNav?.querySelectorAll("a").forEach((link) =>
     link.addEventListener("click", () => {
       generatorSiteNav.classList.remove("open");
       generatorMenuToggle?.setAttribute("aria-expanded", "false");
+      generatorMenuToggle?.setAttribute("aria-label", "Open navigation");
+      generatorMenuToggle?.querySelector("i")?.classList.add("fa-bars");
+      generatorMenuToggle?.querySelector("i")?.classList.remove("fa-xmark");
     })
   );
 
@@ -399,22 +404,46 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   ["phone-number", "whatsapp-number", "review-url"].forEach((id) => byId(id).addEventListener("input", validateNewForms));
 
-  const mobilePreview = document.createElement("button");
-  mobilePreview.type = "button";
+  const mobilePreview = document.createElement("div");
   mobilePreview.className = "mobile-preview-dock";
-  mobilePreview.setAttribute("aria-label", "Expand live QR preview");
-  mobilePreview.innerHTML = '<span class="mobile-preview-dock-header"><span>Live preview</span><b>Expand</b></span><span class="mobile-preview-content"></span>';
+  mobilePreview.setAttribute("role", "group");
+  mobilePreview.setAttribute("aria-label", "Movable live QR preview");
+  mobilePreview.title = "Drag to move · Tap to expand";
+  mobilePreview.innerHTML = `
+    <div class="mobile-preview-dock-header">
+      <span>Live preview</span>
+      <button type="button" class="mobile-preview-toggle" aria-label="Expand live QR preview">Expand</button>
+    </div>
+    <div class="mobile-preview-content"></div>
+    <div class="mobile-preview-guide-rail">
+      <button type="button" class="mobile-preview-info" aria-label="Show preview movement help" aria-expanded="false" title="How to move the preview"><i class="fa-solid fa-info" aria-hidden="true"></i></button>
+      <span class="mobile-preview-guide-message" role="status">You can drag your QR anywhere.</span>
+    </div>`;
   document.body.appendChild(mobilePreview);
   const previewSource = byId("qr-code-container");
   const previewCopy = mobilePreview.querySelector(".mobile-preview-content");
-  const previewAction = mobilePreview.querySelector("b");
+  const previewAction = mobilePreview.querySelector(".mobile-preview-toggle");
+  const previewInfo = mobilePreview.querySelector(".mobile-preview-info");
+  const previewGuide = mobilePreview.querySelector(".mobile-preview-guide-rail");
+  const mobilePreviewQuery = window.matchMedia("(max-width: 900px)");
   let previewFrame;
+  let previewGuideTimer;
+  let previewAutoMoveTimer;
+  let previewOnboardingShown = false;
   const syncMobilePreview = () => {
     cancelAnimationFrame(previewFrame);
     previewFrame = requestAnimationFrame(() => {
       const visible = previewSource.style.display !== "none" && previewSource.children.length > 0;
+      const prepareOnboarding = visible && !previewOnboardingShown && mobilePreviewQuery.matches && document.body.dataset.wizardStep === "2";
+      mobilePreview.classList.toggle("preparing", prepareOnboarding);
       mobilePreview.classList.toggle("visible", visible);
-      if (visible) previewCopy.innerHTML = previewSource.innerHTML;
+      if (visible) {
+        previewCopy.innerHTML = previewSource.innerHTML;
+        requestAnimationFrame(() => {
+          if (prepareOnboarding) startPreviewOnboarding();
+          else keepPreviewInViewport();
+        });
+      }
     });
   };
   new MutationObserver(syncMobilePreview).observe(previewSource, {
@@ -422,10 +451,138 @@ document.addEventListener("DOMContentLoaded", () => {
     childList: true,
     subtree: true,
   });
-  mobilePreview.addEventListener("click", () => {
+
+  const previewPositionKey = "qr-fusion-mobile-preview-position";
+  const previewEdgeGap = 8;
+  const setPreviewPosition = (left, top) => {
+    mobilePreview.style.left = `${left}px`;
+    mobilePreview.style.top = `${top}px`;
+    mobilePreview.style.right = "auto";
+    mobilePreview.style.bottom = "auto";
+  };
+  const updatePreviewGuideSide = () => {
+    const rect = mobilePreview.getBoundingClientRect();
+    const requiredWidth = previewGuide.classList.contains("show-guide") ? 220 : 44;
+    previewGuide.classList.toggle("guide-left", window.innerWidth - rect.right < requiredWidth && rect.left >= requiredWidth);
+  };
+  const keepPreviewInViewport = () => {
+    if (!mobilePreviewQuery.matches || !mobilePreview.classList.contains("visible")) return;
+    const rect = mobilePreview.getBoundingClientRect();
+    const maxLeft = Math.max(previewEdgeGap, window.innerWidth - rect.width - previewEdgeGap);
+    const maxTop = Math.max(previewEdgeGap, window.innerHeight - rect.height - previewEdgeGap);
+    const left = Math.min(maxLeft, Math.max(previewEdgeGap, rect.left));
+    const top = Math.min(maxTop, Math.max(previewEdgeGap, rect.top));
+    setPreviewPosition(left, top);
+    updatePreviewGuideSide();
+  };
+  const showPreviewGuide = () => {
+    clearTimeout(previewGuideTimer);
+    previewGuide.classList.add("show-guide");
+    previewInfo.setAttribute("aria-expanded", "true");
+    updatePreviewGuideSide();
+    previewGuideTimer = setTimeout(() => {
+      previewGuide.classList.remove("show-guide");
+      previewInfo.setAttribute("aria-expanded", "false");
+      updatePreviewGuideSide();
+    }, 5000);
+  };
+  const placePreviewInCenter = () => {
+    const rect = mobilePreview.getBoundingClientRect();
+    setPreviewPosition(previewEdgeGap, (window.innerHeight - rect.height) / 2);
+    keepPreviewInViewport();
+  };
+  const movePreviewToSuggestedPosition = () => {
+    const headerBottom = document.querySelector(".site-header")?.getBoundingClientRect().bottom || 66;
+    setPreviewPosition(previewEdgeGap, headerBottom + previewEdgeGap);
+    keepPreviewInViewport();
+    localStorage.setItem(previewPositionKey, JSON.stringify({
+      left: parseFloat(mobilePreview.style.left),
+      top: parseFloat(mobilePreview.style.top),
+    }));
+  };
+  const startPreviewOnboarding = () => {
+    if (previewOnboardingShown || !mobilePreviewQuery.matches || document.body.dataset.wizardStep !== "2") return;
+    previewOnboardingShown = true;
+    placePreviewInCenter();
+    mobilePreview.getBoundingClientRect();
+    mobilePreview.classList.remove("preparing");
+    showPreviewGuide();
+    clearTimeout(previewAutoMoveTimer);
+    previewAutoMoveTimer = setTimeout(movePreviewToSuggestedPosition, 5000);
+  };
+  const restorePreviewPosition = () => {
+    try {
+      const savedPosition = JSON.parse(localStorage.getItem(previewPositionKey));
+      if (!Number.isFinite(savedPosition?.left) || !Number.isFinite(savedPosition?.top)) return;
+      setPreviewPosition(savedPosition.left, savedPosition.top);
+    } catch {
+      localStorage.removeItem(previewPositionKey);
+    }
+  };
+  restorePreviewPosition();
+
+  let previewDrag = null;
+  let suppressPreviewClick = false;
+  mobilePreview.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || event.target.closest(".mobile-preview-info, .mobile-preview-toggle")) return;
+    clearTimeout(previewAutoMoveTimer);
+    const rect = mobilePreview.getBoundingClientRect();
+    previewDrag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      startLeft: rect.left,
+      startTop: rect.top,
+      moved: false,
+    };
+    setPreviewPosition(rect.left, rect.top);
+    mobilePreview.setPointerCapture(event.pointerId);
+  });
+  mobilePreview.addEventListener("pointermove", (event) => {
+    if (!previewDrag || event.pointerId !== previewDrag.pointerId) return;
+    const deltaX = event.clientX - previewDrag.startX;
+    const deltaY = event.clientY - previewDrag.startY;
+    if (!previewDrag.moved && Math.hypot(deltaX, deltaY) < 5) return;
+    previewDrag.moved = true;
+    suppressPreviewClick = true;
+    mobilePreview.classList.add("dragging");
+    const rect = mobilePreview.getBoundingClientRect();
+    const maxLeft = Math.max(previewEdgeGap, window.innerWidth - rect.width - previewEdgeGap);
+    const maxTop = Math.max(previewEdgeGap, window.innerHeight - rect.height - previewEdgeGap);
+    mobilePreview.style.left = `${Math.min(maxLeft, Math.max(previewEdgeGap, previewDrag.startLeft + deltaX))}px`;
+    mobilePreview.style.top = `${Math.min(maxTop, Math.max(previewEdgeGap, previewDrag.startTop + deltaY))}px`;
+    updatePreviewGuideSide();
+    event.preventDefault();
+  });
+  const finishPreviewDrag = (event) => {
+    if (!previewDrag || event.pointerId !== previewDrag.pointerId) return;
+    if (mobilePreview.hasPointerCapture(event.pointerId)) mobilePreview.releasePointerCapture(event.pointerId);
+    if (previewDrag.moved) {
+      localStorage.setItem(previewPositionKey, JSON.stringify({
+        left: parseFloat(mobilePreview.style.left),
+        top: parseFloat(mobilePreview.style.top),
+      }));
+    }
+    previewDrag = null;
+    mobilePreview.classList.remove("dragging");
+    setTimeout(() => { suppressPreviewClick = false; }, 0);
+  };
+  mobilePreview.addEventListener("pointerup", finishPreviewDrag);
+  mobilePreview.addEventListener("pointercancel", finishPreviewDrag);
+  window.addEventListener("resize", keepPreviewInViewport);
+
+  const toggleMobilePreview = () => {
+    if (suppressPreviewClick) return;
     const expanded = mobilePreview.classList.toggle("expanded");
     previewAction.textContent = expanded ? "Minimize" : "Expand";
-    mobilePreview.setAttribute("aria-label", `${expanded ? "Minimize" : "Expand"} live QR preview`);
+    previewAction.setAttribute("aria-label", `${expanded ? "Minimize" : "Expand"} live QR preview`);
+    requestAnimationFrame(keepPreviewInViewport);
+  };
+  previewAction.addEventListener("click", toggleMobilePreview);
+  previewCopy.addEventListener("click", toggleMobilePreview);
+  previewInfo.addEventListener("click", (event) => {
+    event.stopPropagation();
+    showPreviewGuide();
   });
 
   const flowSteps = [...document.querySelectorAll(".flow-progress span")];
