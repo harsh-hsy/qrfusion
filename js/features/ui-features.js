@@ -6,9 +6,16 @@ document.addEventListener("DOMContentLoaded", () => {
   generatorMenuToggle?.addEventListener("click", () => {
     const isOpen = generatorSiteNav.classList.toggle("open");
     generatorMenuToggle.setAttribute("aria-expanded", String(isOpen));
-    generatorMenuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-    generatorMenuToggle.querySelector("i")?.classList.toggle("fa-bars", !isOpen);
-    generatorMenuToggle.querySelector("i")?.classList.toggle("fa-xmark", isOpen);
+    generatorMenuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation" : "Open navigation",
+    );
+    generatorMenuToggle
+      .querySelector("i")
+      ?.classList.toggle("fa-bars", !isOpen);
+    generatorMenuToggle
+      .querySelector("i")
+      ?.classList.toggle("fa-xmark", isOpen);
   });
   generatorSiteNav?.querySelectorAll("a").forEach((link) =>
     link.addEventListener("click", () => {
@@ -17,13 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
       generatorMenuToggle?.setAttribute("aria-label", "Open navigation");
       generatorMenuToggle?.querySelector("i")?.classList.add("fa-bars");
       generatorMenuToggle?.querySelector("i")?.classList.remove("fa-xmark");
-    })
+    }),
   );
-
-  const setViewportHeight = () =>
-    document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
-  window.addEventListener("resize", setViewportHeight);
-  setViewportHeight();
 
   const app = window.QRFusionApp;
   if (!app) return;
@@ -53,14 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const formatTimeEntry = (value) => {
     const digits = value.replace(/\D/g, "").slice(0, 4);
-    return digits.length <= 2 ? digits : `${digits.slice(0, 2)}:${digits.slice(2)}`;
+    return digits.length <= 2
+      ? digits
+      : `${digits.slice(0, 2)}:${digits.slice(2)}`;
   };
   const parseDisplayDate = (value) => {
     const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value);
     if (!match) return null;
     const [, day, month, year] = match;
     const date = new Date(Number(year), Number(month) - 1, Number(day));
-    if (date.getFullYear() !== Number(year) || date.getMonth() !== Number(month) - 1 || date.getDate() !== Number(day)) return null;
+    if (
+      date.getFullYear() !== Number(year) ||
+      date.getMonth() !== Number(month) - 1 ||
+      date.getDate() !== Number(day)
+    )
+      return null;
     return { day, month, year };
   };
   const parseDisplayTime = (value) => {
@@ -80,16 +89,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const doneButton = wrapper.querySelector(".event-time-done");
     const hiddenInput = wrapper.querySelector('input[type="hidden"]');
     const error = wrapper.querySelector(".event-datetime-error");
-    if (!dateInput || !timeInput || !nativeDateInput || !timeEntry || !pickerButton || !timePopover || !hourSelect || !minuteSelect || !doneButton || !hiddenInput) return;
-    hourSelect.innerHTML = Array.from({ length: 24 }, (_, hour) => `<option value="${String(hour).padStart(2, "0")}">${String(hour).padStart(2, "0")}</option>`).join("");
-    minuteSelect.innerHTML = Array.from({ length: 60 }, (_, minute) => `<option value="${String(minute).padStart(2, "0")}">${String(minute).padStart(2, "0")}</option>`).join("");
+    if (
+      !dateInput ||
+      !timeInput ||
+      !nativeDateInput ||
+      !timeEntry ||
+      !pickerButton ||
+      !timePopover ||
+      !hourSelect ||
+      !minuteSelect ||
+      !doneButton ||
+      !hiddenInput
+    )
+      return;
+    hourSelect.innerHTML = Array.from(
+      { length: 24 },
+      (_, hour) =>
+        `<option value="${String(hour).padStart(2, "0")}">${String(hour).padStart(2, "0")}</option>`,
+    ).join("");
+    minuteSelect.innerHTML = Array.from(
+      { length: 60 },
+      (_, minute) =>
+        `<option value="${String(minute).padStart(2, "0")}">${String(minute).padStart(2, "0")}</option>`,
+    ).join("");
     const syncDateTime = () => {
       const date = parseDisplayDate(dateInput.value);
       const time = parseDisplayTime(timeInput.value);
       const hasPartialValue = Boolean(dateInput.value || timeInput.value);
       const valid = Boolean(date && time);
-      hiddenInput.value = valid ? `${date.year}-${date.month}-${date.day}T${time.hour}:${time.minute}` : "";
-      wrapper.querySelector(".event-datetime-control").classList.toggle("is-invalid", hasPartialValue && !valid);
+      hiddenInput.value = valid
+        ? `${date.year}-${date.month}-${date.day}T${time.hour}:${time.minute}`
+        : "";
+      wrapper
+        .querySelector(".event-datetime-control")
+        .classList.toggle("is-invalid", hasPartialValue && !valid);
       error.hidden = !hasPartialValue || valid;
       hiddenInput.dispatchEvent(new Event("input", { bubbles: true }));
     };
@@ -124,10 +157,17 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     pickerButton.addEventListener("click", () => {
       const willOpen = timePopover.hidden;
-      document.querySelectorAll(".event-time-popover").forEach((popover) => { popover.hidden = true; });
-      document.querySelectorAll(".event-time-picker-button").forEach((button) => button.setAttribute("aria-expanded", "false"));
+      document.querySelectorAll(".event-time-popover").forEach((popover) => {
+        popover.hidden = true;
+      });
+      document
+        .querySelectorAll(".event-time-picker-button")
+        .forEach((button) => button.setAttribute("aria-expanded", "false"));
       if (!willOpen) return;
-      const time = parseDisplayTime(timeInput.value) || { hour: "00", minute: "00" };
+      const time = parseDisplayTime(timeInput.value) || {
+        hour: "00",
+        minute: "00",
+      };
       hourSelect.value = time.hour;
       minuteSelect.value = time.minute;
       timePopover.hidden = false;
@@ -137,7 +177,9 @@ document.addEventListener("DOMContentLoaded", () => {
     timeInput.addEventListener("click", () => {
       if (timePopover.hidden) pickerButton.click();
     });
-    [hourSelect, minuteSelect].forEach((select) => select.addEventListener("change", applySelectedTime));
+    [hourSelect, minuteSelect].forEach((select) =>
+      select.addEventListener("change", applySelectedTime),
+    );
     doneButton.addEventListener("click", () => {
       applySelectedTime();
       closeTimePicker();
@@ -154,9 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const appStoreCards = [...document.querySelectorAll(".app-link-card")];
-  const requestedAppPlatform = new URLSearchParams(window.location.search).get("platform");
+  const requestedAppPlatform = new URLSearchParams(window.location.search).get(
+    "platform",
+  );
   if (["google", "apple"].includes(requestedAppPlatform)) {
-    const requestedRadio = document.querySelector(`input[name="appstore-platform"][value="${requestedAppPlatform}"]`);
+    const requestedRadio = document.querySelector(
+      `input[name="appstore-platform"][value="${requestedAppPlatform}"]`,
+    );
     if (requestedRadio) requestedRadio.checked = true;
   }
   const syncAppStoreCards = () => {
@@ -179,24 +225,95 @@ document.addEventListener("DOMContentLoaded", () => {
   syncAppStoreCards();
 
   const presets = {
-    classic: { foreground: "#000000", background: "#ffffff", gradient: false, shape: "square", frame: "square", eye: "square" },
-    ocean: { foreground: "#075985", background: "#ecfeff", gradient: true, gradientColor: "#0369a1", rotation: 45, shape: "square", frame: "square", eye: "square" },
-    sunset: { foreground: "#7c2d12", background: "#fff7ed", gradient: true, gradientColor: "#be123c", rotation: 90, shape: "square", frame: "square", eye: "square" },
-    forest: { foreground: "#14532d", background: "#f0fdf4", gradient: true, gradientColor: "#15803d", rotation: 135, shape: "square", frame: "square", eye: "square" },
-    midnight: { foreground: "#e0e7ff", background: "#111827", gradient: true, gradientColor: "#a855f7", rotation: 45, shape: "square", frame: "square", eye: "square" },
-    fusion: { foreground: "#4f2de4", background: "#faf7ff", gradient: true, gradientColor: "#e94b9a", rotation: 110, shape: "square", frame: "square", eye: "square" },
-    berry: { foreground: "#701a75", background: "#fdf4ff", gradient: true, gradientColor: "#db2777", rotation: 45, shape: "square", frame: "square", eye: "square" },
+    classic: {
+      foreground: "#000000",
+      background: "#ffffff",
+      gradient: false,
+      shape: "square",
+      frame: "square",
+      eye: "square",
+    },
+    ocean: {
+      foreground: "#075985",
+      background: "#ecfeff",
+      gradient: true,
+      gradientColor: "#0369a1",
+      rotation: 45,
+      shape: "square",
+      frame: "square",
+      eye: "square",
+    },
+    sunset: {
+      foreground: "#7c2d12",
+      background: "#fff7ed",
+      gradient: true,
+      gradientColor: "#be123c",
+      rotation: 90,
+      shape: "square",
+      frame: "square",
+      eye: "square",
+    },
+    forest: {
+      foreground: "#14532d",
+      background: "#f0fdf4",
+      gradient: true,
+      gradientColor: "#15803d",
+      rotation: 135,
+      shape: "square",
+      frame: "square",
+      eye: "square",
+    },
+    midnight: {
+      foreground: "#e0e7ff",
+      background: "#111827",
+      gradient: true,
+      gradientColor: "#a855f7",
+      rotation: 45,
+      shape: "square",
+      frame: "square",
+      eye: "square",
+    },
+    fusion: {
+      foreground: "#4f2de4",
+      background: "#faf7ff",
+      gradient: true,
+      gradientColor: "#e94b9a",
+      rotation: 110,
+      shape: "square",
+      frame: "square",
+      eye: "square",
+    },
+    berry: {
+      foreground: "#701a75",
+      background: "#fdf4ff",
+      gradient: true,
+      gradientColor: "#db2777",
+      rotation: 45,
+      shape: "square",
+      frame: "square",
+      eye: "square",
+    },
   };
 
   const pickerSwatches = {
-    custom: ["#5637df", "#e94b9a"], classic: ["#000000", "#ffffff"],
-    ocean: ["#075985", "#67e8f9"], sunset: ["#7c2d12", "#fb7185"],
-    forest: ["#14532d", "#4ade80"], midnight: ["#111827", "#a855f7"],
-    fusion: ["#4f2de4", "#e94b9a"], berry: ["#701a75", "#db2777"],
+    custom: ["#5637df", "#e94b9a"],
+    classic: ["#000000", "#ffffff"],
+    ocean: ["#075985", "#67e8f9"],
+    sunset: ["#7c2d12", "#fb7185"],
+    forest: ["#14532d", "#4ade80"],
+    midnight: ["#111827", "#a855f7"],
+    fusion: ["#4f2de4", "#e94b9a"],
+    berry: ["#701a75", "#db2777"],
   };
 
   const visualPickers = [...document.querySelectorAll(".visual-option-picker")];
-  const popularPresets = new Set(["classic", "ocean", "sunset", "forest", "fusion"]);
+  const popularPresets = new Set([
+    "classic",
+    "ocean",
+    "sunset",
+    "forest",
+    "fusion",
+  ]);
   const syncVisualPickers = () => {
     visualPickers.forEach((picker) => {
       const select = byId(picker.dataset.select);
@@ -234,12 +351,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const presetPicker = document.querySelector('.preset-picker[data-select="preset-select"]');
+  const presetPicker = document.querySelector(
+    '.preset-picker[data-select="preset-select"]',
+  );
   const morePresetsButton = byId("more-presets-btn");
   morePresetsButton.addEventListener("click", () => {
     const expanded = presetPicker.classList.toggle("show-more");
     morePresetsButton.setAttribute("aria-expanded", String(expanded));
-    morePresetsButton.querySelector("span").textContent = expanded ? "Less" : "More";
+    morePresetsButton.querySelector("span").textContent = expanded
+      ? "Less"
+      : "More";
   });
 
   const setValue = (element, value) => {
@@ -252,23 +373,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const showGradient = controls.gradient.checked;
     byId("gradient-options").hidden = !showGradient;
     controls.background.disabled = controls.transparent.checked;
-    controls.background.closest(".color-control-card").classList.toggle("control-disabled", controls.transparent.checked);
+    controls.background
+      .closest(".color-control-card")
+      .classList.toggle("control-disabled", controls.transparent.checked);
     byId("qr-code-container").classList.toggle(
       "transparent-preview",
-      controls.transparent.checked
+      controls.transparent.checked,
     );
-    byId("color-fg-value").textContent = controls.foreground.value.toUpperCase();
-    byId("color-bg-value").textContent = controls.background.value.toUpperCase();
-    byId("gradient-color-value").textContent = controls.gradientColor.value.toUpperCase();
-    byId("gradient-rotation-value").textContent = `${controls.gradientRotation.value}°`;
+    byId("color-fg-value").textContent =
+      controls.foreground.value.toUpperCase();
+    byId("color-bg-value").textContent =
+      controls.background.value.toUpperCase();
+    byId("gradient-color-value").textContent =
+      controls.gradientColor.value.toUpperCase();
+    byId("gradient-rotation-value").textContent =
+      `${controls.gradientRotation.value}°`;
     byId("logo-size-value").textContent = `${controls.logoSize.value}%`;
     byId("logo-margin-value").textContent = `${controls.logoMargin.value}px`;
-    [controls.gradientRotation, controls.logoSize, controls.logoMargin].forEach((control) => {
-      const min = Number(control.min || 0);
-      const max = Number(control.max || 100);
-      const progress = ((Number(control.value) - min) / (max - min)) * 100;
-      control.style.setProperty("--range-progress", `${progress}%`);
-    });
+    [controls.gradientRotation, controls.logoSize, controls.logoMargin].forEach(
+      (control) => {
+        const min = Number(control.min || 0);
+        const max = Number(control.max || 100);
+        const progress = ((Number(control.value) - min) / (max - min)) * 100;
+        control.style.setProperty("--range-progress", `${progress}%`);
+      },
+    );
     byId("custom-design-status").hidden = controls.preset.value !== "custom";
     syncVisualPickers();
   };
@@ -290,14 +419,29 @@ document.addEventListener("DOMContentLoaded", () => {
     saveDraft();
   };
 
-  controls.preset.addEventListener("change", () => applyPreset(controls.preset.value));
-  [controls.foreground, controls.background, controls.shape, controls.frame, controls.eye].forEach((control) => {
+  controls.preset.addEventListener("change", () =>
+    applyPreset(controls.preset.value),
+  );
+  [
+    controls.foreground,
+    controls.background,
+    controls.shape,
+    controls.frame,
+    controls.eye,
+  ].forEach((control) => {
     control.addEventListener("input", () => {
       controls.preset.value = "custom";
       refreshControlUI();
     });
   });
-  [controls.transparent, controls.gradient, controls.gradientColor, controls.gradientRotation, controls.logoSize, controls.logoMargin].forEach((control) => {
+  [
+    controls.transparent,
+    controls.gradient,
+    controls.gradientColor,
+    controls.gradientRotation,
+    controls.logoSize,
+    controls.logoMargin,
+  ].forEach((control) => {
     control?.addEventListener("input", () => {
       if (control !== controls.preset) controls.preset.value = "custom";
       refreshControlUI();
@@ -308,12 +452,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const hexToRgb = (hex) => {
     const value = hex.replace("#", "");
-    return [0, 2, 4].map((offset) => parseInt(value.slice(offset, offset + 2), 16));
+    return [0, 2, 4].map((offset) =>
+      parseInt(value.slice(offset, offset + 2), 16),
+    );
   };
   const luminance = (hex) => {
     const channels = hexToRgb(hex).map((value) => {
       const channel = value / 255;
-      return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+      return channel <= 0.03928
+        ? channel / 12.92
+        : ((channel + 0.055) / 1.055) ** 2.4;
     });
     return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
   };
@@ -330,8 +478,13 @@ document.addEventListener("DOMContentLoaded", () => {
       output.textContent = "Add valid content to check scan quality";
       return;
     }
-    const ratios = [contrast(controls.foreground.value, controls.background.value)];
-    if (controls.gradient.checked) ratios.push(contrast(controls.gradientColor.value, controls.background.value));
+    const ratios = [
+      contrast(controls.foreground.value, controls.background.value),
+    ];
+    if (controls.gradient.checked)
+      ratios.push(
+        contrast(controls.gradientColor.value, controls.background.value),
+      );
     const ratio = Math.min(...ratios);
     const logoRisk = Number(controls.logoSize.value) > 40;
     const dense = data.length > 900;
@@ -342,7 +495,8 @@ document.addEventListener("DOMContentLoaded", () => {
       message = "Background-dependent · test QR on its final surface";
     } else if (ratio < 3 || logoRisk || dense) {
       level = "danger";
-      message = "High scan risk · increase contrast, reduce logo size, or shorten content";
+      message =
+        "High scan risk · increase contrast, reduce logo size, or shorten content";
     } else if (ratio < 4.5 || data.length > 500) {
       level = "warning";
       message = `Good, but test before use · contrast ${ratio.toFixed(1)}:1`;
@@ -357,28 +511,55 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const sensitiveIds = new Set([
-    "wifi-password", "payment-pa", "payment-pn", "payment-am", "payment-tn",
-    "bank-holder-name", "bank-ac-number", "bank-ac-confirm", "bank-name", "bank-branch", "bank-ifsc",
+    "wifi-password",
+    "payment-pa",
+    "payment-pn",
+    "payment-am",
+    "payment-tn",
+    "bank-holder-name",
+    "bank-ac-number",
+    "bank-ac-confirm",
+    "bank-name",
+    "bank-branch",
+    "bank-ifsc",
   ]);
   const draftKey = "qr-fusion-draft-v1";
   const collectDraft = () => {
     const fields = {};
-    document.querySelectorAll("#form-container-wrapper input, #form-container-wrapper textarea, #form-container-wrapper select").forEach((field) => {
-      if (!field.id || sensitiveIds.has(field.id) || field.type === "file" || field.type === "password") return;
-      fields[field.id] = field.type === "checkbox" || field.type === "radio" ? field.checked : field.value;
-    });
+    document
+      .querySelectorAll(
+        "#form-container-wrapper input, #form-container-wrapper textarea, #form-container-wrapper select",
+      )
+      .forEach((field) => {
+        if (
+          !field.id ||
+          sensitiveIds.has(field.id) ||
+          field.type === "file" ||
+          field.type === "password"
+        )
+          return;
+        fields[field.id] =
+          field.type === "checkbox" || field.type === "radio"
+            ? field.checked
+            : field.value;
+      });
     return { fields, settings: collectSettings() };
   };
   let draftTimer;
   function saveDraft() {
     clearTimeout(draftTimer);
-    draftTimer = setTimeout(() => localStorage.setItem(draftKey, JSON.stringify(collectDraft())), 250);
+    draftTimer = setTimeout(
+      () => localStorage.setItem(draftKey, JSON.stringify(collectDraft())),
+      250,
+    );
   }
   const restoreDraft = () => {
     try {
       const draft = JSON.parse(localStorage.getItem(draftKey));
       if (!draft) return;
-      Object.entries(draft.fields || {}).forEach(([id, value]) => setValue(byId(id), value));
+      Object.entries(draft.fields || {}).forEach(([id, value]) =>
+        setValue(byId(id), value),
+      );
       applySettings(draft.settings || {}, false);
     } catch {
       localStorage.removeItem(draftKey);
@@ -421,7 +602,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   byId("export-settings-btn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify(collectSettings(), null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(collectSettings(), null, 2)], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -434,7 +617,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const file = event.target.files[0];
       if (!file || file.size > 100000) throw new Error("Invalid settings file");
       const settings = JSON.parse(await file.text());
-      if (settings.version !== 1) throw new Error("Unsupported settings version");
+      if (settings.version !== 1)
+        throw new Error("Unsupported settings version");
       applySettings(settings);
       saveDraft();
     } catch (error) {
@@ -460,25 +644,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const file = logoInput.files[0];
     logoUploadTitle.textContent = file ? "Logo selected" : "Choose a logo";
     logoFileName.textContent = file ? file.name : "PNG, JPG, WebP or SVG";
-    document.querySelector(".logo-upload-card").classList.toggle("has-file", Boolean(file));
-    logoUploadIcon.className = file ? "fa-solid fa-circle-check" : "fa-solid fa-cloud-arrow-up";
+    document
+      .querySelector(".logo-upload-card")
+      .classList.toggle("has-file", Boolean(file));
+    logoUploadIcon.className = file
+      ? "fa-solid fa-circle-check"
+      : "fa-solid fa-cloud-arrow-up";
     removeLogoButton.hidden = !file;
     logoControls.hidden = !file;
   };
   logoInput.addEventListener("change", updateLogoUploadUI);
-  removeLogoButton.addEventListener("click", () => requestAnimationFrame(updateLogoUploadUI));
-  byId("reset-customization-btn").addEventListener("click", () => requestAnimationFrame(updateLogoUploadUI));
+  removeLogoButton.addEventListener("click", () =>
+    requestAnimationFrame(updateLogoUploadUI),
+  );
+  byId("reset-customization-btn").addEventListener("click", () =>
+    requestAnimationFrame(updateLogoUploadUI),
+  );
   updateLogoUploadUI();
 
   const validateNewForms = () => {
     const phone = byId("phone-number").value.replace(/[\s()-]/g, "");
-    byId("phone-status").textContent = phone && !/^\+?\d{7,15}$/.test(phone) ? "Enter a valid phone number." : "";
+    byId("phone-status").textContent =
+      phone && !/^\+?\d{7,15}$/.test(phone)
+        ? "Enter a valid phone number."
+        : "";
     const whatsapp = byId("whatsapp-number").value.replace(/\D/g, "");
-    byId("whatsapp-status").textContent = whatsapp && (whatsapp.length < 7 || whatsapp.length > 15) ? "Enter a valid number with country code." : "";
+    byId("whatsapp-status").textContent =
+      whatsapp && (whatsapp.length < 7 || whatsapp.length > 15)
+        ? "Enter a valid number with country code."
+        : "";
     const review = byId("review-url").value.trim();
-    byId("review-status").textContent = review && !/^https:\/\//i.test(review) ? "Use a complete HTTPS Google review link." : "";
+    byId("review-status").textContent =
+      review && !/^https:\/\//i.test(review)
+        ? "Use a complete HTTPS Google review link."
+        : "";
   };
-  ["phone-number", "whatsapp-number", "review-url"].forEach((id) => byId(id).addEventListener("input", validateNewForms));
+  ["phone-number", "whatsapp-number", "review-url"].forEach((id) =>
+    byId(id).addEventListener("input", validateNewForms),
+  );
 
   const mobilePreview = document.createElement("div");
   mobilePreview.className = "mobile-preview-dock";
@@ -500,7 +703,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const previewCopy = mobilePreview.querySelector(".mobile-preview-content");
   const previewAction = mobilePreview.querySelector(".mobile-preview-toggle");
   const previewInfo = mobilePreview.querySelector(".mobile-preview-info");
-  const previewGuide = mobilePreview.querySelector(".mobile-preview-guide-rail");
+  const previewGuide = mobilePreview.querySelector(
+    ".mobile-preview-guide-rail",
+  );
   const mobilePreviewQuery = window.matchMedia("(max-width: 900px)");
   let previewFrame;
   let previewGuideTimer;
@@ -509,8 +714,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const syncMobilePreview = () => {
     cancelAnimationFrame(previewFrame);
     previewFrame = requestAnimationFrame(() => {
-      const visible = previewSource.style.display !== "none" && previewSource.children.length > 0;
-      const prepareOnboarding = visible && !previewOnboardingShown && mobilePreviewQuery.matches && document.body.dataset.wizardStep === "2";
+      const visible =
+        previewSource.style.display !== "none" &&
+        previewSource.children.length > 0;
+      const prepareOnboarding =
+        visible &&
+        !previewOnboardingShown &&
+        mobilePreviewQuery.matches &&
+        document.body.dataset.wizardStep === "2";
       mobilePreview.classList.toggle("preparing", prepareOnboarding);
       mobilePreview.classList.toggle("visible", visible);
       if (visible) {
@@ -538,14 +749,30 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const updatePreviewGuideSide = () => {
     const rect = mobilePreview.getBoundingClientRect();
-    const requiredWidth = previewGuide.classList.contains("show-guide") ? 220 : 44;
-    previewGuide.classList.toggle("guide-left", window.innerWidth - rect.right < requiredWidth && rect.left >= requiredWidth);
+    const requiredWidth = previewGuide.classList.contains("show-guide")
+      ? 220
+      : 44;
+    previewGuide.classList.toggle(
+      "guide-left",
+      window.innerWidth - rect.right < requiredWidth &&
+        rect.left >= requiredWidth,
+    );
   };
   const keepPreviewInViewport = () => {
-    if (!mobilePreviewQuery.matches || !mobilePreview.classList.contains("visible")) return;
+    if (
+      !mobilePreviewQuery.matches ||
+      !mobilePreview.classList.contains("visible")
+    )
+      return;
     const rect = mobilePreview.getBoundingClientRect();
-    const maxLeft = Math.max(previewEdgeGap, window.innerWidth - rect.width - previewEdgeGap);
-    const maxTop = Math.max(previewEdgeGap, window.innerHeight - rect.height - previewEdgeGap);
+    const maxLeft = Math.max(
+      previewEdgeGap,
+      window.innerWidth - rect.width - previewEdgeGap,
+    );
+    const maxTop = Math.max(
+      previewEdgeGap,
+      window.innerHeight - rect.height - previewEdgeGap,
+    );
     const left = Math.min(maxLeft, Math.max(previewEdgeGap, rect.left));
     const top = Math.min(maxTop, Math.max(previewEdgeGap, rect.top));
     setPreviewPosition(left, top);
@@ -568,16 +795,26 @@ document.addEventListener("DOMContentLoaded", () => {
     keepPreviewInViewport();
   };
   const movePreviewToSuggestedPosition = () => {
-    const headerBottom = document.querySelector(".site-header")?.getBoundingClientRect().bottom || 66;
+    const headerBottom =
+      document.querySelector(".site-header")?.getBoundingClientRect().bottom ||
+      66;
     setPreviewPosition(previewEdgeGap, headerBottom + previewEdgeGap);
     keepPreviewInViewport();
-    localStorage.setItem(previewPositionKey, JSON.stringify({
-      left: parseFloat(mobilePreview.style.left),
-      top: parseFloat(mobilePreview.style.top),
-    }));
+    localStorage.setItem(
+      previewPositionKey,
+      JSON.stringify({
+        left: parseFloat(mobilePreview.style.left),
+        top: parseFloat(mobilePreview.style.top),
+      }),
+    );
   };
   const startPreviewOnboarding = () => {
-    if (previewOnboardingShown || !mobilePreviewQuery.matches || document.body.dataset.wizardStep !== "2") return;
+    if (
+      previewOnboardingShown ||
+      !mobilePreviewQuery.matches ||
+      document.body.dataset.wizardStep !== "2"
+    )
+      return;
     previewOnboardingShown = true;
     placePreviewInCenter();
     mobilePreview.getBoundingClientRect();
@@ -588,8 +825,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const restorePreviewPosition = () => {
     try {
-      const savedPosition = JSON.parse(localStorage.getItem(previewPositionKey));
-      if (!Number.isFinite(savedPosition?.left) || !Number.isFinite(savedPosition?.top)) return;
+      const savedPosition = JSON.parse(
+        localStorage.getItem(previewPositionKey),
+      );
+      if (
+        !Number.isFinite(savedPosition?.left) ||
+        !Number.isFinite(savedPosition?.top)
+      )
+        return;
       setPreviewPosition(savedPosition.left, savedPosition.top);
     } catch {
       localStorage.removeItem(previewPositionKey);
@@ -600,7 +843,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let previewDrag = null;
   let suppressPreviewClick = false;
   mobilePreview.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0 || event.target.closest(".mobile-preview-info, .mobile-preview-toggle")) return;
+    if (
+      event.button !== 0 ||
+      event.target.closest(".mobile-preview-info, .mobile-preview-toggle")
+    )
+      return;
     clearTimeout(previewAutoMoveTimer);
     const rect = mobilePreview.getBoundingClientRect();
     previewDrag = {
@@ -623,8 +870,14 @@ document.addEventListener("DOMContentLoaded", () => {
     suppressPreviewClick = true;
     mobilePreview.classList.add("dragging");
     const rect = mobilePreview.getBoundingClientRect();
-    const maxLeft = Math.max(previewEdgeGap, window.innerWidth - rect.width - previewEdgeGap);
-    const maxTop = Math.max(previewEdgeGap, window.innerHeight - rect.height - previewEdgeGap);
+    const maxLeft = Math.max(
+      previewEdgeGap,
+      window.innerWidth - rect.width - previewEdgeGap,
+    );
+    const maxTop = Math.max(
+      previewEdgeGap,
+      window.innerHeight - rect.height - previewEdgeGap,
+    );
     mobilePreview.style.left = `${Math.min(maxLeft, Math.max(previewEdgeGap, previewDrag.startLeft + deltaX))}px`;
     mobilePreview.style.top = `${Math.min(maxTop, Math.max(previewEdgeGap, previewDrag.startTop + deltaY))}px`;
     updatePreviewGuideSide();
@@ -632,16 +885,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   const finishPreviewDrag = (event) => {
     if (!previewDrag || event.pointerId !== previewDrag.pointerId) return;
-    if (mobilePreview.hasPointerCapture(event.pointerId)) mobilePreview.releasePointerCapture(event.pointerId);
+    if (mobilePreview.hasPointerCapture(event.pointerId))
+      mobilePreview.releasePointerCapture(event.pointerId);
     if (previewDrag.moved) {
-      localStorage.setItem(previewPositionKey, JSON.stringify({
-        left: parseFloat(mobilePreview.style.left),
-        top: parseFloat(mobilePreview.style.top),
-      }));
+      localStorage.setItem(
+        previewPositionKey,
+        JSON.stringify({
+          left: parseFloat(mobilePreview.style.left),
+          top: parseFloat(mobilePreview.style.top),
+        }),
+      );
     }
     previewDrag = null;
     mobilePreview.classList.remove("dragging");
-    setTimeout(() => { suppressPreviewClick = false; }, 0);
+    setTimeout(() => {
+      suppressPreviewClick = false;
+    }, 0);
   };
   mobilePreview.addEventListener("pointerup", finishPreviewDrag);
   mobilePreview.addEventListener("pointercancel", finishPreviewDrag);
@@ -651,7 +910,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (suppressPreviewClick) return;
     const expanded = mobilePreview.classList.toggle("expanded");
     previewAction.textContent = expanded ? "Minimize" : "Expand";
-    previewAction.setAttribute("aria-label", `${expanded ? "Minimize" : "Expand"} live QR preview`);
+    previewAction.setAttribute(
+      "aria-label",
+      `${expanded ? "Minimize" : "Expand"} live QR preview`,
+    );
     requestAnimationFrame(keepPreviewInViewport);
   };
   previewAction.addEventListener("click", toggleMobilePreview);
@@ -675,18 +937,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const showWizardStep = (step) => {
     wizardStep = step;
     document.body.dataset.wizardStep = String(step);
-    flowSteps.forEach((item, index) => item.classList.toggle("active", index === step - 1));
+    flowSteps.forEach((item, index) =>
+      item.classList.toggle("active", index === step - 1),
+    );
 
-    byId("form-container-wrapper").classList.toggle("wizard-panel-hidden", step !== 1);
+    byId("form-container-wrapper").classList.toggle(
+      "wizard-panel-hidden",
+      step !== 1,
+    );
     inputActions.classList.toggle("wizard-panel-hidden", step !== 1);
     customization.classList.toggle("wizard-panel-hidden", step !== 2);
-    document.querySelector(".left-column").classList.toggle("wizard-panel-hidden", step === 3);
+    document
+      .querySelector(".left-column")
+      .classList.toggle("wizard-panel-hidden", step === 3);
     rightColumn.classList.toggle("wizard-panel-hidden", step === 1);
     exportControls.classList.toggle("wizard-panel-hidden", step !== 3);
     exportHeading.classList.toggle("wizard-panel-hidden", step !== 3);
-    document.querySelector(".main-content").classList.toggle("export-only", step === 3);
+    document
+      .querySelector(".main-content")
+      .classList.toggle("export-only", step === 3);
 
-    window.scrollTo({ top: document.querySelector(".main-container").offsetTop - 75, behavior: "smooth" });
+    window.scrollTo({
+      top: document.querySelector(".main-container").offsetTop - 75,
+      behavior: "smooth",
+    });
     if (step === 2 || step === 3) syncMobilePreview();
   };
 
@@ -695,7 +969,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   byId("back-to-input-btn").addEventListener("click", () => showWizardStep(1));
   byId("to-export-btn").addEventListener("click", () => showWizardStep(3));
-  byId("back-to-customize-btn").addEventListener("click", () => showWizardStep(2));
+  byId("back-to-customize-btn").addEventListener("click", () =>
+    showWizardStep(2),
+  );
   const textInput = byId("text-input");
   const textCharacterCount = byId("text-character-count");
   const textInputError = byId("text-input-error");
@@ -709,16 +985,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let contentType = "Plain text";
     try {
       const parsedUrl = new URL(trimmedValue);
-      if (["http:", "https:"].includes(parsedUrl.protocol)) contentType = "Website URL";
+      if (["http:", "https:"].includes(parsedUrl.protocol))
+        contentType = "Website URL";
     } catch {
-      if (trimmedValue.includes("\n") || trimmedValue.length > 80) contentType = "Message";
+      if (trimmedValue.includes("\n") || trimmedValue.length > 80)
+        contentType = "Message";
     }
 
-    const density = trimmedValue.length <= 120
-      ? "Short content"
-      : trimmedValue.length <= 500
-        ? "Medium density"
-        : "Dense QR";
+    const density =
+      trimmedValue.length <= 120
+        ? "Short content"
+        : trimmedValue.length <= 500
+          ? "Medium density"
+          : "Dense QR";
     return `${contentType} · ${density}`;
   };
 
@@ -726,7 +1005,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const maximumHeight = 280;
     textInput.style.height = "auto";
     textInput.style.height = `${Math.min(Math.max(textInput.scrollHeight, 160), maximumHeight)}px`;
-    textInput.style.overflowY = textInput.scrollHeight > maximumHeight ? "auto" : "hidden";
+    textInput.style.overflowY =
+      textInput.scrollHeight > maximumHeight ? "auto" : "hidden";
   };
 
   const updateTextInputUX = (showEmptyError = false) => {
@@ -736,7 +1016,8 @@ document.addEventListener("DOMContentLoaded", () => {
     textCharacterCount.textContent = `${value.length} ${value.length === 1 ? "character" : "characters"}${contentSummary ? ` · ${contentSummary}` : ""}`;
     clearTextButton.disabled = value.length === 0;
     if (showEmptyError && isEmpty) {
-      textInputError.textContent = "Please enter something to generate your QR code.";
+      textInputError.textContent =
+        "Please enter something to generate your QR code.";
     }
     textInputError.hidden = !(showEmptyError && isEmpty);
     textInput.setAttribute("aria-invalid", String(showEmptyError && isEmpty));
@@ -757,7 +1038,8 @@ document.addEventListener("DOMContentLoaded", () => {
       textInput.dispatchEvent(new Event("input", { bubbles: true }));
       textInput.focus();
     } catch {
-      textInputError.textContent = "Clipboard access is unavailable. Please paste manually.";
+      textInputError.textContent =
+        "Clipboard access is unavailable. Please paste manually.";
       textInputError.hidden = false;
       textInput.focus();
     }
@@ -775,6 +1057,10 @@ document.addEventListener("DOMContentLoaded", () => {
   showWizardStep(1);
 
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
-    window.addEventListener("load", () => navigator.serviceWorker.register("/service-worker.js").catch(console.error));
+    window.addEventListener("load", () =>
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .catch(console.error),
+    );
   }
 });

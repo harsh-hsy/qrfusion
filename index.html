@@ -1,32 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="Create private, customizable QR codes for URLs, Wi-Fi, contacts, WhatsApp, events, payments and more. Export PNG, JPEG, SVG and PDF for free." />
-    <meta property="og:title" content="QR Fusion — Free Custom QR Code Generator" />
-    <meta property="og:description" content="Create branded, scan-ready QR codes directly in your browser." />
+    <meta
+      name="description"
+      content="Create private, customizable QR codes for URLs, Wi-Fi, contacts, WhatsApp, events, payments and more. Export PNG, JPEG, SVG and PDF for free."
+    />
+    <meta
+      property="og:title"
+      content="QR Fusion — Free Custom QR Code Generator"
+    />
+    <meta
+      property="og:description"
+      content="Create branded, scan-ready QR codes directly in your browser."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://qrfusion.netlify.app/" />
     <title>QR Fusion — Free Custom QR Code Generator</title>
     <link rel="canonical" href="https://qrfusion.netlify.app/" />
-    <link rel="icon" type="image/png" href="/assets/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/favicon/apple-touch-icon.png"
+    />
     <link rel="manifest" href="/assets/favicon/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="/css/landing.css?v=43" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/landing.css?v=44" />
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"WebApplication","name":"QR Fusion","url":"https://qrfusion.netlify.app/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"A private, browser-based custom QR code generator."}
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "QR Fusion",
+        "url": "https://qrfusion.netlify.app/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "A private, browser-based custom QR code generator."
+      }
     </script>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="QR Fusion home">QR <span>Fusion</span></a>
+      <a class="brand" href="/" aria-label="QR Fusion home"
+        >QR <span>Fusion</span></a
+      >
       <div class="header-actions">
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
           <a href="#home">Home</a>
@@ -35,17 +69,55 @@
           <a href="#features">Features</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <label for="landing-theme-toggle" class="landing-theme-toggle" title="Toggle theme">
-          <input type="checkbox" id="landing-theme-toggle" aria-label="Toggle dark theme" />
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <mask id="landing-moon-mask"><rect width="20" height="20" fill="white"></rect><circle cx="11" cy="3" r="8" fill="black"></circle></mask>
-            <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#landing-moon-mask)"></circle>
-            <g class="sunRays" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-              <path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.64 3.64l1.42 1.42M14.94 14.94l1.42 1.42M16.36 3.64l-1.42 1.42M5.06 14.94l-1.42 1.42"></path>
+        <label
+          for="landing-theme-toggle"
+          class="landing-theme-toggle"
+          title="Toggle theme"
+        >
+          <input
+            type="checkbox"
+            id="landing-theme-toggle"
+            aria-label="Toggle dark theme"
+          />
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <mask id="landing-moon-mask">
+              <rect width="20" height="20" fill="white"></rect>
+              <circle cx="11" cy="3" r="8" fill="black"></circle>
+            </mask>
+            <circle
+              class="sunMoon"
+              cx="10"
+              cy="10"
+              r="8"
+              mask="url(#landing-moon-mask)"
+            ></circle>
+            <g
+              class="sunRays"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+            >
+              <path
+                d="M10 1v2M10 17v2M1 10h2M17 10h2M3.64 3.64l1.42 1.42M14.94 14.94l1.42 1.42M16.36 3.64l-1.42 1.42M5.06 14.94l-1.42 1.42"
+              ></path>
             </g>
           </svg>
         </label>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+        <button
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
       </div>
     </header>
 
@@ -54,102 +126,458 @@
         <div class="hero-copy">
           <p class="eyebrow">FREE • PRIVATE • NO SIGN-UP</p>
           <h1>Create custom QR codes <span>in seconds.</span></h1>
-          <p class="hero-text">Generate polished, scan-ready QR codes for links, Wi-Fi, contacts, WhatsApp, events, payments and more—right inside your browser.</p>
+          <p class="hero-text">
+            Generate polished, scan-ready QR codes for links, Wi-Fi, contacts,
+            WhatsApp, events, payments and more—right inside your browser.
+          </p>
           <div class="hero-actions">
-            <a class="primary-button" href="/create">Create Your QR Code <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="primary-button" href="/create"
+              >Create Your QR Code
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+            ></a>
             <a class="secondary-button" href="#qr-types">Explore QR Types</a>
           </div>
-          <div class="trust-row"><span><i class="fa-solid fa-check" aria-hidden="true"></i> No account</span><span><i class="fa-solid fa-check" aria-hidden="true"></i> No expiry</span><span><i class="fa-solid fa-check" aria-hidden="true"></i> High-resolution exports</span></div>
+          <div class="trust-row">
+            <span
+              ><i class="fa-solid fa-check" aria-hidden="true"></i> No
+              account</span
+            ><span
+              ><i class="fa-solid fa-check" aria-hidden="true"></i> No
+              expiry</span
+            ><span
+              ><i class="fa-solid fa-check" aria-hidden="true"></i>
+              High-resolution exports</span
+            >
+          </div>
         </div>
         <div class="hero-visual" aria-label="Example customized QR code">
           <div class="visual-glow"></div>
           <div class="qr-demo-card">
-            <div class="demo-toolbar"><span></span><span></span><span></span><b>Live preview</b></div>
-            <svg class="demo-qr" viewBox="0 0 210 210" role="img" aria-label="Decorative QR code preview">
+            <div class="demo-toolbar">
+              <span></span><span></span><span></span><b>Live preview</b>
+            </div>
+            <svg
+              class="demo-qr"
+              viewBox="0 0 210 210"
+              role="img"
+              aria-label="Decorative QR code preview"
+            >
               <rect width="210" height="210" rx="24" fill="white" />
-              <g fill="#5b35e8"><path d="M22 22h58v58H22zm12 12v34h34V34zM130 22h58v58h-58zm12 12v34h34V34zM22 130h58v58H22zm12 12v34h34v-34z"/><path d="M94 24h20v20H94zm0 30h14v14H94zm22 38h22v22h-22zM88 82h18v18H88zm-2 28h16v16H86zm30 14h18v18h-18zm26-30h18v18h-18zm24 2h18v28h-18zm-70 44h20v20H96zm28 12h16v16h-16zm22-18h18v18h-18zm20 28h22v22h-22zm-72 10h18v16H94z"/></g>
+              <g fill="#5b35e8">
+                <path
+                  d="M22 22h58v58H22zm12 12v34h34V34zM130 22h58v58h-58zm12 12v34h34V34zM22 130h58v58H22zm12 12v34h34v-34z"
+                />
+                <path
+                  d="M94 24h20v20H94zm0 30h14v14H94zm22 38h22v22h-22zM88 82h18v18H88zm-2 28h16v16H86zm30 14h18v18h-18zm26-30h18v18h-18zm24 2h18v28h-18zm-70 44h20v20H96zm28 12h16v16h-16zm22-18h18v18h-18zm20 28h22v22h-22zm-72 10h18v16H94z"
+                />
+              </g>
             </svg>
-            <div class="demo-options"><span class="swatch purple"></span><span class="swatch pink"></span><span class="swatch blue"></span><span class="demo-pill">Rounded</span></div>
+            <div class="demo-options">
+              <span class="swatch purple"></span
+              ><span class="swatch pink"></span><span class="swatch blue"></span
+              ><span class="demo-pill">Rounded</span>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="trust-strip" aria-label="Product highlights">
-        <span>16 QR types</span><i></i><span>5 export formats</span><i></i><span>Works on every device</span><i></i><span>Generated locally</span>
+        <span>16 QR types</span><i></i><span>5 export formats</span><i></i
+        ><span>Works on every device</span><i></i><span>Generated locally</span>
       </section>
 
       <section class="content-section section-shell" id="qr-types">
-        <div class="section-heading"><p class="eyebrow">ONE TOOL, MANY POSSIBILITIES</p><h2>Create the QR code you need</h2><p>Choose a type and start with a form designed specifically for it.</p></div>
+        <div class="section-heading">
+          <p class="eyebrow">ONE TOOL, MANY POSSIBILITIES</p>
+          <h2>Create the QR code you need</h2>
+          <p>
+            Choose a type and start with a form designed specifically for it.
+          </p>
+        </div>
         <div class="type-grid">
-          <a href="/text"><b><i class="fa-solid fa-link"></i></b><h3>Text & URL</h3><p>Send scanners to any page or share plain text.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/wifi"><b><i class="fa-solid fa-wifi"></i></b><h3>Wi-Fi</h3><p>Let guests connect without typing a password.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/vcard"><b><i class="fa-solid fa-address-card"></i></b><h3>vCard</h3><p>Share complete personal or business contacts.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/whatsapp"><b><i class="fa-brands fa-whatsapp"></i></b><h3>WhatsApp</h3><p>Open a chat with a pre-filled message.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/google-review"><b><i class="fa-solid fa-star"></i></b><h3>Google Review</h3><p>Take customers directly to your review screen.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/event"><b><i class="fa-solid fa-calendar-days"></i></b><h3>Event</h3><p>Add dates, locations and notes to a calendar.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/payment"><b><i class="fa-solid fa-indian-rupee-sign"></i></b><h3>Payment</h3><p>Create UPI or readable bank-detail codes.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/social"><b><i class="fa-solid fa-share-nodes"></i></b><h3>Social Media</h3><p>Link directly to your social profile or channel.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/youtube"><b><i class="fa-brands fa-youtube"></i></b><h3>YouTube</h3><p>Open a YouTube video or channel instantly.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/app-store?platform=google"><b><i class="fa-brands fa-google-play"></i></b><h3>Google Play</h3><p>Send Android users directly to your Google Play listing.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/app-store?platform=apple"><b><i class="fa-brands fa-apple"></i></b><h3>Apple App Store</h3><p>Send iPhone and iPad users directly to your App Store listing.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/email"><b><i class="fa-solid fa-envelope"></i></b><h3>Email</h3><p>Pre-fill a recipient, subject and email message.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/sms"><b><i class="fa-solid fa-comment-sms"></i></b><h3>SMS</h3><p>Open a ready-to-send mobile text message.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/location"><b><i class="fa-solid fa-location-dot"></i></b><h3>Location</h3><p>Share an address or direct map destination.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/phone"><b><i class="fa-solid fa-phone"></i></b><h3>Phone Call</h3><p>Open the dialer with your number ready to call.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
-          <a href="/login-qr"><b><i class="fa-solid fa-key"></i></b><h3>Login QR / Passkey</h3><p>Scan to sign in without entering a password.</p><span>Create QR <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a>
+          <a href="/text"
+            ><b><i class="fa-solid fa-link"></i></b>
+            <h3>Text & URL</h3>
+            <p>Send scanners to any page or share plain text.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/wifi"
+            ><b><i class="fa-solid fa-wifi"></i></b>
+            <h3>Wi-Fi</h3>
+            <p>Let guests connect without typing a password.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/vcard"
+            ><b><i class="fa-solid fa-address-card"></i></b>
+            <h3>vCard</h3>
+            <p>Share complete personal or business contacts.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/whatsapp"
+            ><b><i class="fa-brands fa-whatsapp"></i></b>
+            <h3>WhatsApp</h3>
+            <p>Open a chat with a pre-filled message.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/google-review"
+            ><b><i class="fa-solid fa-star"></i></b>
+            <h3>Google Review</h3>
+            <p>Take customers directly to your review screen.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/event"
+            ><b><i class="fa-solid fa-calendar-days"></i></b>
+            <h3>Event</h3>
+            <p>Add dates, locations and notes to a calendar.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/payment"
+            ><b><i class="fa-solid fa-indian-rupee-sign"></i></b>
+            <h3>Payment</h3>
+            <p>Create UPI or readable bank-detail codes.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/social"
+            ><b><i class="fa-solid fa-share-nodes"></i></b>
+            <h3>Social Media</h3>
+            <p>Link directly to your social profile or channel.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/youtube"
+            ><b><i class="fa-brands fa-youtube"></i></b>
+            <h3>YouTube</h3>
+            <p>Open a YouTube video or channel instantly.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/app-store?platform=google"
+            ><b><i class="fa-brands fa-google-play"></i></b>
+            <h3>Google Play</h3>
+            <p>Send Android users directly to your Google Play listing.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/app-store?platform=apple"
+            ><b><i class="fa-brands fa-apple"></i></b>
+            <h3>Apple App Store</h3>
+            <p>
+              Send iPhone and iPad users directly to your App Store listing.
+            </p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/email"
+            ><b><i class="fa-solid fa-envelope"></i></b>
+            <h3>Email</h3>
+            <p>Pre-fill a recipient, subject and email message.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/sms"
+            ><b><i class="fa-solid fa-comment-sms"></i></b>
+            <h3>SMS</h3>
+            <p>Open a ready-to-send mobile text message.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/location"
+            ><b><i class="fa-solid fa-location-dot"></i></b>
+            <h3>Location</h3>
+            <p>Share an address or direct map destination.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/phone"
+            ><b><i class="fa-solid fa-phone"></i></b>
+            <h3>Phone Call</h3>
+            <p>Open the dialer with your number ready to call.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
+          <a href="/login-qr"
+            ><b><i class="fa-solid fa-key"></i></b>
+            <h3>Login QR / Passkey</h3>
+            <p>Scan to sign in without entering a password.</p>
+            <span
+              >Create QR
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span
+          ></a>
         </div>
       </section>
 
       <section class="content-section" id="how-it-works">
         <div class="section-shell">
-          <div class="section-heading"><p class="eyebrow">SIMPLE BY DESIGN</p><h2>How It Works</h2><p>From idea to ready-to-use QR code in three quick steps.</p></div>
+          <div class="section-heading">
+            <p class="eyebrow">SIMPLE BY DESIGN</p>
+            <h2>How It Works</h2>
+            <p>From idea to ready-to-use QR code in three quick steps.</p>
+          </div>
           <div class="steps-grid">
-            <article><em>01</em><div class="step-icon"><i class="fa-solid fa-keyboard"></i></div><h3>Choose & Enter</h3><p>Select your desired QR code type and fill in the required information.</p></article>
-            <article><em>02</em><div class="step-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><h3>Customize</h3><p>Change colors, gradients, shapes and add a logo while the live preview stays visible.</p></article>
-            <article><em>03</em><div class="step-icon"><i class="fa-solid fa-download"></i></div><h3>Download & Share</h3><p>Export PNG, JPEG, SVG, PDF or ZIP—or copy and share your QR instantly.</p></article>
+            <article>
+              <em>01</em>
+              <div class="step-icon"><i class="fa-solid fa-keyboard"></i></div>
+              <h3>Choose & Enter</h3>
+              <p>
+                Select your desired QR code type and fill in the required
+                information.
+              </p>
+            </article>
+            <article>
+              <em>02</em>
+              <div class="step-icon">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <h3>Customize</h3>
+              <p>
+                Change colors, gradients, shapes and add a logo while the live
+                preview stays visible.
+              </p>
+            </article>
+            <article>
+              <em>03</em>
+              <div class="step-icon"><i class="fa-solid fa-download"></i></div>
+              <h3>Download & Share</h3>
+              <p>
+                Export PNG, JPEG, SVG, PDF or ZIP—or copy and share your QR
+                instantly.
+              </p>
+            </article>
           </div>
         </div>
       </section>
 
       <section class="content-section section-shell showcase" id="features">
-        <div class="showcase-copy"><p class="eyebrow">MAKE IT YOURS</p><h2>Designed for your brand, built to scan.</h2><p>Create attractive codes without sacrificing reliability. QR Fusion checks contrast and warns you when a design may be difficult to scan.</p>
-          <ul><li><i class="fa-solid fa-check" aria-hidden="true"></i> Custom colors and gradients</li><li><i class="fa-solid fa-check" aria-hidden="true"></i> Logo size and margin controls</li><li><i class="fa-solid fa-check" aria-hidden="true"></i> Transparent backgrounds</li><li><i class="fa-solid fa-check" aria-hidden="true"></i> Shape and corner styles</li><li><i class="fa-solid fa-check" aria-hidden="true"></i> Scan-quality indicator</li><li><i class="fa-solid fa-check" aria-hidden="true"></i> 100–1000 px exports</li></ul>
-          <a class="text-link" href="/create">Start customizing <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <div class="showcase-copy">
+          <p class="eyebrow">MAKE IT YOURS</p>
+          <h2>Designed for your brand, built to scan.</h2>
+          <p>
+            Create attractive codes without sacrificing reliability. QR Fusion
+            checks contrast and warns you when a design may be difficult to
+            scan.
+          </p>
+          <ul>
+            <li>
+              <i class="fa-solid fa-check" aria-hidden="true"></i> Custom colors
+              and gradients
+            </li>
+            <li>
+              <i class="fa-solid fa-check" aria-hidden="true"></i> Logo size and
+              margin controls
+            </li>
+            <li>
+              <i class="fa-solid fa-check" aria-hidden="true"></i> Transparent
+              backgrounds
+            </li>
+            <li>
+              <i class="fa-solid fa-check" aria-hidden="true"></i> Shape and
+              corner styles
+            </li>
+            <li>
+              <i class="fa-solid fa-check" aria-hidden="true"></i> Scan-quality
+              indicator
+            </li>
+            <li>
+              <i class="fa-solid fa-check" aria-hidden="true"></i> 100–1000 px
+              exports
+            </li>
+          </ul>
+          <a class="text-link" href="/create"
+            >Start customizing
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+          ></a>
         </div>
-        <div class="feature-preview"><div class="preview-chip">Live quality <strong>Excellent</strong></div><div class="mini-code">QR</div><div class="gradient-track"></div><div class="feature-controls"><span></span><span></span><span></span></div></div>
-      </section>
-
-      <section class="privacy-section">
-        <div class="section-shell privacy-card"><div class="privacy-icon"><i class="fa-solid fa-shield-halved"></i></div><div><p class="eyebrow">PRIVATE BY DESIGN</p><h2>Your QR data stays with you.</h2><p>QR content is generated locally in your browser. No account is required, and sensitive Wi-Fi or payment details are excluded from saved drafts.</p></div><div class="privacy-points"><span><i class="fa-solid fa-check" aria-hidden="true"></i> Browser-based generation</span><span><i class="fa-solid fa-check" aria-hidden="true"></i> No application backend</span><span><i class="fa-solid fa-check" aria-hidden="true"></i> Sensitive drafts excluded</span></div></div>
-      </section>
-
-      <section class="content-section section-shell">
-        <div class="section-heading"><p class="eyebrow">WHY QR FUSION?</p><h2>Everything you need. Nothing you don't.</h2></div>
-        <div class="benefit-grid">
-          <article><b><i class="fa-solid fa-bolt"></i></b><h3>Instant Generation</h3><p>Create and preview your QR codes in real time with no waiting.</p></article>
-          <article><b><i class="fa-solid fa-user-shield"></i></b><h3>Completely Private</h3><p>Core QR content is processed inside your browser, not our server.</p></article>
-          <article><b><i class="fa-solid fa-file-export"></i></b><h3>High-Quality Downloads</h3><p>Export crisp raster and true vector formats for screen or print.</p></article>
-          <article><b><i class="fa-solid fa-layer-group"></i></b><h3>Multi-Type Support</h3><p>Create codes for URLs, contacts, Wi-Fi, social, events and more.</p></article>
-          <article><b><i class="fa-solid fa-qrcode"></i></b><h3>Scan-Ready Designs</h3><p>Get contrast and complexity feedback before you publish.</p></article>
-          <article><b><i class="fa-solid fa-mobile-screen-button"></i></b><h3>Works Everywhere</h3><p>A responsive experience across desktop, tablet and mobile.</p></article>
-        </div>
-      </section>
-
-      <section class="content-section" id="faq">
-        <div class="section-shell faq-layout"><div><p class="eyebrow">QUESTIONS, ANSWERED</p><h2>Frequently Asked Questions</h2><p>Everything you need to know before creating your first QR code.</p><a class="primary-button compact" href="/create">Create a QR Code <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
-          <div class="faq-list">
-            <details open><summary>What is a QR code?</summary><p>A QR code is a two-dimensional barcode that a smartphone camera can scan to quickly open information such as a website, contact, Wi-Fi network or location.</p></details>
-            <details><summary>Is it safe to use QR Fusion?</summary><p>Yes. Core QR generation happens locally in your browser. Optional PIN-code lookup contacts an external postal service, but your QR payload is not uploaded to an application backend.</p></details>
-            <details><summary>Do the QR codes expire?</summary><p>No. QR Fusion creates static QR codes that do not expire. A linked QR continues working as long as its destination remains available.</p></details>
-            <details><summary>Why isn't my QR code scanning correctly?</summary><p>Verify the entered data, increase foreground/background contrast, keep the logo smaller and test the code at its final printed or displayed size.</p></details>
-            <details><summary>Which format is best for printing?</summary><p>SVG is best for unlimited scaling. PDF is convenient for print workflows, while a high-resolution PNG also works for many designs.</p></details>
+        <div class="feature-preview">
+          <div class="preview-chip">
+            Live quality <strong>Excellent</strong>
+          </div>
+          <div class="mini-code">QR</div>
+          <div class="gradient-track"></div>
+          <div class="feature-controls">
+            <span></span><span></span><span></span>
           </div>
         </div>
       </section>
 
+      <section class="privacy-section">
+        <div class="section-shell privacy-card">
+          <div class="privacy-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <p class="eyebrow">PRIVATE BY DESIGN</p>
+            <h2>Your QR data stays with you.</h2>
+            <p>
+              QR content is generated locally in your browser. No account is
+              required, and sensitive Wi-Fi or payment details are excluded from
+              saved drafts.
+            </p>
+          </div>
+          <div class="privacy-points">
+            <span
+              ><i class="fa-solid fa-check" aria-hidden="true"></i>
+              Browser-based generation</span
+            ><span
+              ><i class="fa-solid fa-check" aria-hidden="true"></i> No
+              application backend</span
+            ><span
+              ><i class="fa-solid fa-check" aria-hidden="true"></i> Sensitive
+              drafts excluded</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">WHY QR FUSION?</p>
+          <h2>Everything you need. Nothing you don't.</h2>
+        </div>
+        <div class="benefit-grid">
+          <article>
+            <b><i class="fa-solid fa-bolt"></i></b>
+            <h3>Instant Generation</h3>
+            <p>
+              Create and preview your QR codes in real time with no waiting.
+            </p>
+          </article>
+          <article>
+            <b><i class="fa-solid fa-user-shield"></i></b>
+            <h3>Completely Private</h3>
+            <p>
+              Core QR content is processed inside your browser, not our server.
+            </p>
+          </article>
+          <article>
+            <b><i class="fa-solid fa-file-export"></i></b>
+            <h3>High-Quality Downloads</h3>
+            <p>
+              Export crisp raster and true vector formats for screen or print.
+            </p>
+          </article>
+          <article>
+            <b><i class="fa-solid fa-layer-group"></i></b>
+            <h3>Multi-Type Support</h3>
+            <p>
+              Create codes for URLs, contacts, Wi-Fi, social, events and more.
+            </p>
+          </article>
+          <article>
+            <b><i class="fa-solid fa-qrcode"></i></b>
+            <h3>Scan-Ready Designs</h3>
+            <p>Get contrast and complexity feedback before you publish.</p>
+          </article>
+          <article>
+            <b><i class="fa-solid fa-mobile-screen-button"></i></b>
+            <h3>Works Everywhere</h3>
+            <p>A responsive experience across desktop, tablet and mobile.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section" id="faq">
+        <div class="section-shell faq-layout">
+          <div>
+            <p class="eyebrow">QUESTIONS, ANSWERED</p>
+            <h2>Frequently Asked Questions</h2>
+            <p>
+              Everything you need to know before creating your first QR code.
+            </p>
+            <a class="primary-button compact" href="/create"
+              >Create a QR Code
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i
+            ></a>
+          </div>
+          <div class="faq-list">
+            <details open>
+              <summary>What is a QR code?</summary>
+              <p>
+                A QR code is a two-dimensional barcode that a smartphone camera
+                can scan to quickly open information such as a website, contact,
+                Wi-Fi network or location.
+              </p>
+            </details>
+            <details>
+              <summary>Is it safe to use QR Fusion?</summary>
+              <p>
+                Yes. Core QR generation happens locally in your browser.
+                Optional PIN-code lookup contacts an external postal service,
+                but your QR payload is not uploaded to an application backend.
+              </p>
+            </details>
+            <details>
+              <summary>Do the QR codes expire?</summary>
+              <p>
+                No. QR Fusion creates static QR codes that do not expire. A
+                linked QR continues working as long as its destination remains
+                available.
+              </p>
+            </details>
+            <details>
+              <summary>Why isn't my QR code scanning correctly?</summary>
+              <p>
+                Verify the entered data, increase foreground/background
+                contrast, keep the logo smaller and test the code at its final
+                printed or displayed size.
+              </p>
+            </details>
+            <details>
+              <summary>Which format is best for printing?</summary>
+              <p>
+                SVG is best for unlimited scaling. PDF is convenient for print
+                workflows, while a high-resolution PNG also works for many
+                designs.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer"><div class="footer-inner"><div><a class="brand footer-brand" href="/">QR <span>Fusion</span></a><p>Quick. Simple. Powerful.</p></div><div class="footer-links"><a href="#qr-types">QR Types</a><a href="#how-it-works">How It Works</a><a href="#features">Features</a><a href="#faq">FAQ</a></div><p>© <span id="current-year"></span> Developed by <a href="https://harsh-hsy.netlify.app/" target="_blank" rel="noopener noreferrer">Harsh Singh</a>.</p></div></footer>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <a class="brand footer-brand" href="/">QR <span>Fusion</span></a>
+          <p>Quick. Simple. Powerful.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#qr-types">QR Types</a
+          ><a href="#how-it-works">How It Works</a
+          ><a href="#features">Features</a><a href="#faq">FAQ</a>
+        </div>
+        <p>
+          © <span id="current-year"></span> Developed by
+          <a
+            href="https://harsh-hsy.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Harsh Singh</a
+          >.
+        </p>
+      </div>
+    </footer>
 
     <script src="/js/pages/landing.js?v=33"></script>
   </body>

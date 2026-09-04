@@ -1,5 +1,0 @@
-.generator-page #about-section{width:min(1120px,calc(100% - 40px));margin:0 auto 2.5rem}
-.generator-page .how-it-works-section,.generator-page .why-use-section,.generator-page .faq-section{display:none}
-.slug-seo-section{padding:2rem;color:var(--text);background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow-sm)}
-.slug-seo-section[hidden]{display:none}.slug-seo-section h2{font-size:1.15rem}.slug-seo-section p{margin-top:.5rem;color:var(--muted);font-size:.84rem}.slug-seo-section ul{margin:1rem 0 0;padding-left:1.15rem;display:grid;gap:.35rem;color:var(--muted);font-size:.8rem}
-@media(max-width:640px){.generator-page #about-section{width:calc(100% - 24px)}.slug-seo-section{padding:1.25rem;border-radius:16px}}

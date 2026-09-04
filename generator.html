@@ -1,26 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
     <meta
       id="page-description"
       name="description"
-      content="A free, advanced online tool to create custom QR codes for URLs, contact info, Wi-Fi, events, and more. Customize colors, shapes, and add your own logo."
+      content="Choose a QR type, enter your content, customize the design, then copy, share or download your QR code for free."
     />
-    <title>QR Fusion - Free & Advanced QR Code Generator</title>
-    <link id="canonical-url" rel="canonical" href="https://qrfusion.netlify.app/create" />
+    <meta
+      id="page-og-title"
+      property="og:title"
+      content="Create a Custom QR Code — QR Fusion"
+    />
+    <meta
+      id="page-og-description"
+      property="og:description"
+      content="Choose a QR type, customize the design, and export a scan-ready QR code for free."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      id="page-og-url"
+      property="og:url"
+      content="https://qrfusion.netlify.app/create"
+    />
+    <title>Create a Custom QR Code — QR Fusion</title>
+    <link
+      id="canonical-url"
+      rel="canonical"
+      href="https://qrfusion.netlify.app/create"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
 
-    <link rel="icon" type="image/png" href="/assets/favicon/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
-<link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="QR Fusion" />
-<link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="QR Fusion" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,387 +58,625 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/css/style.css?v=67" />
-    <link rel="stylesheet" href="/css/about.css" />
+    <link rel="stylesheet" href="/css/style.css?v=68" />
   </head>
   <body class="generator-page">
     <header class="site-header generator-site-header">
-      <a class="brand" href="/" aria-label="QR Fusion home">QR <span>Fusion</span></a>
+      <a class="brand" href="/" aria-label="QR Fusion home"
+        >QR <span>Fusion</span></a
+      >
       <div class="header-actions">
-        <nav class="site-nav generator-header-links" id="generator-site-nav" aria-label="Generator navigation">
+        <nav
+          class="site-nav generator-header-links"
+          id="generator-site-nav"
+          aria-label="Generator navigation"
+        >
           <a href="/">Home</a>
           <a href="/#qr-types">QR Types</a>
         </nav>
-        <label for="theme-toggle" class="themeToggle generator-theme-toggle" title="Toggle theme">
-          <input type="checkbox" id="theme-toggle" aria-label="Toggle dark theme" />
-          <svg width="21" height="21" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <mask id="generator-moon-mask"><rect width="20" height="20" fill="white"></rect><circle cx="11" cy="3" r="8" fill="black"></circle></mask>
-            <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#generator-moon-mask)"></circle>
-            <g class="sunRays" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.64 3.64l1.42 1.42M14.94 14.94l1.42 1.42M16.36 3.64l-1.42 1.42M5.06 14.94l-1.42 1.42"></path></g>
+        <label
+          for="theme-toggle"
+          class="themeToggle generator-theme-toggle"
+          title="Toggle theme"
+        >
+          <input
+            type="checkbox"
+            id="theme-toggle"
+            aria-label="Toggle dark theme"
+          />
+          <svg
+            width="21"
+            height="21"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <mask id="generator-moon-mask">
+              <rect width="20" height="20" fill="white"></rect>
+              <circle cx="11" cy="3" r="8" fill="black"></circle>
+            </mask>
+            <circle
+              class="sunMoon"
+              cx="10"
+              cy="10"
+              r="8"
+              mask="url(#generator-moon-mask)"
+            ></circle>
+            <g
+              class="sunRays"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+            >
+              <path
+                d="M10 1v2M10 17v2M1 10h2M17 10h2M3.64 3.64l1.42 1.42M14.94 14.94l1.42 1.42M16.36 3.64l-1.42 1.42M5.06 14.94l-1.42 1.42"
+              ></path>
+            </g>
           </svg>
         </label>
-        <button class="menu-toggle" id="generator-menu-toggle" aria-label="Open navigation" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+        <button
+          class="menu-toggle"
+          id="generator-menu-toggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
       </div>
     </header>
 
-     <main class="page-content">
-    <div class="main-container">
-      <div class="main-content">
-        <div class="flow-progress" aria-label="QR creation steps">
-          <span class="active"><b>1</b> Input</span><i></i><span><b>2</b> Customize</span><i></i><span><b>3</b> Export</span>
-        </div>
-        <div class="left-column">
-          <div id="form-container-wrapper"></div>
-          <div class="wizard-actions input-actions">
-            <a class="wizard-button secondary" href="/#qr-types"><i class="fa-solid fa-arrow-left"></i> Change type</a>
-            <span class="continue-action-wrap">
-              <button id="to-customize-btn" class="wizard-button primary" disabled>Continue to Customize <i class="fa-solid fa-arrow-right"></i></button>
-            </span>
+    <main class="page-content">
+      <div class="main-container">
+        <div class="main-content">
+          <div class="flow-progress" aria-label="QR creation steps">
+            <span class="active"><b>1</b> Input</span><i></i
+            ><span><b>2</b> Customize</span><i></i><span><b>3</b> Export</span>
+          </div>
+          <div class="left-column">
+            <div id="form-container-wrapper"></div>
+            <div class="wizard-actions input-actions">
+              <a class="wizard-button secondary" href="/#qr-types"
+                ><i class="fa-solid fa-arrow-left"></i> Change type</a
+              >
+              <span class="continue-action-wrap">
+                <button
+                  id="to-customize-btn"
+                  class="wizard-button primary"
+                  disabled
+                >
+                  Continue to Customize <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </span>
+            </div>
+
+            <section class="customization-section wizard-panel-hidden">
+              <div class="section-header section-divider">
+                <h2 class="section-header-title">Customize your QR</h2>
+                <button id="reset-customization-btn" class="text-button">
+                  Reset
+                </button>
+              </div>
+              <div id="customization-controls" class="customization-layout">
+                <section
+                  class="customization-block preset-block"
+                  aria-labelledby="preset-heading"
+                >
+                  <div class="customization-block-heading">
+                    <div>
+                      <span class="block-kicker">Start quickly</span>
+                      <h3 id="preset-heading">Quick Presets</h3>
+                    </div>
+                    <span id="custom-design-status" class="custom-status"
+                      >Custom design</span
+                    >
+                  </div>
+                  <select
+                    id="preset-select"
+                    class="visual-picker-select"
+                    aria-labelledby="preset-heading"
+                  >
+                    <option value="custom">Custom</option>
+                    <option value="classic">Classic</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="sunset">Sunset</option>
+                    <option value="forest">Forest</option>
+                    <option value="fusion">Fusion</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="berry">Berry</option>
+                  </select>
+                  <div class="preset-row">
+                    <div
+                      class="visual-option-picker preset-picker"
+                      data-select="preset-select"
+                      aria-label="Design preset options"
+                    ></div>
+                    <button
+                      type="button"
+                      id="more-presets-btn"
+                      class="more-presets-btn"
+                      aria-expanded="false"
+                    >
+                      <i class="fa-solid fa-ellipsis" aria-hidden="true"></i
+                      ><span>More</span>
+                    </button>
+                  </div>
+                </section>
+
+                <section
+                  class="customization-block color-block"
+                  aria-labelledby="color-heading"
+                >
+                  <div class="customization-block-heading">
+                    <div>
+                      <span class="block-kicker">Appearance</span>
+                      <h3 id="color-heading">Colors &amp; Background</h3>
+                    </div>
+                  </div>
+                  <div class="color-controls-grid">
+                    <div class="color-control-card">
+                      <label for="color-fg">Foreground</label>
+                      <div class="color-value-row">
+                        <input
+                          type="color"
+                          id="color-fg"
+                          value="#000000"
+                        /><output id="color-fg-value" for="color-fg"
+                          >#000000</output
+                        >
+                      </div>
+                    </div>
+                    <div class="color-control-card">
+                      <label for="color-bg">Background</label>
+                      <div class="color-value-row">
+                        <input
+                          type="color"
+                          id="color-bg"
+                          value="#ffffff"
+                        /><output id="color-bg-value" for="color-bg"
+                          >#FFFFFF</output
+                        >
+                      </div>
+                    </div>
+                    <div class="size-control-card">
+                      <label for="size-input">Export Size</label>
+                      <div class="size-input-row">
+                        <input
+                          type="number"
+                          id="size-input"
+                          value="300"
+                          min="100"
+                          max="1000"
+                          step="10"
+                        /><span>px</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="effect-toggles">
+                    <label class="switch-control"
+                      ><input type="checkbox" id="gradient-enabled" /><span
+                        class="switch-track"
+                        aria-hidden="true"
+                      ></span
+                      ><span>Gradient foreground</span></label
+                    >
+                    <label class="switch-control"
+                      ><input type="checkbox" id="transparent-bg" /><span
+                        class="switch-track"
+                        aria-hidden="true"
+                      ></span
+                      ><span>Transparent background</span></label
+                    >
+                  </div>
+                  <div id="gradient-options" class="gradient-options" hidden>
+                    <div id="gradient-controls" class="color-control-card">
+                      <label for="gradient-color">Second color</label>
+                      <div class="color-value-row">
+                        <input
+                          type="color"
+                          id="gradient-color"
+                          value="#db2777"
+                        /><output id="gradient-color-value" for="gradient-color"
+                          >#DB2777</output
+                        >
+                      </div>
+                    </div>
+                    <div
+                      id="gradient-rotation-control"
+                      class="range-control-card"
+                    >
+                      <div class="range-heading">
+                        <label for="gradient-rotation">Gradient angle</label
+                        ><output
+                          id="gradient-rotation-value"
+                          for="gradient-rotation"
+                          >45°</output
+                        >
+                      </div>
+                      <input
+                        type="range"
+                        id="gradient-rotation"
+                        min="0"
+                        max="360"
+                        value="45"
+                      />
+                    </div>
+                  </div>
+                </section>
+
+                <section
+                  class="customization-block pattern-block"
+                  aria-labelledby="pattern-heading"
+                >
+                  <div class="customization-block-heading">
+                    <div>
+                      <span class="block-kicker">Fine tune</span>
+                      <h3 id="pattern-heading">Pattern &amp; Corners</h3>
+                    </div>
+                  </div>
+                  <div class="pattern-controls-grid">
+                    <div class="style-control-group">
+                      <div class="style-control-heading">
+                        <label id="shape-style-label" for="shape-style"
+                          >Pattern</label
+                        >
+                      </div>
+                      <select
+                        id="shape-style"
+                        class="visual-picker-select"
+                        aria-labelledby="shape-style-label"
+                      >
+                        <option value="square">Square</option>
+                        <option value="dots">Dots</option>
+                        <option value="rounded">Soft</option>
+                        <option value="extra-rounded">Rounded</option>
+                        <option value="classy">Classy</option>
+                        <option value="classy-rounded">Classy Rounded</option>
+                      </select>
+                      <div
+                        class="visual-option-picker compact-style-picker"
+                        data-select="shape-style"
+                        aria-label="Pattern options"
+                      ></div>
+                    </div>
+                    <div class="corner-eye-row">
+                      <div class="style-control-group">
+                        <div class="style-control-heading">
+                          <label id="border-style-label" for="border-style"
+                            >Corner Frame</label
+                          >
+                        </div>
+                        <select
+                          id="border-style"
+                          class="visual-picker-select"
+                          aria-labelledby="border-style-label"
+                        >
+                          <option value="square">Square</option>
+                          <option value="dot">Circle</option>
+                          <option value="extra-rounded">Soft Square</option>
+                        </select>
+                        <div
+                          class="visual-option-picker compact-style-picker"
+                          data-select="border-style"
+                          aria-label="Corner frame options"
+                        ></div>
+                      </div>
+                      <div class="style-control-group">
+                        <div class="style-control-heading">
+                          <label id="center-style-label" for="center-style"
+                            >Eye Center</label
+                          >
+                        </div>
+                        <select
+                          id="center-style"
+                          class="visual-picker-select"
+                          aria-labelledby="center-style-label"
+                        >
+                          <option value="square">Square</option>
+                          <option value="dot">Circle</option>
+                        </select>
+                        <div
+                          class="visual-option-picker compact-style-picker"
+                          data-select="center-style"
+                          aria-label="Eye center options"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section
+                  class="customization-block logo-block"
+                  aria-labelledby="logo-heading"
+                >
+                  <div class="customization-block-heading">
+                    <div>
+                      <span class="block-kicker">Optional</span>
+                      <h3 id="logo-heading">Brand Logo</h3>
+                    </div>
+                  </div>
+                  <div class="logo-upload-wrapper">
+                    <input
+                      type="file"
+                      id="logo-upload"
+                      accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                    />
+                    <label class="logo-upload-card" for="logo-upload">
+                      <span class="logo-upload-icon"
+                        ><i
+                          class="fa-solid fa-cloud-arrow-up"
+                          aria-hidden="true"
+                        ></i
+                      ></span>
+                      <span class="logo-upload-copy"
+                        ><strong id="logo-upload-title">Choose a logo</strong
+                        ><small id="logo-file-name"
+                          >PNG, JPG, WebP or SVG</small
+                        ></span
+                      >
+                      <span class="logo-browse-action">Browse</span>
+                    </label>
+                    <button class="remove-logo-btn" id="remove-logo-btn" hidden>
+                      <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                      Remove
+                    </button>
+                  </div>
+                  <div id="logo-controls" class="logo-controls" hidden>
+                    <div class="range-control-card">
+                      <div class="range-heading">
+                        <label for="logo-size">Logo size</label
+                        ><output id="logo-size-value" for="logo-size"
+                          >35%</output
+                        >
+                      </div>
+                      <input
+                        type="range"
+                        id="logo-size"
+                        min="15"
+                        max="50"
+                        value="35"
+                      />
+                    </div>
+                    <div class="range-control-card">
+                      <div class="range-heading">
+                        <label for="logo-margin">Logo margin</label
+                        ><output id="logo-margin-value" for="logo-margin"
+                          >10px</output
+                        >
+                      </div>
+                      <input
+                        type="range"
+                        id="logo-margin"
+                        min="0"
+                        max="30"
+                        value="10"
+                      />
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="settings-actions">
+                <button id="export-settings-btn" class="secondary-action">
+                  Export settings
+                </button>
+                <label
+                  class="secondary-action file-action"
+                  for="import-settings-input"
+                  >Import settings</label
+                >
+                <input
+                  type="file"
+                  id="import-settings-input"
+                  accept="application/json,.json"
+                  hidden
+                />
+              </div>
+              <div class="wizard-actions">
+                <button id="back-to-input-btn" class="wizard-button secondary">
+                  <i class="fa-solid fa-arrow-left"></i> Back to Input
+                </button>
+                <button id="to-export-btn" class="wizard-button primary">
+                  Continue to Export <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </section>
           </div>
 
-          <section class="customization-section wizard-panel-hidden">
-            <div class="section-header section-divider">
-              <h2 class="section-header-title">Customize your QR</h2>
-              <button id="reset-customization-btn" class="text-button">
-                Reset
-              </button>
+          <div class="right-column wizard-panel-hidden">
+            <div class="section-header export-step">
+              <h2 class="section-header-title">Preview &amp; export</h2>
             </div>
-            <div id="customization-controls" class="customization-layout">
-              <section class="customization-block preset-block" aria-labelledby="preset-heading">
-                <div class="customization-block-heading">
-                  <div><span class="block-kicker">Start quickly</span><h3 id="preset-heading">Quick Presets</h3></div>
-                  <span id="custom-design-status" class="custom-status">Custom design</span>
+            <div class="export-workspace">
+              <div class="preview-panel">
+                <p class="export-card-title">
+                  <i class="fa-solid fa-qrcode"></i> Live QR preview
+                </p>
+                <div class="qr-code-wrapper">
+                  <div id="qr-code-placeholder">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 14.625a1.125 1.125 0 011.125-1.125h4.5a1.125 1.125 0 011.125 1.125v4.5a1.125 1.125 0 01-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5z"
+                      />
+                    </svg>
+                    <p>Your QR Code will appear here</p>
+                  </div>
+                  <div id="qr-code-container"></div>
                 </div>
-                <select id="preset-select" class="visual-picker-select" aria-labelledby="preset-heading">
-                  <option value="custom">Custom</option>
-                  <option value="classic">Classic</option>
-                  <option value="ocean">Ocean</option>
-                  <option value="sunset">Sunset</option>
-                  <option value="forest">Forest</option>
-                  <option value="fusion">Fusion</option>
-                  <option value="midnight">Midnight</option>
-                  <option value="berry">Berry</option>
-                </select>
-                <div class="preset-row">
-                  <div class="visual-option-picker preset-picker" data-select="preset-select" aria-label="Design preset options"></div>
-                  <button type="button" id="more-presets-btn" class="more-presets-btn" aria-expanded="false">
-                    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i><span>More</span>
+                <div
+                  id="scan-quality"
+                  class="quality-indicator"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <span class="quality-dot"></span
+                  ><span id="scan-quality-text"
+                    >Add content to check scan quality</span
+                  >
+                </div>
+                <p class="preview-test-hint">
+                  <i
+                    class="fa-solid fa-mobile-screen-button"
+                    aria-hidden="true"
+                  ></i>
+                  Test with your phone camera before publishing.
+                </p>
+              </div>
+              <div class="export-controls">
+                <div class="export-controls-heading">
+                  <div>
+                    <span>Ready to use</span>
+                    <h3>Choose what you want to do</h3>
+                  </div>
+                  <i class="fa-solid fa-download" aria-hidden="true"></i>
+                </div>
+                <div class="share-buttons-group">
+                  <button
+                    id="copy-qr-btn"
+                    class="export-button lift-on-hover"
+                    disabled
+                  >
+                    <i class="fa-regular fa-copy"></i> Copy QR
+                  </button>
+                  <button
+                    id="share-qr-btn"
+                    class="export-button lift-on-hover"
+                    disabled
+                  >
+                    <i class="fa-solid fa-share-nodes"></i> Share
                   </button>
                 </div>
-              </section>
-
-              <section class="customization-block color-block" aria-labelledby="color-heading">
-                <div class="customization-block-heading">
-                  <div><span class="block-kicker">Appearance</span><h3 id="color-heading">Colors &amp; Background</h3></div>
-                </div>
-                <div class="color-controls-grid">
-                  <div class="color-control-card">
-                    <label for="color-fg">Foreground</label>
-                    <div class="color-value-row"><input type="color" id="color-fg" value="#000000" /><output id="color-fg-value" for="color-fg">#000000</output></div>
-                  </div>
-                  <div class="color-control-card">
-                    <label for="color-bg">Background</label>
-                    <div class="color-value-row"><input type="color" id="color-bg" value="#ffffff" /><output id="color-bg-value" for="color-bg">#FFFFFF</output></div>
-                  </div>
-                  <div class="size-control-card">
-                    <label for="size-input">Export Size</label>
-                    <div class="size-input-row"><input type="number" id="size-input" value="300" min="100" max="1000" step="10" /><span>px</span></div>
-                  </div>
-                </div>
-                <div class="effect-toggles">
-                  <label class="switch-control"><input type="checkbox" id="gradient-enabled" /><span class="switch-track" aria-hidden="true"></span><span>Gradient foreground</span></label>
-                  <label class="switch-control"><input type="checkbox" id="transparent-bg" /><span class="switch-track" aria-hidden="true"></span><span>Transparent background</span></label>
-                </div>
-                <div id="gradient-options" class="gradient-options" hidden>
-                  <div id="gradient-controls" class="color-control-card">
-                    <label for="gradient-color">Second color</label>
-                    <div class="color-value-row"><input type="color" id="gradient-color" value="#db2777" /><output id="gradient-color-value" for="gradient-color">#DB2777</output></div>
-                  </div>
-                  <div id="gradient-rotation-control" class="range-control-card">
-                    <div class="range-heading"><label for="gradient-rotation">Gradient angle</label><output id="gradient-rotation-value" for="gradient-rotation">45°</output></div>
-                    <input type="range" id="gradient-rotation" min="0" max="360" value="45" />
-                  </div>
-                </div>
-              </section>
-
-              <section class="customization-block pattern-block" aria-labelledby="pattern-heading">
-                <div class="customization-block-heading">
-                  <div><span class="block-kicker">Fine tune</span><h3 id="pattern-heading">Pattern &amp; Corners</h3></div>
-                </div>
-                <div class="pattern-controls-grid">
-                  <div class="style-control-group">
-                    <div class="style-control-heading"><label id="shape-style-label" for="shape-style">Pattern</label></div>
-                    <select id="shape-style" class="visual-picker-select" aria-labelledby="shape-style-label">
-                      <option value="square">Square</option><option value="dots">Dots</option><option value="rounded">Soft</option>
-                      <option value="extra-rounded">Rounded</option><option value="classy">Classy</option><option value="classy-rounded">Classy Rounded</option>
-                    </select>
-                    <div class="visual-option-picker compact-style-picker" data-select="shape-style" aria-label="Pattern options"></div>
-                  </div>
-                  <div class="corner-eye-row">
-                    <div class="style-control-group">
-                      <div class="style-control-heading"><label id="border-style-label" for="border-style">Corner Frame</label></div>
-                      <select id="border-style" class="visual-picker-select" aria-labelledby="border-style-label">
-                        <option value="square">Square</option><option value="dot">Circle</option><option value="extra-rounded">Soft Square</option>
-                      </select>
-                      <div class="visual-option-picker compact-style-picker" data-select="border-style" aria-label="Corner frame options"></div>
-                    </div>
-                    <div class="style-control-group">
-                      <div class="style-control-heading"><label id="center-style-label" for="center-style">Eye Center</label></div>
-                      <select id="center-style" class="visual-picker-select" aria-labelledby="center-style-label">
-                        <option value="square">Square</option><option value="dot">Circle</option>
-                      </select>
-                      <div class="visual-option-picker compact-style-picker" data-select="center-style" aria-label="Eye center options"></div>
-                    </div>
+                <div class="control-group">
+                  <p class="export-label">Select a file format</p>
+                  <div class="download-buttons-group">
+                    <button
+                      id="download-png-btn"
+                      class="export-button lift-on-hover"
+                      disabled
+                    >
+                      <i class="fa-regular fa-file-image"></i> PNG
+                    </button>
+                    <button
+                      id="download-jpeg-btn"
+                      class="export-button lift-on-hover"
+                      disabled
+                    >
+                      <i class="fa-regular fa-file-image"></i> JPEG
+                    </button>
+                    <button
+                      id="download-pdf-btn"
+                      class="export-button lift-on-hover"
+                      disabled
+                    >
+                      <i class="fa-regular fa-file-pdf"></i> PDF
+                    </button>
+                    <button
+                      id="download-svg-btn"
+                      class="export-button lift-on-hover"
+                      disabled
+                    >
+                      <i class="fa-solid fa-bezier-curve"></i> SVG
+                    </button>
                   </div>
                 </div>
-              </section>
-
-              <section class="customization-block logo-block" aria-labelledby="logo-heading">
-                <div class="customization-block-heading">
-                  <div><span class="block-kicker">Optional</span><h3 id="logo-heading">Brand Logo</h3></div>
+                <div class="control-group">
+                  <button
+                    id="download-all-btn"
+                    class="export-button lift-on-hover"
+                    disabled
+                  >
+                    <i class="fa-solid fa-download"></i>
+                    Download All (.zip)
+                  </button>
                 </div>
-                <div class="logo-upload-wrapper">
-                  <input type="file" id="logo-upload" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
-                  <label class="logo-upload-card" for="logo-upload">
-                    <span class="logo-upload-icon"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i></span>
-                    <span class="logo-upload-copy"><strong id="logo-upload-title">Choose a logo</strong><small id="logo-file-name">PNG, JPG, WebP or SVG</small></span>
-                    <span class="logo-browse-action">Browse</span>
-                  </label>
-                  <button class="remove-logo-btn" id="remove-logo-btn" hidden><i class="fa-solid fa-trash-can" aria-hidden="true"></i> Remove</button>
+                <div class="wizard-actions export-back-action">
+                  <button
+                    id="back-to-customize-btn"
+                    class="wizard-button secondary"
+                  >
+                    <i class="fa-solid fa-arrow-left"></i> Back to Customize
+                  </button>
+                  <a class="wizard-button primary" href="/"
+                    ><i class="fa-solid fa-house" aria-hidden="true"></i> Back
+                    to Home</a
+                  >
                 </div>
-                <div id="logo-controls" class="logo-controls" hidden>
-                  <div class="range-control-card">
-                    <div class="range-heading"><label for="logo-size">Logo size</label><output id="logo-size-value" for="logo-size">35%</output></div>
-                    <input type="range" id="logo-size" min="15" max="50" value="35" />
-                  </div>
-                  <div class="range-control-card">
-                    <div class="range-heading"><label for="logo-margin">Logo margin</label><output id="logo-margin-value" for="logo-margin">10px</output></div>
-                    <input type="range" id="logo-margin" min="0" max="30" value="10" />
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="settings-actions">
-              <button id="export-settings-btn" class="secondary-action">Export settings</button>
-              <label class="secondary-action file-action" for="import-settings-input">Import settings</label>
-              <input type="file" id="import-settings-input" accept="application/json,.json" hidden />
-            </div>
-            <div class="wizard-actions">
-              <button id="back-to-input-btn" class="wizard-button secondary"><i class="fa-solid fa-arrow-left"></i> Back to Input</button>
-              <button id="to-export-btn" class="wizard-button primary">Continue to Export <i class="fa-solid fa-arrow-right"></i></button>
-            </div>
-          </section>
-        </div>
-
-        <div class="right-column wizard-panel-hidden">
-          <div class="section-header export-step"><h2 class="section-header-title">Preview &amp; export</h2></div>
-          <div class="export-workspace">
-          <div class="preview-panel">
-          <p class="export-card-title"><i class="fa-solid fa-qrcode"></i> Live QR preview</p>
-          <div class="qr-code-wrapper">
-            <div id="qr-code-placeholder">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M13.5 14.625a1.125 1.125 0 011.125-1.125h4.5a1.125 1.125 0 011.125 1.125v4.5a1.125 1.125 0 01-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5z"
-                />
-              </svg>
-              <p>Your QR Code will appear here</p>
-            </div>
-            <div id="qr-code-container"></div>
-          </div>
-          <div id="scan-quality" class="quality-indicator" role="status" aria-live="polite">
-            <span class="quality-dot"></span><span id="scan-quality-text">Add content to check scan quality</span>
-          </div>
-          <p class="preview-test-hint"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i> Test with your phone camera before publishing.</p>
-          </div>
-          <div class="export-controls">
-            <div class="export-controls-heading">
-              <div><span>Ready to use</span><h3>Choose what you want to do</h3></div>
-              <i class="fa-solid fa-download" aria-hidden="true"></i>
-            </div>
-            <div class="share-buttons-group">
-              <button id="copy-qr-btn" class="export-button lift-on-hover" disabled><i class="fa-regular fa-copy"></i> Copy QR</button>
-              <button id="share-qr-btn" class="export-button lift-on-hover" disabled><i class="fa-solid fa-share-nodes"></i> Share</button>
-            </div>
-            <div class="control-group">
-              <p class="export-label">Select a file format</p>
-              <div class="download-buttons-group">
-                <button
-                  id="download-png-btn"
-                  class="export-button lift-on-hover"
-                  disabled
-                >
-                  <i class="fa-regular fa-file-image"></i> PNG
-                </button>
-                <button
-                  id="download-jpeg-btn"
-                  class="export-button lift-on-hover"
-                  disabled
-                >
-                  <i class="fa-regular fa-file-image"></i> JPEG
-                </button>
-                <button
-                  id="download-pdf-btn"
-                  class="export-button lift-on-hover"
-                  disabled
-                >
-                  <i class="fa-regular fa-file-pdf"></i> PDF
-                </button>
-                <button id="download-svg-btn" class="export-button lift-on-hover" disabled><i class="fa-solid fa-bezier-curve"></i> SVG</button>
               </div>
             </div>
-            <div class="control-group">
-              <button
-                id="download-all-btn"
-                class="export-button lift-on-hover"
-                disabled
-              >
-                <i class="fa-solid fa-download"></i>
-                Download All (.zip)
-              </button>
-            </div>
-            <div class="wizard-actions export-back-action">
-              <button id="back-to-customize-btn" class="wizard-button secondary"><i class="fa-solid fa-arrow-left"></i> Back to Customize</button>
-              <a class="wizard-button primary" href="/"><i class="fa-solid fa-house" aria-hidden="true"></i> Back to Home</a>
-            </div>
-          </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
-    <div id="about-section">
-      <!-- HOW IT WORKS SECTION -->
-      <section class="info-section how-it-works-section">
-        <div class="info-content">
-          <h2>How It Works</h2>
-          <ul>
-            <li>
-              <strong>Choose & Enter:</strong> Select your desired QR code type
-              and fill in the required information.
-            </li>
-            <li>
-              <strong>Customize:</strong> Personalize your QR code to match your
-              brand by changing colors, shapes, and adding a logo.
-            </li>
-            <li>
-              <strong>Download:</strong> Instantly get your high-resolution QR
-              code as a PNG, JPEG, or PDF, ready for use.
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- WHY CHOOSE US SECTION -->
-      <section class="info-section why-use-section">
-        <div class="info-content">
-          <h2>Why Choose QR Fusion?</h2>
-          <div class="reason-list">
-    <div class="reason-item">
-        <h3>Instant Generation</h3>
-        <p>Create and preview your custom QR codes in real-time with no waiting.</p>
-    </div>
-    <div class="reason-item">
-        <h3>Completely Private</h3>
-        <p>Your data is processed in your browser and is never stored on our servers.</p>
-    </div>
-    <div class="reason-item">
-        <h3>High-Quality Downloads</h3>
-        <p>Export crisp, vector-ready QR codes perfect for both print and digital use.</p>
-    </div>
-    <div class="reason-item">
-        <h3>Multi-Type Support</h3>
-        <p>Create codes for URLs, vCards, Wi-Fi, social media, events, and more.</p>
-    </div>
-</div>
-        </div>
-      </section>
-
-      <!-- FAQ SECTION -->
-      <section class="info-section faq-section">
-        <div class="info-content">
-          <h2>Frequently Asked Questions</h2>
-          <div class="faq-list">
-            <div class="faq-item">
-              <h3>Q: What is a QR code?</h3>
-              <p>
-                A: A QR (Quick Response) code is a barcode that can be scanned
-                by a smartphone camera to quickly access information like a
-                website, contact details, or Wi-Fi credentials.
-              </p>
-            </div>
-            <div class="faq-item">
-              <h3>Q: Is it safe to use QR Fusion?</h3>
-              <p>
-                A: Yes, it's completely safe. Your data is processed entirely
-                within your browser and is never sent to our servers. We do not
-                store any of the information you enter.
-              </p>
-            </div>
-            <div class="faq-item">
-              <h3>Q: Do the QR codes I create expire?</h3>
-              <p>
-                A: No. The QR codes you generate are static and do not expire.
-                They will work forever, as long as the data they point to (like
-                a website link) remains active.
-              </p>
-            </div>
-            <div class="faq-item">
-              <h3>Q: My QR code isn't scanning correctly. What should I do?</h3>
-              <p>
-                A: First, double-check the entered data. If you've heavily
-                customized the design, try increasing the color contrast between
-                the QR code and its background. Ensure your logo doesn't cover
-                too much of the code's pattern.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      </main>
-
-      <!-- FOOTER -->
-      <footer class="app-footer">
-        <div class="generator-footer-inner">
-          <p>&copy; <span id="generator-current-year"></span> Developed by <a href="https://harsh-hsy.netlify.app/" target="_blank" rel="noopener noreferrer">Harsh Singh</a>.</p>
-        </div>
-      </footer>
-    </div>
-
+    <!-- FOOTER -->
+    <footer class="app-footer">
+      <div class="generator-footer-inner">
+        <p>
+          &copy; <span id="generator-current-year"></span> Developed by
+          <a
+            href="https://harsh-hsy.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Harsh Singh</a
+          >.
+        </p>
+      </div>
+    </footer>
     <template id="forms-template">
       <div id="text-form" class="form-container">
         <div class="text-input-heading-row">
           <h2 class="section-subtitle">Text or URL</h2>
           <div class="text-heading-actions">
-            <button type="button" id="paste-text-btn" class="subtle-input-action"><i class="fa-regular fa-clipboard"></i> Paste</button>
-            <button type="button" id="clear-text-btn" class="subtle-input-action" disabled>Clear</button>
+            <button
+              type="button"
+              id="paste-text-btn"
+              class="subtle-input-action"
+            >
+              <i class="fa-regular fa-clipboard"></i> Paste
+            </button>
+            <button
+              type="button"
+              id="clear-text-btn"
+              class="subtle-input-action"
+              disabled
+            >
+              Clear
+            </button>
           </div>
         </div>
         <div class="text-input-wrap">
-        <textarea
-          id="text-input"
-          placeholder="https://example.com"
-          aria-label="Text or URL"
-          aria-describedby="text-input-error"
-        ></textarea>
+          <textarea
+            id="text-input"
+            placeholder="https://example.com"
+            aria-label="Text or URL"
+            aria-describedby="text-input-error"
+          ></textarea>
           <div class="text-input-meta">
-            <span id="text-character-count" aria-live="polite">0 characters</span>
+            <span id="text-character-count" aria-live="polite"
+              >0 characters</span
+            >
           </div>
         </div>
-        <p id="text-input-error" class="input-validation-message" role="alert" hidden>Please enter something to generate your QR code.</p>
+        <p
+          id="text-input-error"
+          class="input-validation-message"
+          role="alert"
+          hidden
+        >
+          Please enter something to generate your QR code.
+        </p>
       </div>
 
       <div id="vcard-form" class="form-container grid-form">
@@ -496,19 +763,70 @@
           <label for="event-start-date">Start Date &amp; Time</label>
           <div class="event-datetime-control">
             <div class="event-date-entry">
-              <input id="event-start-date" class="event-date-display" type="text" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="DD/MM/YYYY" aria-label="Start date in day month year format" />
-              <span class="event-picker-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i><input id="event-start-native-date" class="event-native-date" type="date" aria-label="Open start date picker" /></span>
+              <input
+                id="event-start-date"
+                class="event-date-display"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="10"
+                placeholder="DD/MM/YYYY"
+                aria-label="Start date in day month year format"
+              />
+              <span class="event-picker-icon"
+                ><i class="fa-regular fa-calendar" aria-hidden="true"></i
+                ><input
+                  id="event-start-native-date"
+                  class="event-native-date"
+                  type="date"
+                  aria-label="Open start date picker"
+              /></span>
             </div>
             <span class="event-control-divider" aria-hidden="true"></span>
             <div class="event-time-entry">
-              <button type="button" class="event-time-picker-button" aria-label="Open start time picker" aria-expanded="false" aria-controls="event-start-time-picker"><i class="fa-regular fa-clock" aria-hidden="true"></i></button>
-              <input id="event-start-time" class="event-time-display" type="text" autocomplete="off" placeholder="HH:MM" aria-label="Start time in 24-hour format" aria-haspopup="dialog" readonly />
-              <div id="event-start-time-picker" class="event-time-popover" hidden>
+              <button
+                type="button"
+                class="event-time-picker-button"
+                aria-label="Open start time picker"
+                aria-expanded="false"
+                aria-controls="event-start-time-picker"
+              >
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+              </button>
+              <input
+                id="event-start-time"
+                class="event-time-display"
+                type="text"
+                autocomplete="off"
+                placeholder="HH:MM"
+                aria-label="Start time in 24-hour format"
+                aria-haspopup="dialog"
+                readonly
+              />
+              <div
+                id="event-start-time-picker"
+                class="event-time-popover"
+                hidden
+              >
                 <p>24-hour time</p>
                 <div class="event-time-columns">
-                  <label><span>Hour</span><select class="event-hour-select" size="6" aria-label="Start hour from 00 to 23"></select></label>
+                  <label
+                    ><span>Hour</span
+                    ><select
+                      class="event-hour-select"
+                      size="6"
+                      aria-label="Start hour from 00 to 23"
+                    ></select
+                  ></label>
                   <strong aria-hidden="true">:</strong>
-                  <label><span>Minute</span><select class="event-minute-select" size="6" aria-label="Start minute from 00 to 59"></select></label>
+                  <label
+                    ><span>Minute</span
+                    ><select
+                      class="event-minute-select"
+                      size="6"
+                      aria-label="Start minute from 00 to 59"
+                    ></select
+                  ></label>
                 </div>
                 <button type="button" class="event-time-done">Done</button>
               </div>
@@ -516,26 +834,75 @@
           </div>
           <input id="event-start" type="hidden" />
           <small class="input-hint">DD/MM/YYYY · 24-hour time</small>
-          <small class="event-datetime-error" role="alert" hidden>Use a valid date and 24-hour time.</small>
+          <small class="event-datetime-error" role="alert" hidden
+            >Use a valid date and 24-hour time.</small
+          >
         </div>
 
         <div class="date-picker-wrapper">
           <label for="event-end-date">End Date &amp; Time</label>
           <div class="event-datetime-control">
             <div class="event-date-entry">
-              <input id="event-end-date" class="event-date-display" type="text" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="DD/MM/YYYY" aria-label="End date in day month year format" />
-              <span class="event-picker-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i><input id="event-end-native-date" class="event-native-date" type="date" aria-label="Open end date picker" /></span>
+              <input
+                id="event-end-date"
+                class="event-date-display"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                maxlength="10"
+                placeholder="DD/MM/YYYY"
+                aria-label="End date in day month year format"
+              />
+              <span class="event-picker-icon"
+                ><i class="fa-regular fa-calendar" aria-hidden="true"></i
+                ><input
+                  id="event-end-native-date"
+                  class="event-native-date"
+                  type="date"
+                  aria-label="Open end date picker"
+              /></span>
             </div>
             <span class="event-control-divider" aria-hidden="true"></span>
             <div class="event-time-entry">
-              <button type="button" class="event-time-picker-button" aria-label="Open end time picker" aria-expanded="false" aria-controls="event-end-time-picker"><i class="fa-regular fa-clock" aria-hidden="true"></i></button>
-              <input id="event-end-time" class="event-time-display" type="text" autocomplete="off" placeholder="HH:MM" aria-label="End time in 24-hour format" aria-haspopup="dialog" readonly />
+              <button
+                type="button"
+                class="event-time-picker-button"
+                aria-label="Open end time picker"
+                aria-expanded="false"
+                aria-controls="event-end-time-picker"
+              >
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+              </button>
+              <input
+                id="event-end-time"
+                class="event-time-display"
+                type="text"
+                autocomplete="off"
+                placeholder="HH:MM"
+                aria-label="End time in 24-hour format"
+                aria-haspopup="dialog"
+                readonly
+              />
               <div id="event-end-time-picker" class="event-time-popover" hidden>
                 <p>24-hour time</p>
                 <div class="event-time-columns">
-                  <label><span>Hour</span><select class="event-hour-select" size="6" aria-label="End hour from 00 to 23"></select></label>
+                  <label
+                    ><span>Hour</span
+                    ><select
+                      class="event-hour-select"
+                      size="6"
+                      aria-label="End hour from 00 to 23"
+                    ></select
+                  ></label>
                   <strong aria-hidden="true">:</strong>
-                  <label><span>Minute</span><select class="event-minute-select" size="6" aria-label="End minute from 00 to 59"></select></label>
+                  <label
+                    ><span>Minute</span
+                    ><select
+                      class="event-minute-select"
+                      size="6"
+                      aria-label="End minute from 00 to 59"
+                    ></select
+                  ></label>
                 </div>
                 <button type="button" class="event-time-done">Done</button>
               </div>
@@ -543,7 +910,9 @@
           </div>
           <input id="event-end" type="hidden" />
           <small class="input-hint">DD/MM/YYYY · 24-hour time</small>
-          <small class="event-datetime-error" role="alert" hidden>Use a valid date and 24-hour time.</small>
+          <small class="event-datetime-error" role="alert" hidden
+            >Use a valid date and 24-hour time.</small
+          >
         </div>
 
         <input
@@ -583,33 +952,91 @@
 
       <div id="appstore-form" class="form-container">
         <h3 class="section-subtitle">App Store Links</h3>
-        <div class="app-link-grid" role="radiogroup" aria-label="Choose an app store">
+        <div
+          class="app-link-grid"
+          role="radiogroup"
+          aria-label="Choose an app store"
+        >
           <div class="app-link-card selected" data-app-platform="google">
             <label class="app-link-choice" for="appstore-platform-google">
-              <input id="appstore-platform-google" type="radio" name="appstore-platform" value="google" checked />
-              <span class="app-link-icon google-play"><i class="fa-brands fa-google-play" aria-hidden="true"></i></span>
-              <span class="app-link-copy"><strong>Google Play</strong><small>Android app link</small></span>
-              <i class="fa-solid fa-circle-check app-link-check" aria-hidden="true"></i>
+              <input
+                id="appstore-platform-google"
+                type="radio"
+                name="appstore-platform"
+                value="google"
+                checked
+              />
+              <span class="app-link-icon google-play"
+                ><i class="fa-brands fa-google-play" aria-hidden="true"></i
+              ></span>
+              <span class="app-link-copy"
+                ><strong>Google Play</strong
+                ><small>Android app link</small></span
+              >
+              <i
+                class="fa-solid fa-circle-check app-link-check"
+                aria-hidden="true"
+              ></i>
             </label>
-            <input id="appstore-google-url" type="url" inputmode="url" autocomplete="url" placeholder="https://play.google.com/store/apps/details?id=..." aria-label="Google Play app URL" />
+            <input
+              id="appstore-google-url"
+              type="url"
+              inputmode="url"
+              autocomplete="url"
+              placeholder="https://play.google.com/store/apps/details?id=..."
+              aria-label="Google Play app URL"
+            />
           </div>
           <div class="app-link-card" data-app-platform="apple">
             <label class="app-link-choice" for="appstore-platform-apple">
-              <input id="appstore-platform-apple" type="radio" name="appstore-platform" value="apple" />
-              <span class="app-link-icon apple-store"><i class="fa-brands fa-apple" aria-hidden="true"></i></span>
-              <span class="app-link-copy"><strong>Apple App Store</strong><small>iPhone and iPad app link</small></span>
-              <i class="fa-solid fa-circle-check app-link-check" aria-hidden="true"></i>
+              <input
+                id="appstore-platform-apple"
+                type="radio"
+                name="appstore-platform"
+                value="apple"
+              />
+              <span class="app-link-icon apple-store"
+                ><i class="fa-brands fa-apple" aria-hidden="true"></i
+              ></span>
+              <span class="app-link-copy"
+                ><strong>Apple App Store</strong
+                ><small>iPhone and iPad app link</small></span
+              >
+              <i
+                class="fa-solid fa-circle-check app-link-check"
+                aria-hidden="true"
+              ></i>
             </label>
-            <input id="appstore-apple-url" type="url" inputmode="url" autocomplete="url" placeholder="https://apps.apple.com/app/..." aria-label="Apple App Store URL" />
+            <input
+              id="appstore-apple-url"
+              type="url"
+              inputmode="url"
+              autocomplete="url"
+              placeholder="https://apps.apple.com/app/..."
+              aria-label="Apple App Store URL"
+            />
           </div>
         </div>
-        <p class="form-note app-link-note">Select a platform, then paste its store link. The selected card will be encoded in the QR code.</p>
+        <p class="form-note app-link-note">
+          Select a platform, then paste its store link. The selected card will
+          be encoded in the QR code.
+        </p>
       </div>
 
       <div id="youtube-form" class="form-container grid-form">
         <h3 class="section-subtitle grid-col-span-2">YouTube Link</h3>
-        <input type="url" id="youtube-url" inputmode="url" autocomplete="url" placeholder="https://www.youtube.com/watch?v=..." class="grid-col-span-2" aria-label="YouTube video or channel URL" />
-        <p class="form-note grid-col-span-2">Paste a full YouTube video, Short, playlist, or channel link.</p>
+        <input
+          type="url"
+          id="youtube-url"
+          inputmode="url"
+          autocomplete="url"
+          placeholder="https://www.youtube.com/watch?v=..."
+          class="grid-col-span-2"
+          aria-label="YouTube video or channel URL"
+        />
+        <p class="form-note grid-col-span-2">
+          Paste a full YouTube video, Short, playlist, or channel link.
+        </p>
       </div>
 
       <div id="email-form" class="form-container grid-form">
@@ -655,27 +1082,59 @@
 
       <div id="phone-form" class="form-container grid-form">
         <h3 class="section-subtitle grid-col-span-2">Phone Call Details</h3>
-        <input type="tel" id="phone-number" placeholder="Phone Number (e.g., +919876543210)" class="grid-col-span-2" />
+        <input
+          type="tel"
+          id="phone-number"
+          placeholder="Phone Number (e.g., +919876543210)"
+          class="grid-col-span-2"
+        />
         <div id="phone-status" class="error-message grid-col-span-2"></div>
       </div>
 
       <div id="login-form" class="form-container grid-form">
         <h3 class="section-subtitle grid-col-span-2">Login QR / Passkey</h3>
-        <input type="url" id="login-url" inputmode="url" autocomplete="url" placeholder="https://example.com/sign-in" class="grid-col-span-2" aria-label="Secure sign-in or passkey URL" />
-        <p class="form-note grid-col-span-2">Paste the secure HTTPS sign-in or passkey URL provided by your authentication service.</p>
+        <input
+          type="url"
+          id="login-url"
+          inputmode="url"
+          autocomplete="url"
+          placeholder="https://example.com/sign-in"
+          class="grid-col-span-2"
+          aria-label="Secure sign-in or passkey URL"
+        />
+        <p class="form-note grid-col-span-2">
+          Paste the secure HTTPS sign-in or passkey URL provided by your
+          authentication service.
+        </p>
       </div>
 
       <div id="whatsapp-form" class="form-container grid-form">
         <h3 class="section-subtitle grid-col-span-2">WhatsApp Details</h3>
-        <input type="tel" id="whatsapp-number" placeholder="Number with country code (e.g., 919876543210)" class="grid-col-span-2" />
-        <textarea id="whatsapp-message" placeholder="Pre-filled WhatsApp message" class="grid-col-span-2"></textarea>
+        <input
+          type="tel"
+          id="whatsapp-number"
+          placeholder="Number with country code (e.g., 919876543210)"
+          class="grid-col-span-2"
+        />
+        <textarea
+          id="whatsapp-message"
+          placeholder="Pre-filled WhatsApp message"
+          class="grid-col-span-2"
+        ></textarea>
         <div id="whatsapp-status" class="error-message grid-col-span-2"></div>
       </div>
 
       <div id="review-form" class="form-container grid-form">
         <h3 class="section-subtitle grid-col-span-2">Google Review Link</h3>
-        <input type="url" id="review-url" placeholder="https://g.page/r/.../review" class="grid-col-span-2" />
-        <p class="form-note grid-col-span-2">Paste your business's direct Google review link.</p>
+        <input
+          type="url"
+          id="review-url"
+          placeholder="https://g.page/r/.../review"
+          class="grid-col-span-2"
+        />
+        <p class="form-note grid-col-span-2">
+          Paste your business's direct Google review link.
+        </p>
         <div id="review-status" class="error-message grid-col-span-2"></div>
       </div>
 
@@ -806,7 +1265,7 @@
     <script src="/js/data/light-bg-data.js"></script>
     <script src="/js/data/logo-data.js"></script>
     <!-- Then load your split scripts -->
-    <script src="/js/core/app.js?v=35"></script>
-    <script src="/js/features/ui-features.js?v=48"></script>
+    <script src="/js/core/app.js?v=36"></script>
+    <script src="/js/features/ui-features.js?v=49"></script>
   </body>
 </html>

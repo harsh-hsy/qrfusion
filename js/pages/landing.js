@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const applyTheme = (theme) => {
     document.body.classList.toggle("dark-theme", theme === "dark");
     themeButton.checked = theme === "dark";
-    themeColor?.setAttribute("content", theme === "dark" ? "#0d0c16" : "#ffffff");
+    themeColor?.setAttribute(
+      "content",
+      theme === "dark" ? "#0d0c16" : "#ffffff",
+    );
   };
 
   applyTheme(localStorage.getItem("theme") || "light");
@@ -21,7 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
   menuButton.addEventListener("click", () => {
     const open = navigation.classList.toggle("open");
     menuButton.setAttribute("aria-expanded", String(open));
-    menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    menuButton.setAttribute(
+      "aria-label",
+      open ? "Close navigation" : "Open navigation",
+    );
     menuButton.querySelector("i")?.classList.toggle("fa-bars", !open);
     menuButton.querySelector("i")?.classList.toggle("fa-xmark", open);
   });
@@ -52,12 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const updateActiveSection = () => {
-    const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+    const headerHeight =
+      document.querySelector(".site-header")?.offsetHeight || 0;
     const marker = headerHeight + window.innerHeight * 0.28;
     let activeSection = "";
 
     trackedSections.forEach((section) => {
-      if (section.getBoundingClientRect().top <= marker) activeSection = section.id;
+      if (section.getBoundingClientRect().top <= marker)
+        activeSection = section.id;
     });
 
     setActiveSection(activeSection);
@@ -73,19 +81,35 @@ document.addEventListener("DOMContentLoaded", () => {
   sectionLinks.forEach((link) => {
     link.addEventListener("click", () => setActiveSection(link.hash.slice(1)));
   });
-  window.addEventListener("scroll", queueActiveSectionUpdate, { passive: true });
+  window.addEventListener("scroll", queueActiveSectionUpdate, {
+    passive: true,
+  });
   window.addEventListener("resize", queueActiveSectionUpdate);
   queueActiveSectionUpdate();
 
-  document.getElementById("current-year").textContent = new Date().getFullYear();
+  document.getElementById("current-year").textContent =
+    new Date().getFullYear();
 
-  const localDevelopment = ["localhost", "127.0.0.1"].includes(location.hostname);
+  const localDevelopment = ["localhost", "127.0.0.1"].includes(
+    location.hostname,
+  );
   if (localDevelopment) {
     const routeToType = {
-      "/text": "text", "/vcard": "vcard", "/wifi": "wifi", "/event": "event",
-      "/social": "social", "/youtube": "youtube", "/app-store": "appstore", "/email": "email", "/sms": "sms",
-      "/location": "location", "/payment": "payment", "/phone": "phone", "/login-qr": "login",
-      "/whatsapp": "whatsapp", "/google-review": "review",
+      "/text": "text",
+      "/vcard": "vcard",
+      "/wifi": "wifi",
+      "/event": "event",
+      "/social": "social",
+      "/youtube": "youtube",
+      "/app-store": "appstore",
+      "/email": "email",
+      "/sms": "sms",
+      "/location": "location",
+      "/payment": "payment",
+      "/phone": "phone",
+      "/login-qr": "login",
+      "/whatsapp": "whatsapp",
+      "/google-review": "review",
     };
     document.addEventListener("click", (event) => {
       const link = event.target.closest("a[href]");
@@ -107,7 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
     window.addEventListener("load", () =>
-      navigator.serviceWorker.register("/service-worker.js").catch(console.error)
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .catch(console.error),
     );
   }
 });

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const downloadAllBtn = document.getElementById("download-all-btn");
 
   const paymentTypeRadios = document.querySelectorAll(
-    'input[name="payment-type"]'
+    'input[name="payment-type"]',
   );
   const upiFields = document.getElementById("upi-fields");
   const bankFields = document.getElementById("bank-fields");
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoInput = document.getElementById("logo-upload");
   const removeLogoBtn = document.getElementById("remove-logo-btn");
   const resetCustomizationBtn = document.getElementById(
-    "reset-customization-btn"
+    "reset-customization-btn",
   );
 
   const wifiPasswordInput = document.getElementById("wifi-password");
@@ -55,98 +55,113 @@ document.addEventListener("DOMContentLoaded", () => {
   const PAGE_CONFIG = {
     text: {
       path: "/text",
-      title: "Free Text & URL QR Code Generator | QR Fusion",
-      description: "Create a free custom QR code for any text or URL. Customize colors, shapes, size, and logo, then download it instantly.",
+      title: "Free Text & URL QR Code Generator — QR Fusion",
+      description:
+        "Create a free custom QR code for any text or URL. Customize colors, shapes, size, and logo, then download it instantly.",
     },
     vcard: {
       path: "/vcard",
-      title: "Free vCard QR Code Generator | QR Fusion",
-      description: "Create a customizable vCard QR code for contact details, phone numbers, email, address, and business information.",
+      title: "Free vCard QR Code Generator — QR Fusion",
+      description:
+        "Create a customizable vCard QR code for contact details, phone numbers, email, address, and business information.",
     },
     wifi: {
       path: "/wifi",
-      title: "Free Wi-Fi QR Code Generator | QR Fusion",
-      description: "Create a Wi-Fi QR code so guests can securely join your network by scanning instead of typing the password.",
+      title: "Free Wi-Fi QR Code Generator — QR Fusion",
+      description:
+        "Create a Wi-Fi QR code so guests can securely join your network by scanning instead of typing the password.",
     },
     event: {
       path: "/event",
-      title: "Free Event QR Code Generator | QR Fusion",
-      description: "Create an event QR code with title, date, time, location, and description for quick calendar access.",
+      title: "Free Event QR Code Generator — QR Fusion",
+      description:
+        "Create an event QR code with title, date, time, location, and description for quick calendar access.",
     },
     social: {
       path: "/social",
-      title: "Free Social Media QR Code Generator | QR Fusion",
-      description: "Create a custom QR code for Instagram, Facebook, LinkedIn, YouTube, TikTok, X, or Pinterest profiles.",
+      title: "Free Social Media QR Code Generator — QR Fusion",
+      description:
+        "Create a custom QR code for Instagram, Facebook, LinkedIn, YouTube, TikTok, X, or Pinterest profiles.",
     },
     youtube: {
       path: "/youtube",
-      title: "Free YouTube QR Code Generator | QR Fusion",
-      description: "Create a custom QR code that opens a YouTube video, Short, playlist, or channel instantly.",
+      title: "Free YouTube QR Code Generator — QR Fusion",
+      description:
+        "Create a custom QR code that opens a YouTube video, Short, playlist, or channel instantly.",
     },
     appstore: {
       path: "/app-store",
-      title: "Free App Store QR Code Generator | QR Fusion",
-      description: "Create a QR code for an Apple App Store or Google Play link and help users reach your app instantly.",
+      title: "Free App Store QR Code Generator — QR Fusion",
+      description:
+        "Create a QR code for an Apple App Store or Google Play link and help users reach your app instantly.",
     },
     email: {
       path: "/email",
-      title: "Free Email QR Code Generator | QR Fusion",
-      description: "Create an email QR code with a recipient, subject, and message body for quick email composition.",
+      title: "Free Email QR Code Generator — QR Fusion",
+      description:
+        "Create an email QR code with a recipient, subject, and message body for quick email composition.",
     },
     sms: {
       path: "/sms",
-      title: "Free SMS QR Code Generator | QR Fusion",
-      description: "Create a customizable SMS QR code with a phone number and pre-filled text message.",
+      title: "Free SMS QR Code Generator — QR Fusion",
+      description:
+        "Create a customizable SMS QR code with a phone number and pre-filled text message.",
     },
     location: {
       path: "/location",
-      title: "Free Location QR Code Generator | QR Fusion",
-      description: "Create a location QR code from an address or Google Maps link for fast and convenient navigation.",
+      title: "Free Location QR Code Generator — QR Fusion",
+      description:
+        "Create a location QR code from an address or Google Maps link for fast and convenient navigation.",
     },
     payment: {
       path: "/payment",
-      title: "Free Payment QR Code Generator | QR Fusion",
-      description: "Create a QR code for UPI payment details or bank account information with custom styling.",
+      title: "Free Payment QR Code Generator — QR Fusion",
+      description:
+        "Create a QR code for UPI payment details or bank account information with custom styling.",
     },
     phone: {
       path: "/phone",
-      title: "Free Phone Call QR Code Generator | QR Fusion",
-      description: "Create a phone call QR code that opens the dialer with your number ready to call.",
+      title: "Free Phone Call QR Code Generator — QR Fusion",
+      description:
+        "Create a phone call QR code that opens the dialer with your number ready to call.",
     },
     login: {
       path: "/login-qr",
-      title: "Login QR and Passkey Link Generator | QR Fusion",
-      description: "Create a QR code for a secure passwordless sign-in or passkey URL.",
+      title: "Login QR and Passkey Link Generator — QR Fusion",
+      description:
+        "Create a QR code for a secure passwordless sign-in or passkey URL.",
     },
     whatsapp: {
       path: "/whatsapp",
-      title: "Free WhatsApp QR Code Generator | QR Fusion",
-      description: "Create a WhatsApp QR code with a phone number and optional pre-filled message.",
+      title: "Free WhatsApp QR Code Generator — QR Fusion",
+      description:
+        "Create a WhatsApp QR code with a phone number and optional pre-filled message.",
     },
     review: {
       path: "/google-review",
-      title: "Free Google Review QR Code Generator | QR Fusion",
-      description: "Create a Google Review QR code that takes customers directly to your business review page.",
+      title: "Free Google Review QR Code Generator — QR Fusion",
+      description:
+        "Create a Google Review QR code that takes customers directly to your business review page.",
     },
   };
 
   const HOME_PAGE = {
     path: "/",
-    title: "QR Fusion - Free & Advanced QR Code Generator",
+    title: "QR Fusion — Free Custom QR Code Generator",
     description:
-      "Create free custom QR codes for URLs, contacts, Wi-Fi, events, social profiles, email, SMS, locations, and payments.",
+      "Create private, customizable QR codes for URLs, Wi-Fi, contacts, WhatsApp, events, payments and more. Export PNG, JPEG, SVG and PDF for free.",
   };
   const GENERATOR_PAGE = {
     path: "/create",
-    title: "Create a Custom QR Code | QR Fusion",
+    title: "Create a Custom QR Code — QR Fusion",
     description:
-      "Choose a QR type, enter your content, customize the design, then copy, share or download your QR code.",
+      "Choose a QR type, enter your content, customize the design, then copy, share or download your QR code for free.",
   };
 
   const normalizePath = (path) =>
     path.length > 1 ? path.replace(/\/+$/, "").toLowerCase() : path;
   const isLocalDevelopment = ["localhost", "127.0.0.1"].includes(
-    window.location.hostname
+    window.location.hostname,
   );
   const getTabFromPath = () => {
     const localTab = new URLSearchParams(window.location.search).get("type");
@@ -167,14 +182,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const isGeneratorHome =
       !new URLSearchParams(window.location.search).has("type") &&
       ["/create", "/generator.html"].includes(normalizedPath);
-    const page =
-      isHomepage ? HOME_PAGE : isGeneratorHome ? GENERATOR_PAGE : PAGE_CONFIG[tabName];
+    const page = isHomepage
+      ? HOME_PAGE
+      : isGeneratorHome
+        ? GENERATOR_PAGE
+        : PAGE_CONFIG[tabName];
     if (!page) return;
     document.title = page.title;
-    document.getElementById("page-description")?.setAttribute("content", page.description);
+    document
+      .getElementById("page-description")
+      ?.setAttribute("content", page.description);
     document
       .getElementById("canonical-url")
       ?.setAttribute("href", `https://${CONFIG.websiteUrl}${page.path}`);
+    document
+      .getElementById("page-og-title")
+      ?.setAttribute("content", page.title);
+    document
+      .getElementById("page-og-description")
+      ?.setAttribute("content", page.description);
+    document
+      .getElementById("page-og-url")
+      ?.setAttribute("content", `https://${CONFIG.websiteUrl}${page.path}`);
   };
 
   if (wifiPasswordInput && toggleWifiPasswordBtn) {
@@ -249,10 +278,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const escapeVCard = (value) =>
-    value.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/([,;])/g, "\\$1");
+    value
+      .replace(/\\/g, "\\\\")
+      .replace(/\n/g, "\\n")
+      .replace(/([,;])/g, "\\$1");
   const escapeWifi = (value) => value.replace(/([\\;,:"])/g, "\\$1");
   const escapeICS = (value) =>
-    value.replace(/\\/g, "\\\\").replace(/\r?\n/g, "\\n").replace(/([,;])/g, "\\$1");
+    value
+      .replace(/\\/g, "\\\\")
+      .replace(/\r?\n/g, "\\n")
+      .replace(/([,;])/g, "\\$1");
   const isValidHttpUrl = (value) => {
     try {
       return ["http:", "https:"].includes(new URL(value).protocol);
@@ -350,11 +385,11 @@ ORG:${escapeVCard(getInputValue("vcard-org"))}
 TITLE:${escapeVCard(getInputValue("vcard-title"))}
 TEL:${escapeVCard(getInputValue("vcard-tel"))}
 EMAIL:${escapeVCard(getInputValue("vcard-email"))}
-ADR:;;${escapeVCard([getInputValue("vcard-house"), getInputValue("vcard-building"), getInputValue("vcard-street"), getInputValue("vcard-area")].filter(Boolean).join(", "))};${escapeVCard(getInputValue(
-          "vcard-city"
-        ))};${escapeVCard(getInputValue("vcard-state"))};${escapeVCard(getInputValue(
-          "vcard-postal"
-        ))};${escapeVCard(getInputValue("vcard-country"))}
+ADR:;;${escapeVCard([getInputValue("vcard-house"), getInputValue("vcard-building"), getInputValue("vcard-street"), getInputValue("vcard-area")].filter(Boolean).join(", "))};${escapeVCard(
+          getInputValue("vcard-city"),
+        )};${escapeVCard(getInputValue("vcard-state"))};${escapeVCard(
+          getInputValue("vcard-postal"),
+        )};${escapeVCard(getInputValue("vcard-country"))}
 URL:${escapeVCard(getInputValue("vcard-url"))}
 NOTE:${escapeVCard([getInputValue("vcard-note"), getInputValue("vcard-map")].filter(Boolean).join(" | "))}
 END:VCARD`;
@@ -362,9 +397,9 @@ END:VCARD`;
       case "wifi": {
         const ssid = getInputValue("wifi-ssid");
         if (!ssid) return "";
-        return `WIFI:T:${escapeWifi(getInputValue(
-          "wifi-encryption"
-        ))};S:${escapeWifi(ssid)};P:${escapeWifi(getInputValue("wifi-password"))};;`;
+        return `WIFI:T:${escapeWifi(
+          getInputValue("wifi-encryption"),
+        )};S:${escapeWifi(ssid)};P:${escapeWifi(getInputValue("wifi-password"))};;`;
       }
       case "event": {
         const title = getInputValue("event-title");
@@ -430,21 +465,31 @@ END:VCALENDAR`;
         if (!isValidHttpUrl(url)) return "";
         try {
           const hostname = new URL(url).hostname.toLowerCase();
-          const isYouTubeUrl = hostname === "youtu.be" || hostname === "youtube.com" || hostname.endsWith(".youtube.com");
+          const isYouTubeUrl =
+            hostname === "youtu.be" ||
+            hostname === "youtube.com" ||
+            hostname.endsWith(".youtube.com");
           return isYouTubeUrl ? url : "";
         } catch {
           return "";
         }
       }
       case "appstore": {
-        const platform = document.querySelector('input[name="appstore-platform"]:checked')?.value || "google";
-        const url = getInputValue(platform === "apple" ? "appstore-apple-url" : "appstore-google-url");
+        const platform =
+          document.querySelector('input[name="appstore-platform"]:checked')
+            ?.value || "google";
+        const url = getInputValue(
+          platform === "apple" ? "appstore-apple-url" : "appstore-google-url",
+        );
         if (!isValidHttpUrl(url)) return "";
         try {
           const hostname = new URL(url).hostname.toLowerCase();
-          const isMatchingStore = platform === "apple"
-            ? hostname === "apps.apple.com" || hostname.endsWith(".apps.apple.com")
-            : hostname === "play.google.com" || hostname.endsWith(".play.google.com");
+          const isMatchingStore =
+            platform === "apple"
+              ? hostname === "apps.apple.com" ||
+                hostname.endsWith(".apps.apple.com")
+              : hostname === "play.google.com" ||
+                hostname.endsWith(".play.google.com");
           return isMatchingStore ? url : "";
         } catch {
           return "";
@@ -458,7 +503,7 @@ END:VCALENDAR`;
         }
         if (!to) return "";
         return `mailto:${to}?subject=${encodeURIComponent(
-          getInputValue("email-subject")
+          getInputValue("email-subject"),
         )}&body=${encodeURIComponent(getInputValue("email-body"))}`;
       }
       case "sms": {
@@ -520,7 +565,7 @@ END:VCALENDAR`;
       }
       case "payment": {
         const paymentType = document.querySelector(
-          'input[name="payment-type"]:checked'
+          'input[name="payment-type"]:checked',
         )?.value;
         if (paymentType === "upi") {
           const upi = getInputValue("payment-pa");
@@ -636,12 +681,17 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
           180,
         colorStops: [
           { offset: 0, color: fgColorInput.value },
-          { offset: 1, color: document.getElementById("gradient-color")?.value || "#db2777" },
+          {
+            offset: 1,
+            color:
+              document.getElementById("gradient-color")?.value || "#db2777",
+          },
         ],
       };
       delete dotsOptions.color;
     }
-    const transparentBackground = document.getElementById("transparent-bg")?.checked;
+    const transparentBackground =
+      document.getElementById("transparent-bg")?.checked;
     qrCodeInstance.update({
       width: PREVIEW_SIZE,
       height: PREVIEW_SIZE,
@@ -657,7 +707,8 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
       imageOptions: {
         crossOrigin: "anonymous",
         margin: Number(document.getElementById("logo-margin")?.value || 10),
-        imageSize: Number(document.getElementById("logo-size")?.value || 35) / 100,
+        imageSize:
+          Number(document.getElementById("logo-size")?.value || 35) / 100,
       },
     });
     requestAnimationFrame(() => setPreviewSvgViewport());
@@ -713,8 +764,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
     URL.revokeObjectURL(url);
   };
 
-  // This NEW function contains all of your PDF styling.
-  // It's the same as your old download function, but returns data instead of saving.
+  // Build the branded PDF once so the same output can power PDF and ZIP exports.
   const generatePDFBlob = async () => {
     try {
       const blob = await getRawDataAtExportSize("png");
@@ -735,7 +785,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
 
       const margin = 10;
       const logoSize = 30;
-      const textX = margin + logoSize; // CORRECTED: Added +5 for spacing
+      const textX = margin + logoSize;
       const logoY = margin - 3;
       const logoCenterY = logoY + logoSize / 2;
 
@@ -771,7 +821,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
         qrSizeMM + 10,
         5,
         5,
-        "F"
+        "F",
       );
       doc.addImage(dataUrl, "PNG", qrX, qrY, qrSizeMM, qrSizeMM);
 
@@ -792,7 +842,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
           (doc.getStringUnitWidth(plainText) * doc.getFontSize()) /
             doc.internal.scaleFactor,
         textYFooter,
-        { url: fullUrl }
+        { url: fullUrl },
       );
 
       return doc.output("blob");
@@ -869,7 +919,10 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
       const destination = isLocalDevelopment
         ? `/generator.html?type=${currentTab}`
         : page?.path;
-      if (destination && `${window.location.pathname}${window.location.search}` !== destination) {
+      if (
+        destination &&
+        `${window.location.pathname}${window.location.search}` !== destination
+      ) {
         window.history.pushState({ tab: currentTab }, "", destination);
       }
       updatePageMetadata(currentTab);
@@ -881,7 +934,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   window.addEventListener("popstate", () => {
     currentTab = getTabFromPath();
     tabs.forEach((tab) =>
-      tab.classList.toggle("tab-active", tab.dataset.tab === currentTab)
+      tab.classList.toggle("tab-active", tab.dataset.tab === currentTab),
     );
     updatePageMetadata(currentTab);
     showForm(currentTab);
@@ -946,10 +999,10 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   }
 
   downloadPngBtn.addEventListener("click", async () =>
-    downloadBlob(await getRawDataAtExportSize("png"), "qr-fusion-code.png")
+    downloadBlob(await getRawDataAtExportSize("png"), "qr-fusion-code.png"),
   );
   downloadJpegBtn.addEventListener("click", async () =>
-    downloadBlob(await getRawDataAtExportSize("jpeg"), "qr-fusion-code.jpeg")
+    downloadBlob(await getRawDataAtExportSize("jpeg"), "qr-fusion-code.jpeg"),
   );
   downloadPdfBtn.addEventListener("click", downloadAsPDF);
   downloadAllBtn.addEventListener("click", downloadAllFormatsAsZip);
@@ -958,13 +1011,15 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   const copyQrBtn = document.getElementById("copy-qr-btn");
   const shareQrBtn = document.getElementById("share-qr-btn");
   downloadSvgBtn?.addEventListener("click", async () =>
-    downloadBlob(await getRawDataAtExportSize("svg"), "qr-fusion-code.svg")
+    downloadBlob(await getRawDataAtExportSize("svg"), "qr-fusion-code.svg"),
   );
   copyQrBtn?.addEventListener("click", async () => {
     try {
       const originalMarkup = copyQrBtn.innerHTML;
       const blob = await getRawDataAtExportSize("png");
-      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": blob }),
+      ]);
       copyQrBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
       setTimeout(() => (copyQrBtn.innerHTML = originalMarkup), 1800);
     } catch {
@@ -974,8 +1029,11 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   shareQrBtn?.addEventListener("click", async () => {
     try {
       const blob = await getRawDataAtExportSize("png");
-      const file = new File([blob], "qr-fusion-code.png", { type: "image/png" });
-      if (!navigator.canShare?.({ files: [file] })) throw new Error("unsupported");
+      const file = new File([blob], "qr-fusion-code.png", {
+        type: "image/png",
+      });
+      if (!navigator.canShare?.({ files: [file] }))
+        throw new Error("unsupported");
       await navigator.share({ title: "QR Fusion Code", files: [file] });
     } catch (error) {
       if (error.name !== "AbortError") {
@@ -1028,7 +1086,7 @@ IFSC/SWIFT: ${getInputValue("bank-ifsc")}`;
   // --- Init ---
 
   tabs.forEach((tab) =>
-    tab.classList.toggle("tab-active", tab.dataset.tab === currentTab)
+    tab.classList.toggle("tab-active", tab.dataset.tab === currentTab),
   );
   updatePageMetadata(currentTab);
   showForm(currentTab);

@@ -1,14 +1,13 @@
-const CACHE_NAME = "qr-fusion-v82";
+const CACHE_NAME = "qr-fusion-v83";
 const APP_SHELL = [
   "/",
   "/index.html",
   "/generator.html",
-  "/css/landing.css",
-  "/css/style.css",
-  "/css/about.css",
-  "/js/core/app.js",
-  "/js/features/ui-features.js",
-  "/js/pages/landing.js",
+  "/css/landing.css?v=44",
+  "/css/style.css?v=68",
+  "/js/core/app.js?v=36",
+  "/js/features/ui-features.js?v=49",
+  "/js/pages/landing.js?v=33",
   "/js/data/dark-bg-data.js",
   "/js/data/light-bg-data.js",
   "/js/data/logo-data.js",
@@ -27,7 +26,7 @@ self.addEventListener("install", (event) => {
     caches.open(CACHE_NAME).then(async (cache) => {
       await cache.addAll(APP_SHELL);
       await Promise.allSettled(EXTERNAL_LIBRARIES.map((url) => cache.add(url)));
-    })
+    }),
   );
   self.skipWaiting();
 });
@@ -36,8 +35,14 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
-      .then(() => self.clients.claim())
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key !== CACHE_NAME)
+            .map((key) => caches.delete(key)),
+        ),
+      )
+      .then(() => self.clients.claim()),
   );
 });
 
@@ -50,15 +55,19 @@ self.addEventListener("fetch", (event) => {
       fetch(event.request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          caches
+            .open(CACHE_NAME)
+            .then((cache) => cache.put(event.request, copy));
           return response;
         })
         .catch(() => {
           const landingPaths = ["/", "/index.html"];
           return caches.match(
-            landingPaths.includes(requestUrl.pathname) ? "/index.html" : "/generator.html"
+            landingPaths.includes(requestUrl.pathname)
+              ? "/index.html"
+              : "/generator.html",
           );
-        })
+        }),
     );
     return;
   }
@@ -70,10 +79,12 @@ self.addEventListener("fetch", (event) => {
         fetch(event.request).then((response) => {
           if (response.ok || response.type === "opaque") {
             const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+            caches
+              .open(CACHE_NAME)
+              .then((cache) => cache.put(event.request, copy));
           }
           return response;
-        })
-    )
+        }),
+    ),
   );
 });

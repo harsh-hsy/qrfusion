@@ -12,14 +12,12 @@ qr-fushion/
 │   └── favicon/                  # Icons and web-app manifest
 ├── css/
 │   ├── style.css                 # App, controls, exports, responsive layout
-│   ├── about.css                 # Informational and SEO content sections
 │   └── landing.css               # Landing-page design and breakpoints
 ├── js/
 │   ├── core/app.js               # QR payloads, routing, preview, downloads
 │   ├── features/ui-features.js   # Presets, drafts, quality, SEO, PWA setup
 │   ├── pages/landing.js          # Landing navigation and theme behavior
 │   └── data/                     # Embedded PDF background/logo assets
-├── text-files/                   # Source text for embedded visual data
 ├── service-worker.js             # Offline application shell and runtime cache
 ├── _redirects                    # Netlify clean-URL rewrites
 ├── sitemap.xml                   # Search-engine URL discovery
