@@ -96,6 +96,7 @@ body[data-wizard-step="3"] .preview-panel,.export-controls{padding:1.1rem;backgr
 .export-button{min-height:43px;padding:.65rem;color:#fff;background:var(--primary);border:0;border-radius:10px;font-size:.78rem;font-weight:750;cursor:pointer;box-shadow:none}.export-button:hover:not(:disabled){background:var(--primary-hover);transform:translateY(-1px);box-shadow:none}.export-button:disabled{color:var(--muted);background:var(--surface-strong);border:1px solid var(--border);box-shadow:none;opacity:.62;cursor:not-allowed}#download-all-btn{width:100%}.export-back-action{margin-top:0;padding-top:.75rem;border-top:1px solid var(--border)}
 .mobile-preview-dock{display:none}
 .main-container .event-datetime-control .event-time-display[readonly]{cursor:pointer;caret-color:transparent}
+.event-picker-icon{width:36px;height:36px;flex-basis:36px;margin-right:.25rem;align-self:center}
 .app-footer{padding:1.35rem 20px;color:var(--muted);background:var(--bg);border-top:1px solid var(--border);font-size:.76rem;text-align:center}.generator-footer-inner{display:block}.app-footer a{color:var(--primary);text-decoration:none;font-weight:700}.app-footer a:hover{text-decoration:underline}
 
 @media(max-width:980px){.menu-toggle{display:flex}.site-nav{position:absolute;top:calc(100% + 1px);left:0;right:0;padding:1rem 24px;display:none;flex-direction:column;align-items:center;gap:.35rem;text-align:center;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow-sm)}.site-nav.open{display:flex}.site-nav>a{width:100%;padding:.65rem;text-align:center}}
