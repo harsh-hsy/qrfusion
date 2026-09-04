@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="/css/landing.css?v=31" />
+    <link rel="stylesheet" href="/css/landing.css?v=43" />
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"WebApplication","name":"QR Fusion","url":"https://qrfusion.netlify.app/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"A private, browser-based custom QR code generator."}
     </script>
@@ -29,6 +29,7 @@
       <a class="brand" href="/" aria-label="QR Fusion home">QR <span>Fusion</span></a>
       <div class="header-actions">
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+          <a href="#home">Home</a>
           <a href="#qr-types">QR Types</a>
           <a href="#how-it-works">How It Works</a>
           <a href="#features">Features</a>
@@ -49,7 +50,7 @@
     </header>
 
     <main>
-      <section class="hero section-shell">
+      <section class="hero section-shell" id="home">
         <div class="hero-copy">
           <p class="eyebrow">FREE • PRIVATE • NO SIGN-UP</p>
           <h1>Create custom QR codes <span>in seconds.</span></h1>
@@ -135,7 +136,7 @@
       </section>
 
       <section class="content-section" id="faq">
-        <div class="section-shell faq-layout"><div><p class="eyebrow">QUESTIONS, ANSWERED</p><h2>Frequently Asked Questions</h2><p>Everything you need to know before creating your first QR code.</p><a class="primary-button compact" href="/create">Create a QR Code</a></div>
+        <div class="section-shell faq-layout"><div><p class="eyebrow">QUESTIONS, ANSWERED</p><h2>Frequently Asked Questions</h2><p>Everything you need to know before creating your first QR code.</p><a class="primary-button compact" href="/create">Create a QR Code <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
           <div class="faq-list">
             <details open><summary>What is a QR code?</summary><p>A QR code is a two-dimensional barcode that a smartphone camera can scan to quickly open information such as a website, contact, Wi-Fi network or location.</p></details>
             <details><summary>Is it safe to use QR Fusion?</summary><p>Yes. Core QR generation happens locally in your browser. Optional PIN-code lookup contacts an external postal service, but your QR payload is not uploaded to an application backend.</p></details>
@@ -150,6 +151,6 @@
 
     <footer class="site-footer"><div class="footer-inner"><div><a class="brand footer-brand" href="/">QR <span>Fusion</span></a><p>Quick. Simple. Powerful.</p></div><div class="footer-links"><a href="#qr-types">QR Types</a><a href="#how-it-works">How It Works</a><a href="#features">Features</a><a href="#faq">FAQ</a></div><p>© <span id="current-year"></span> Developed by <a href="https://harsh-hsy.netlify.app/" target="_blank" rel="noopener noreferrer">Harsh Singh</a>.</p></div></footer>
 
-    <script src="/js/pages/landing.js?v=32"></script>
+    <script src="/js/pages/landing.js?v=33"></script>
   </body>
 </html>

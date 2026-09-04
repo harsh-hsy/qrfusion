@@ -1,4 +1,4 @@
-const CACHE_NAME = "qr-fusion-v70";
+const CACHE_NAME = "qr-fusion-v82";
 const APP_SHELL = [
   "/",
   "/index.html",

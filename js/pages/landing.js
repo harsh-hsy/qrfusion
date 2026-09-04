@@ -36,6 +36,47 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  const sectionLinks = [...navigation.querySelectorAll('a[href^="#"]')];
+  const trackedSections = sectionLinks
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
+  let sectionUpdateQueued = false;
+
+  const setActiveSection = (sectionId) => {
+    sectionLinks.forEach((link) => {
+      const active = link.getAttribute("href") === `#${sectionId}`;
+      link.classList.toggle("active", active);
+      if (active) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
+  const updateActiveSection = () => {
+    const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+    const marker = headerHeight + window.innerHeight * 0.28;
+    let activeSection = "";
+
+    trackedSections.forEach((section) => {
+      if (section.getBoundingClientRect().top <= marker) activeSection = section.id;
+    });
+
+    setActiveSection(activeSection);
+    sectionUpdateQueued = false;
+  };
+
+  const queueActiveSectionUpdate = () => {
+    if (sectionUpdateQueued) return;
+    sectionUpdateQueued = true;
+    window.requestAnimationFrame(updateActiveSection);
+  };
+
+  sectionLinks.forEach((link) => {
+    link.addEventListener("click", () => setActiveSection(link.hash.slice(1)));
+  });
+  window.addEventListener("scroll", queueActiveSectionUpdate, { passive: true });
+  window.addEventListener("resize", queueActiveSectionUpdate);
+  queueActiveSectionUpdate();
+
   document.getElementById("current-year").textContent = new Date().getFullYear();
 
   const localDevelopment = ["localhost", "127.0.0.1"].includes(location.hostname);
