@@ -1,11 +1,11 @@
-const CACHE_NAME = "qr-fusion-v83";
+const CACHE_NAME = "qr-fusion-v84";
 const APP_SHELL = [
   "/",
   "/index.html",
   "/generator.html",
   "/css/landing.css?v=44",
   "/css/style.css?v=68",
-  "/js/core/app.js?v=36",
+  "/js/core/app.js?v=37",
   "/js/features/ui-features.js?v=49",
   "/js/pages/landing.js?v=33",
   "/js/data/dark-bg-data.js",

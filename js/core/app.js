@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Configuration & State ---
   const CONFIG = {
     pincodeApiUrl: "https://api.postalpincode.in/pincode/",
-    websiteUrl: "qrfusion.netlify.app",
-    placeholderData: "https://qrfusion.netlify.app",
+    websiteUrl: "qrfusion.pages.dev",
+    placeholderData: "https://qrfusion.pages.dev",
   };
 
   const PAGE_CONFIG = {

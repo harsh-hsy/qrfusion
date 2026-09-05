@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://qrfusion.netlify.app/sitemap.xml
+Sitemap: https://qrfusion.pages.dev/sitemap.xml
