@@ -204,6 +204,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document
       .getElementById("page-og-url")
       ?.setAttribute("content", `https://${CONFIG.websiteUrl}${page.path}`);
+    document
+      .getElementById("page-twitter-title")
+      ?.setAttribute("content", page.title);
+    document
+      .getElementById("page-twitter-description")
+      ?.setAttribute("content", page.description);
   };
 
   if (wifiPasswordInput && toggleWifiPasswordBtn) {
